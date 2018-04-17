@@ -1,0 +1,11 @@
+services:
+  szpnuw.portal:
+    build:
+      context: C:\Users\szymo\source\repos\SZPNUW.Portal
+      dockerfile: SZPNUW.Portal/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: szpnuwportal
+    ports:
+    - 7000:80/tcp
+version: '3.0'

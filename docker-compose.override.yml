@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  szpnuw.portal:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "7000:80"
