@@ -1,0 +1,8 @@
+D:\Repo\SZPNUW\Base\SZPNUW.Base\bin\Debug\netcoreapp2.0\SZPNUW.Base.deps.json
+D:\Repo\SZPNUW\Base\SZPNUW.Base\bin\Debug\netcoreapp2.0\SZPNUW.Base.dll
+D:\Repo\SZPNUW\Base\SZPNUW.Base\bin\Debug\netcoreapp2.0\SZPNUW.Base.pdb
+D:\Repo\SZPNUW\Base\SZPNUW.Base\obj\Debug\netcoreapp2.0\SZPNUW.Base.csproj.CoreCompileInputs.cache
+D:\Repo\SZPNUW\Base\SZPNUW.Base\obj\Debug\netcoreapp2.0\SZPNUW.Base.AssemblyInfoInputs.cache
+D:\Repo\SZPNUW\Base\SZPNUW.Base\obj\Debug\netcoreapp2.0\SZPNUW.Base.AssemblyInfo.cs
+D:\Repo\SZPNUW\Base\SZPNUW.Base\obj\Debug\netcoreapp2.0\SZPNUW.Base.dll
+D:\Repo\SZPNUW\Base\SZPNUW.Base\obj\Debug\netcoreapp2.0\SZPNUW.Base.pdb

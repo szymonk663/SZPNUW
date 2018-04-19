@@ -1,1 +1,2 @@
 C:\Users\szymo\source\repos\SZPNUW.Portal\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+D:\Repo\SZPNUW\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache

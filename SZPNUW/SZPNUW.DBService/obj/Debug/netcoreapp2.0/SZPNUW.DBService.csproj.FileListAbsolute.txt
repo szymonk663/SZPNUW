@@ -1,0 +1,9 @@
+D:\Repo\SZPNUW\SZPNUW\SZPNUW.DBService\bin\Debug\netcoreapp2.0\SZPNUW.DBService.deps.json
+D:\Repo\SZPNUW\SZPNUW\SZPNUW.DBService\bin\Debug\netcoreapp2.0\SZPNUW.DBService.dll
+D:\Repo\SZPNUW\SZPNUW\SZPNUW.DBService\obj\Debug\netcoreapp2.0\SZPNUW.DBService.csprojResolveAssemblyReference.cache
+D:\Repo\SZPNUW\SZPNUW\SZPNUW.DBService\obj\Debug\netcoreapp2.0\SZPNUW.DBService.csproj.CoreCompileInputs.cache
+D:\Repo\SZPNUW\SZPNUW\SZPNUW.DBService\obj\Debug\netcoreapp2.0\SZPNUW.DBService.AssemblyInfoInputs.cache
+D:\Repo\SZPNUW\SZPNUW\SZPNUW.DBService\obj\Debug\netcoreapp2.0\SZPNUW.DBService.AssemblyInfo.cs
+D:\Repo\SZPNUW\SZPNUW\SZPNUW.DBService\bin\Debug\netcoreapp2.0\SZPNUW.DBService.pdb
+D:\Repo\SZPNUW\SZPNUW\SZPNUW.DBService\obj\Debug\netcoreapp2.0\SZPNUW.DBService.dll
+D:\Repo\SZPNUW\SZPNUW\SZPNUW.DBService\obj\Debug\netcoreapp2.0\SZPNUW.DBService.pdb

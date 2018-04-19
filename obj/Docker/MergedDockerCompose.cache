@@ -1,11 +1,20 @@
 services:
   szpnuw.portal:
     build:
-      context: C:\Users\szymo\source\repos\SZPNUW.Portal
+      context: D:\Repo\SZPNUW
       dockerfile: SZPNUW.Portal/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
     image: szpnuwportal
     ports:
     - 7000:80/tcp
+  szpnuw.webapi.account:
+    build:
+      context: D:\Repo\SZPNUW
+      dockerfile: Microservices/SZPNUW.WebAPI.Account/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: szpnuwwebapiaccount
+    ports:
+    - 80/tcp
 version: '3.0'

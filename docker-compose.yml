@@ -6,3 +6,10 @@ services:
     build:
       context: .
       dockerfile: SZPNUW.Portal/Dockerfile
+
+  szpnuw.webapi.account:
+    image: szpnuwwebapiaccount
+    build:
+      context: .
+      dockerfile: Microservices/SZPNUW.WebAPI.Account/Dockerfile
+

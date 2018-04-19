@@ -1,0 +1,10 @@
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\bin\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.deps.json
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\bin\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.runtimeconfig.json
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\bin\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.runtimeconfig.dev.json
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\bin\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.dll
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\bin\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.pdb
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\obj\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.csproj.CoreCompileInputs.cache
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\obj\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.AssemblyInfoInputs.cache
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\obj\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.AssemblyInfo.cs
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\obj\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.dll
+D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Account\obj\Debug\netcoreapp2.0\SZPNUW.WebAPI.Account.pdb
