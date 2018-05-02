@@ -11,7 +11,7 @@ namespace SZPNUW.DBService.Model
         public short Usertype { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public char? Pesel { get; set; }
+        public string Pesel { get; set; }
         public DateTime? Dateofbirth { get; set; }
         public string City { get; set; }
         public string Address { get; set; }

@@ -41,8 +41,8 @@ namespace SZPNUW.DBService.Model
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Code)
-                    .HasColumnName("code")
-                    .HasColumnType("char(8)");
+                    .IsRequired()
+                    .HasColumnName("code");
 
                 entity.Property(e => e.Userid).HasColumnName("userid");
 
@@ -184,8 +184,8 @@ namespace SZPNUW.DBService.Model
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Albumnumber)
-                    .HasColumnName("albumnumber")
-                    .HasColumnType("char(6)");
+                    .IsRequired()
+                    .HasColumnName("albumnumber");
 
                 entity.Property(e => e.Userid).HasColumnName("userid");
 
@@ -204,6 +204,16 @@ namespace SZPNUW.DBService.Model
                 entity.Property(e => e.Studentid).HasColumnName("studentid");
 
                 entity.Property(e => e.Semesterid).HasColumnName("semesterid");
+
+                entity.HasOne(d => d.Semester)
+                    .WithMany(p => p.Studentsemester)
+                    .HasForeignKey(d => d.Semesterid)
+                    .HasConstraintName("fk_semesters");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.Studentsemester)
+                    .HasForeignKey(d => d.Studentid)
+                    .HasConstraintName("fk_students");
             });
 
             modelBuilder.Entity<Studentssections>(entity =>
@@ -310,9 +320,7 @@ namespace SZPNUW.DBService.Model
                     .IsRequired()
                     .HasColumnName("password");
 
-                entity.Property(e => e.Pesel)
-                    .HasColumnName("pesel")
-                    .HasColumnType("char(11)");
+                entity.Property(e => e.Pesel).HasColumnName("pesel");
 
                 entity.Property(e => e.Usertype).HasColumnName("usertype");
             });

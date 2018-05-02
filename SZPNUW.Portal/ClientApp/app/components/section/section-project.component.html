@@ -1,0 +1,53 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Dodawanie semestrów</h4>
+    </div>
+    <div class="modal-body">
+        <form #sectionProjectForm="ngForm">
+            <div class="form-group">
+                <label for="project">Tematy projektów</label>
+                <select class="form-control" id="project"
+                        [ngModel]="selectedProject"
+                        (ngModelChange)="onSelect($event)"
+                        name="semester"
+                        #semester="ngModel">
+                    <option *ngFor="let project of projects" [ngValue]="project">
+                        {{project.project.topic}}
+                    </option>
+                </select>
+            </div>
+        </form>
+        <table *ngIf="selectedProject">
+            <tbody>
+                <tr>
+                    <th>Temat</th>
+                    <td>{{selectedProject.project.topic}}</td>
+                </tr>
+                <tr>
+                    <th>Opis</th>
+                    <td>{{selectedProject.project.description}}</td>
+                </tr>
+                <tr>
+                    <th>
+                        Prowadzący wystawiający temat
+                    </th>
+                </tr>
+                <tr>
+                    <th>Imie</th>
+                    <td>{{selectedProject.instructor.firstName}}</td>
+                </tr>
+                <tr>
+                    <th>Nazwsiko</th>
+                    <td>{{selectedProject.instructor.lastName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="!sectionProjectForm.form.valid" (click)="onSubmit()">Zatwierdź</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onClear()">Zamknij</button>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" *ngIf="subjectId" class="btn btn-link" data-toggle="modal" data-target="#modalAdd">Dodaj grupy</button>
+                <button type="button" [disabled]="!selectedSection" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Usuń</button>
+                <div class="panel panel-info" style="min-width: 300px">
+                    <div class="panel-heading">
+                        Tematy projektów
+                    </div>
+                    <div *ngIf="sections">
+                        <ul class="list-group">
+                            <li class="list-group-item"
+                                *ngFor="let section of sections"
+                                [class.selected]="section === selectedSection"
+                                (click)="onSelect(section)">
+                                Sekcja: {{section.section.sectionNum}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <button type="button" *ngIf="selectedSection" [disabled]="!selectedStudent" class="btn btn-link" data-toggle="modal" data-target="#modalRatingsStudent">Wystaw ocene</button>
+                <button type="button" *ngIf="selectedSection" class="btn btn-link" (click)="goToReports()">Sprawozdania</button>
+                <div *ngIf="selectedSection">
+                    <div class="panel panel-info" style="min-width: 300px">
+                        <div class="panel-heading">
+                            Studenci z sekcji
+                        </div>
+                        <div *ngIf="selectedSection.students.length == 0" class="panel-body">
+                            Nikt się jeszcze nie wpisał.
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item"
+                                *ngFor="let student of selectedSection.students"
+                                [class.selected]="student === selectedStudent"
+                                (click)="onSelectStudent(student)">
+                                {{student.firstName}} {{student.lastName}} {{student.album}}
+                            </li>
+                        </ul>
+                        <div *ngIf="project" class="panel-body">
+                            {{project.topic}}<br />
+                            {{project.description}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <div *ngIf="selectedSection && selectedStudent">
+                    <meetings [sectionId]="selectedSection.section.id" [studentId]="selectedStudent.id" [permission]="true"></meetings>
+                </div>
+                <div *ngIf="sectionStudent">
+                    <span [hidden]="sectionStudent.rate == 0">Ocena końcowa to: {{sectionStudent.rate}}</span>
+                </div>
+            </div>
+        </div>
+        <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+        <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+    </div>
+</div>
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <sections-form [subjectId]="subjectId" [semesterId]="semesterId"></sections-form>
+    </div>
+</div>
+<div class="modal fade" id="modalRatingsStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <student-rating *ngIf="sectionStudent" [sectionStudent]="sectionStudent"></student-rating>
+    </div>
+</div>
+<div class="modal fade" id="checkBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Wypisywanie</h4>
+            </div>
+            <div class="modal-body">
+                Czy na pewno chcesz usunąć tą sekcję?.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onDelete()">Tak</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+            </div>
+        </div>
+    </div>
+</div>

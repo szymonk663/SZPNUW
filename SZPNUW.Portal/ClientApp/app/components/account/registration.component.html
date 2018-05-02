@@ -1,0 +1,133 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <h1>Rejestracja</h1>
+            <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+                <div class="form-group">
+                    <label for="login">Login:</label>
+                    <input type="text" class="form-control" id="login"
+                           required maxlength="16"
+                           [(ngModel)]="user.login"
+                           name="login"
+                           #login="ngModel" />
+                    <div [hidden]="login.valid || login.pristine"
+                         class="alert alert-danger">
+                        Login jest wymagany
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Hasło:</label>
+                    <input type="password" class="form-control" id="password"
+                           required maxlength="16" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                           [(ngModel)]="user.password"
+                           name="password"
+                           #password="ngModel" />
+                    <div [hidden]="password.valid || password.pristine"
+                         class="alert alert-danger">
+                        Hasło jest wymagane. Musi zawierać co najmniej jedną cyfrę, jedną wielką i małą literę, i co najmniej 8 lub więcej znaków.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstname">Imię:</label>
+                    <input type="text" class="form-control" id="firstname"
+                           required maxlength="20" pattern="[a-zA-Z]{1,20}"
+                           [(ngModel)]="user.firstName"
+                           name="firstname"
+                           #firstName="ngModel" />
+                    <div [hidden]="firstName.valid || firstName.pristine"
+                         class="alert alert-danger">
+                        Imię jest wymagane
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Nazwisko:</label>
+                    <input type="text" class="form-control" id="lastname"
+                           required maxlength="20"
+                           [(ngModel)]="user.lastName"
+                           name="lastname"
+                           #lastName="ngModel" />
+                    <div [hidden]="lastName.valid || lastName.pristine"
+                         class="alert alert-danger">
+                        Nazwisko jest wymagane
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pesel">Pesel:</label>
+                    <input type="text" class="form-control" id="pesel"
+                           required maxlength="11" pattern="[0-9]{11}"
+                           [(ngModel)]="user.pesel"
+                           name="pesel"
+                           #pesel="ngModel" />
+                    <div [hidden]="pesel.valid || pesel.pristine"
+                         class="alert alert-danger">
+                        Pesel jest wymagany. Składa się tylko z cyfr.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="birthday">Data urodzenia:</label>
+                    <input type="date" class="form-control" id="birthday"
+                           required
+                           [(ngModel)]="user.birthday"
+                           name="birthday"
+                           #birthday="ngModel" />
+                    <div [hidden]="birthday.valid || birthday.pristine"
+                         class="alert alert-danger">
+                        Data urodzenia jest wymagana
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="city">Miasto:</label>
+                    <input type="text" class="form-control" id="city"
+                           required maxlength="20"
+                           [(ngModel)]="user.city"
+                           name="city"
+                           #city="ngModel" />
+                    <div [hidden]="city.valid || city.pristine"
+                         class="alert alert-danger">
+                        Miasto jest wymagane
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="addres">Adres:</label>
+                    <input type="text" class="form-control" id="addres"
+                           required maxlength="20"
+                           [(ngModel)]="user.addres"
+                           name="addres"
+                           #addres="ngModel" />
+                    <div [hidden]="addres.valid || addres.pristine"
+                         class="alert alert-danger">
+                        Adres jest wymagane
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="album">Numer albumu:</label>
+                    <input type="text" class="form-control" id="album"
+                           required pattern="[0-9]{6}" maxlength="6" placeholder="123456"
+                           [(ngModel)]="user.album"
+                           name="album"
+                           #album="ngModel" />
+                    <div [hidden]="album.valid || album.pristine"
+                         class="alert alert-danger">
+                        Numer albumu jest wymagany. Numer albumu powinien składać się tylko z cyfr.
+                    </div>
+                </div>
+                <div *ngIf="semesters" class="form-group">
+                    <label for="semester">Semestr</label>
+                    <select class="form-control" id="semester"
+                            required
+                            [(ngModel)]="user.id_sem"
+                            name="semester"
+                            #semester="ngModel">
+                        <option *ngFor="let semester of semesters" [value]="semester.id">{{semester.department}} {{semester.year}} {{semester.semesterNum}}</option>
+                    </select>
+                    <div [hidden]="semester.valid || semester.pristine" class="alert alert-danger">
+                        Musisz wybrać semestr.
+                    </div>
+                </div>
+                <div *ngIf="!semesters">W tej chwili nie ma dostępnych żadnych semestrów.</div>
+                <button type="submit" class="btn btn-default" [disabled]="!registrationForm.form.valid">Wyślij</button>
+            </form>
+            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        </div>
+    </div>
+</div>

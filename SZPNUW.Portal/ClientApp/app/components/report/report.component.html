@@ -1,0 +1,22 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Dodawanie semestrów</h4>
+    </div>
+    <div class="modal-body">
+        <div>
+            Wybierz plik w formacie pdf lub zip:
+            <input type="file" #fileInput  accept="application/pdf,application/zip"/>
+            <br /><br />
+            <div>
+                <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+                <br />
+                <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">Dodaj</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onClear()">Zamknij</button>
+    </div>
+</div>

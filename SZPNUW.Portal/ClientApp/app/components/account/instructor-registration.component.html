@@ -1,0 +1,103 @@
+﻿<div class="container">
+    <h1>Rejestracja</h1>
+    <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+        <div class="form-group">
+            <label for="login">Login:</label>
+            <input type="text" class="form-control" id="login"
+                   required maxlength="16"
+                   [(ngModel)]="user.login"
+                   name="login"
+                   #login="ngModel" />
+            <div [hidden]="login.valid || login.pristine"
+                 class="alert alert-danger">
+                Login jest wymagany
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Hasło:</label>
+            <input type="password" class="form-control" id="password"
+                   required maxlength="16" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                   [(ngModel)]="user.password"
+                   name="password"
+                   #password="ngModel" />
+            <div [hidden]="password.valid || password.pristine"
+                 class="alert alert-danger">
+                Hasło jest wymagane. Musi zawierać co najmniej jedną cyfrę, jedną wielką i małą literę, i co najmniej 8 lub więcej znaków.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">Imię:</label>
+            <input type="text" class="form-control" id="firstname"
+                   maxlength="20" pattern="[a-zA-Z]{1,20}"
+                   [(ngModel)]="user.firstName"
+                   name="firstname"
+                   #firstName="ngModel" />
+            <div [hidden]="firstName.valid || firstName.pristine"
+                 class="alert alert-danger">
+                Imię może się składać wyłącznie z liter.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname">Nazwisko:</label>
+            <input type="text" class="form-control" id="lastname"
+                   maxlength="20"
+                   [(ngModel)]="user.lastName"
+                   name="lastname"
+                   #lastName="ngModel" />
+            <div [hidden]="lastName.valid || lastName.pristine"
+                 class="alert alert-danger">
+                Nazwisko może się składać wyłącznie z liter.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pesel">Pesel:</label>
+            <input type="text" class="form-control" id="pesel"
+                   maxlength="11" pattern="[0-9]{11}"
+                   [(ngModel)]="user.pesel"
+                   name="pesel"
+                   #pesel="ngModel" />
+            <div [hidden]="pesel.valid || pesel.pristine"
+                 class="alert alert-danger">
+                Pesel jest wymagany. Składa się tylko z cyfr.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthday">Data urodzenia:</label>
+            <input type="date" class="form-control" id="birthday"
+                   [(ngModel)]="user.birthday"
+                   name="birthday"
+                   #birthday="ngModel" />
+            <div [hidden]="birthday.valid || birthday.pristine"
+                 class="alert alert-danger">
+                Wprowadź poprawnie date "dd.mm.rrrr".
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="city">Miasto:</label>
+            <input type="text" class="form-control" id="city"
+                   maxlength="20"
+                   [(ngModel)]="user.city"
+                   name="city"
+                   #city="ngModel" />
+            <div [hidden]="city.valid || city.pristine"
+                 class="alert alert-danger">
+                Nazwa miasta może się składać maxymalnie z 20 znaków.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="addres">Adres:</label>
+            <input type="text" class="form-control" id="addres"
+                   maxlength="20"
+                   [(ngModel)]="user.addres"
+                   name="addres"
+                   #addres="ngModel" />
+            <div [hidden]="addres.valid || addres.pristine"
+                 class="alert alert-danger">
+                Adres może się składać maksymalnie z 20 znaków.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default" [disabled]="!registrationForm.form.valid">Wyślij</button>
+        <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
+    </form>
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+</div>

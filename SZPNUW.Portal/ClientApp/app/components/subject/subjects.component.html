@@ -1,0 +1,57 @@
+﻿<div class="row">
+    <div class="col-md-4 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">Lista przedmiotów:</div>
+            <div *ngIf="subjects" class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item"
+                        *ngFor="let subject of subjects"
+                        [class.selected]="subject === selectedSubject"
+                        (click)="onSelect(subject)">
+                        <span>{{subject.name}}</span>
+                    </li>
+                </ul>
+            </div>
+            <span *ngIf="error">{{error}}</span>
+        </div>
+    </div>
+    <div class="col-md-2 col-md-offset-1">
+        <div class="affix" style="min-width: 200px">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Dodawanie przedmiotu</div>
+                <div class="panel-body">
+                    <button class="btn btn-default" (click)="add()">Dodaj</button>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Wyszukiwanie przedmiotów</div>
+                <div class="panel-body">
+                    <div *ngIf="departments">
+                        <label for="departments">Kierunek</label>
+                        <select class="form-control" id="departments"
+                                [(ngModel)]="department"
+                                name="departments">
+                            <option [value]=""></option>
+                            <option *ngFor="let department of departments" [value]="department">{{department}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="semestersNum">
+                        <label for="semestersNum">Numer semestru:</label>
+                        <select class="form-control" id="semestersNum"
+                                [(ngModel)]="semesterNum"
+                                name="semestersNum">
+                            <option [value]=""></option>
+                            <option *ngFor="let semesterNum of semestersNum" [value]="semesterNum">{{semesterNum}}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="btn btn-default" (click)="onSend()" [disabled]="!department || !semesterNum">Wyświetl</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-default" (click)="onDetail()" [disabled]="!selectedSubject">Szczegóły</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

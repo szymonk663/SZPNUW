@@ -1,0 +1,83 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+            <nav>
+                <button type="button" [disabled]="!selectedProject" class="btn btn-link" data-toggle="modal" data-target="#modalEdit">Edytuj</button>
+                <button type="button" [disabled]="!selectedProject" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Usuń</button>
+            </nav>
+            <div class="panel panel-info" style="min-width: 300px">
+                <div class="panel-heading">
+                    Tematy projektów
+                </div>
+                <div *ngIf="projectsSubjects">
+                    <ul class="list-group">
+                        <li class="list-group-item"
+                            *ngFor="let projectSubject of projectsSubjects"
+                            [class.selected]="projectSubject === selectedProject"
+                            (click)="onSelect(projectSubject)">
+                            {{projectSubject.project.topic}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+                    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-md-offset-1">
+            <div class="affix" style="min-width: 400px">
+                <div *ngIf="selectedProject">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Informacje o temacie</div>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Temat</th>
+                                    <td>{{selectedProject.project.topic}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Opis</th>
+                                    <td>{{selectedProject.project.description}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Aktywny</th>
+                                    <td *ngIf="selectedProject.project.active">Tak</td>
+                                    <td *ngIf="!selectedProject.project.active">Nie</td>
+                                </tr>
+                                <tr>
+                                    <th>Przedmiot:</th>
+                                    <td>{{selectedProject.subject.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div *ngIf="selectedProject">
+                    <project-edit [subjectId]="subjectId" [project]="selectedProject.project"></project-edit>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="checkBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Wypisywanie</h4>
+                    </div>
+                    <div class="modal-body">
+                        Czy na pewno chcesz usunąć ten temat?.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onDelete()">Tak</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

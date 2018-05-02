@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,85 @@
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\app\app.routing.ts" />
+    <None Remove="ClientApp\app\components\account\registration.component.ts" />
+    <None Remove="ClientApp\app\components\account\student\student-password.component.ts" />
+    <None Remove="ClientApp\app\components\account\student\student-profile-detail.component.ts" />
+    <None Remove="ClientApp\app\components\account\student\student-profile.component.ts" />
+    <None Remove="ClientApp\app\components\account\student\student.component.ts" />
+    <None Remove="ClientApp\app\guards\auth.guard.ts" />
+    <None Remove="ClientApp\app\modules\account.module.ts" />
+    <None Remove="ClientApp\app\modules\semester.module.ts" />
+    <None Remove="ClientApp\app\pipes\semester.pipe.ts" />
+    <None Remove="ClientApp\app\services\account.service.ts" />
+    <None Remove="ClientApp\app\services\semester.service.ts" />
+    <None Remove="ClientApp\app\viewmodels\Auth.ts" />
+    <None Remove="ClientApp\app\viewmodels\ChangePasswordModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\InstructorModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\LoginModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\MeetingModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\ProjectInstructorModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\ProjectModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\ProjectSubjectModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\RegistrationModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\ReportModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\SectionModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\SectionsCreateModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\SectionStudentsModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\SemesterModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\SemestersIdModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\StudentModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\StudentSectionModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\SubjectModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\SubjectSemesterModel.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\app.routing.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\registration.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\student\student-password.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\student\student-profile-detail.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\student\student-profile.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\student\student.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\guards\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\account.module.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\semester.module.ts" />
+    <TypeScriptCompile Include="ClientApp\app\pipes\semester.pipe.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\account.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\semester.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\Auth.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\ChangePasswordModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\InstructorModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\LoginModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\MeetingModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\ProjectInstructorModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\ProjectModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\ProjectSubjectModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\RegistrationModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\ReportModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\SectionModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\SectionsCreateModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\SectionStudentsModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\SemesterModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\SemestersIdModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\StudentModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\StudentSectionModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\SubjectModel.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\SubjectSemesterModel.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\app\components\instructor\" />
+    <Folder Include="ClientApp\app\components\meeting\" />
+    <Folder Include="ClientApp\app\components\subject\" />
+    <Folder Include="ClientApp\app\components\semester\" />
+    <Folder Include="ClientApp\app\components\section\" />
+    <Folder Include="ClientApp\app\components\report\" />
+    <Folder Include="ClientApp\app\components\project\" />
+    <Folder Include="ClientApp\app\components\student\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

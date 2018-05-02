@@ -1,0 +1,108 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" [disabled]="!selectedSection || storred" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Zapisz mnie</button>
+                <button type="button" [disabled]="!selectedSection || !storred" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Wypisz mnie</button>
+                <div class="panel panel-info" style="min-width: 300px">
+                    <div class="panel-heading">
+                        Sekcje
+                    </div>
+                    <div *ngIf="sections">
+                        <ul class="list-group">
+                            <li class="list-group-item"
+                                *ngFor="let section of sections"
+                                [class.selected]="section === selectedSection"
+                                (click)="onSelect(section)">
+                                Sekcja: {{section.section.sectionNum}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <div *ngIf="selectedSection">
+                    <button type="button" *ngIf="selectedSection && storred" class="btn btn-link" (click)="goToReports()">Sprawozdania</button>
+                    <span *ngIf="selectedSection && !storred"><br /></span>
+                    <div class="panel panel-info" style="min-width: 300px">
+                        <div class="panel-heading">
+                            Studenci z sekcji
+                        </div>
+                        <div *ngIf="selectedSection.students.length == 0" class="panel-body">
+                            Nikt się jeszcze nie wpisał.
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item"
+                                *ngFor="let student of selectedSection.students"
+                                [class.selected]="student === selectedStudent"
+                                (click)="onSelectStudent(student)">
+                                {{student.firstName}} {{student.lastName}}
+                            </li>
+                        </ul>
+                        <div class="panel-body" *ngIf="project">
+                            {{project.topic}}<br />
+                            {{project.description}}
+                        </div>
+                        <div class="panel-footer">
+                            <button type="button" [disabled]="!selectedSection || !storred" class="btn btn-link" data-toggle="modal" data-target="#modalSelect">Wybierz projekt</button>
+                            <button type="button" *ngIf="selectedSection && project && storred" class="btn btn-link" data-toggle="modal" data-target="#checkBoxDelete">Usuń</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <br /><br />
+                <div *ngIf="selectedStudent">
+                    <meetings *ngIf="selectedStudent.id == studentId" [sectionId]="selectedSection.section.id" [studentId]="selectedStudent.id" [permission]="false"></meetings>
+                </div>
+                <div *ngIf="sectionStudent">
+                    <span [hidden]="sectionStudent.rate == 0">Ocena końcowa to: {{sectionStudent.rate}}</span>
+                </div>
+            </div>
+        </div>
+        <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+        <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+    </div>
+</div>
+<div class="modal fade" id="checkBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Wypisywanie</h4>
+            </div>
+            <div class="modal-body">
+                <span *ngIf="!storred">Czy na pewno chcesz zapisać się do tej sekcji?</span>
+                <span *ngIf="storred">Czy na pewno chcesz wypisać się z tej sekcji?</span>
+            </div>
+            <div class="modal-footer">
+                <button  *ngIf="!storred" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onAdd()">Tak</button>
+                <button  *ngIf="storred" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onDelete()">Tak</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="checkBoxDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Wypisywanie</h4>
+            </div>
+            <div class="modal-body">
+                <span>Czy na pewno chcesz zrezygnować z tego tematu?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onDeleteProject()">Tak</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalSelect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <section-project *ngIf="selectedSection" [section]="selectedSection.section"></section-project>
+    </div>
+</div>
+

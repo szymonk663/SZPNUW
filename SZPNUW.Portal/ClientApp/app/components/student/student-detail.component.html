@@ -1,0 +1,95 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div *ngIf="student">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Imię</th>
+                                <td>{{student.firstName}}</td>
+                            </tr>
+                            <tr>
+                                <th>Nazwisko</th>
+                                <td>{{student.lastName}}</td>
+                            </tr>
+                            <tr>
+                                <th>Pesel</th>
+                                <td>{{student.pesel}}</td>
+                            </tr>
+                            <tr>
+                                <th>Data urodzenia</th>
+                                <td>{{student.birthday | date:'y-MM-dd'}}</td>
+                            </tr>
+                            <tr>
+                                <th>Miasto</th>
+                                <td>{{student.city}}</td>
+                            </tr>
+                            <tr>
+                                <th>Adres</th>
+                                <td>{{student.addres}}</td>
+                            </tr>
+                            <tr>
+                                <th>Semestry:</th>
+                                <td>
+                                    <span>
+                                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAdd">Dodaj</button>
+                                        <button type="button" [disabled]="!selectedSemester" class="btn btn-link" data-toggle="modal" data-target="#modalEdit">Edytuj</button>
+                                        <button [disabled]="!selectedSemester" type="button" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Usuń</button>
+                                    </span>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" *ngFor="let semester of semesters"
+                                            [class.selected]="semester === selectedSemester"
+                                            (click)="onSelect(semester)">
+                                            Wydział: {{semester.department}} Rok akademicki: {{semester.year}} Semestr: {{semester.semesterNum}}
+                                        <li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-body">
+                    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+                    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-default" (click)="onBack()">Powrót</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div *ngIf="student">
+                <div *ngIf="selectedSemester">
+                    <student-semester [selectedSemesterId]="selectedSemester.id" [studentId]="student.id"></student-semester>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div *ngIf="student">
+                <student-semester [studentId]="student.id"></student-semester>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="checkBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Wypisywanie</h4>
+                </div>
+                <div class="modal-body">
+                    Czy na pewno chcesz wypisać studentów z tego semestru.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="delete()">Tak</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

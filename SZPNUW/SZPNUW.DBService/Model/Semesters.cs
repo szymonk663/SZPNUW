@@ -7,6 +7,7 @@ namespace SZPNUW.DBService.Model
     {
         public Semesters()
         {
+            Studentsemester = new HashSet<Studentsemester>();
             Subjectssemesters = new HashSet<Subjectssemesters>();
         }
 
@@ -15,6 +16,7 @@ namespace SZPNUW.DBService.Model
         public int Semesternumber { get; set; }
         public string Fieldofstudy { get; set; }
 
+        public ICollection<Studentsemester> Studentsemester { get; set; }
         public ICollection<Subjectssemesters> Subjectssemesters { get; set; }
     }
 }

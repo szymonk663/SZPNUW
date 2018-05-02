@@ -1,0 +1,104 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Lista studentów:
+                </div>
+                <div *ngIf="students">
+                    <table class="table table-condensed">
+                        <tr>
+                            <td>Imię</td>
+                            <td>Nazwisko</td>
+                            <td>NrAlbumu</td>
+                        </tr>
+                        <tr *ngFor="let student of students"
+                            [class.selected]="student === selectedStudent"
+                            (click)="onSelect(student)">
+                            <td>{{student.firstName}}</td>
+                            <td>{{student.lastName}}</td>
+                            <td>{{student.album}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="panel-body">
+                    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+                    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <div class="affix" style="min-width: 200px">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Wyszukiwanie studentów</div>
+                    <div class="panel-body">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Filtr wyświetlanych semestrów</div>
+                            <div class="panel-body">
+                                <div *ngIf="departments">
+                                    <label for="departments">Kierunek</label>
+                                    <select class="form-control" id="departments"
+                                            [(ngModel)]="department"
+                                            name="departments">
+                                        <option [value]=""></option>
+                                        <option *ngFor="let department of departments" [value]="department">{{department}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="years">
+                                    <label for="semestersNum">Rok akademicki:</label>
+                                    <select class="form-control" id="years"
+                                            [(ngModel)]="year"
+                                            name="years">
+                                        <option [value]=""></option>
+                                        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <label for="semester">Semestr:</label>
+                        <select class="form-control" id="semester"
+                                [(ngModel)]="semesterId"
+                                name="semester">
+                            <option *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)" [value]="semester.id">
+                                {{semester.department}} {{semester.year}} {{semester.semesterNum}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-default" (click)="onSend()" [disabled]="!semesterId">Wyświetl</button>
+                        <button class="btn btn-default" [disabled]="!selectedStudent" (click)="onDetail()">Szczegóły</button>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Przepisywanie studentów</div>
+                    <div class="panel-body">
+                        <button type="button" [disabled]="!semesterId" class="btn btn-default" data-toggle="modal" data-target="#myModal">Edytuj</button>
+                        <button type="button" [disabled]="!semesterId" class="btn btn-primary" data-toggle="modal" data-target="#checkBox">Wypisz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <students-semester [selectedSemesterId]="semesterId" [departments]="departments" [years]="years" [semesters]="semesters"></students-semester>
+        </div>
+    </div>
+    <div class="modal fade" id="checkBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Wypisywanie</h4>
+                </div>
+                <div class="modal-body">
+                    Czy na pewno chcesz wypisać studentów z tego semestru.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="delete()">Tak</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div *ngIf="semesters">
+                <table class="table table-condensed">
+                    <tr>
+                        <td>Kierunek</td>
+                        <td>Rok akademicki</td>
+                        <td>Semestr</td>
+                    </tr>
+                    <tr *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)"
+                        [class.selected]="semester === selectedSemester"
+                        (click)="onSelect(semester)">
+                        <td>{{semester.department}}</td>
+                        <td>{{semester.year}}</td>
+                        <td>{{semester.semesterNum}}</td>
+                    </tr>
+                </table>
+            </div>
+            <span *ngIf="!semesters">Proszę poczekać...</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="affix" style="min-width: 200px">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Zarządzanie</div>
+                <div class="panel-body">
+                    <button class="btn btn-default" (click)="add()">Dodaj</button>
+                    <button class="btn btn-default" *ngIf="selectedSemester" (click)="edit()">Edytuj</button>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Filtr wyświetlanych semestrów</div>
+                <div class="panel-body">
+                    <div *ngIf="departments">
+                        <label for="departments">Kierunek</label>
+                        <select class="form-control" id="departments"
+                                [(ngModel)]="department"
+                                name="departments">
+                            <option [value]=""></option>
+                            <option *ngFor="let department of departments" [value]="department">{{department}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="years">
+                        <label for="years">Rok akademicki:</label>
+                        <select class="form-control" id="years"
+                                [(ngModel)]="year"
+                                name="years">
+                            <option [value]=""></option>
+                            <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

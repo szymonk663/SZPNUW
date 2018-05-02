@@ -1,0 +1,49 @@
+﻿<div *ngIf="permission">
+    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAdd">Dodaj</button>
+    <button type="button" [disabled]="!selectedMeeting" class="btn btn-link" data-toggle="modal" data-target="#modalEdit">Edytuj</button>
+    <button type="button" [disabled]="!selectedMeeting" class="btn btn-link" data-toggle="modal" data-target="#checkBoxMeeting">Usuń</button>
+</div>
+<div class="panel panel-info" style="min-width: 300px">
+    <div class="panel-heading">
+        Spotkania
+    </div>
+    <div *ngIf="meetings">
+        <ul class="list-group">
+            <li class="list-group-item"
+                *ngFor="let meeting of meetings"
+                [class.selected]="meeting === selectedMeeting"
+                (click)="onSelect(meeting)">
+                {{meeting.date | date:'y-MM-dd'}} Ocena: {{meeting.rate}}
+            </li>
+        </ul>
+    </div>
+</div>
+<div *ngIf="permission">
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <meeting-form [sectionId]="sectionId" [studentId]="studentId"></meeting-form>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <meeting-form *ngIf="selectedMeeting" [meeting]="selectedMeeting"></meeting-form>
+        </div>
+    </div>
+    <div class="modal fade" id="checkBoxMeeting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Usuwanie spotkania</h4>
+                </div>
+                <div class="modal-body">
+                    Czy na pewno chcesz usunąć te spotkanie?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onDelete()">Tak</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

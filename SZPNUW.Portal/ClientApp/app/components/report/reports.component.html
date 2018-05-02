@@ -1,0 +1,49 @@
+﻿<div class="container">
+    <button type="button" *ngIf="permission" class="btn btn-link" (click)="goBack()">Sekcje</button>
+    <div *ngIf="permission == 'a' || (permission == 'u' && storred)">
+        <div class="panel panel-default">
+            <div class="panel-heading">Sprawozdania</div>
+            <ul class="list-group" *ngIf="reports">
+                <li class="list-group-item" *ngFor="let report of reports"
+                    [class.selected]="report === selectedReport"
+                    (click)="onSelect(report)">
+                {{report.name}}
+                </li>
+            </ul>
+            <div class="panel-body">
+                <span *ngIf="!reports">Brak sprawozdań.</span>
+                <div>
+                    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+                    <br />
+                    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button *ngIf="permission == 'u'" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalSend">Wyślij</button>
+                <button type="button" class="btn btn-default" [disabled]="!selectedReport" (click)="onDownload()">Pobierz</button>
+            </div>
+        </div>
+        <div class="modal fade" id="modalSend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <report *ngIf="sectionId" [sectionId]="sectionId"></report>
+            </div>
+        </div>
+        <div class="modal fade" id="checkBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Wypisywanie</h4>
+                    </div>
+                    <div class="modal-body">
+                        Czy na pewno chcesz usunąć te sprawozdanie?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onDelete()">Tak</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

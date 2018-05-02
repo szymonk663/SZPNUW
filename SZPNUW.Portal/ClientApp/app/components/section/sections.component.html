@@ -1,0 +1,63 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Wyszukiwanie sekcji</div>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Filtrowanie wyświetlanych semestrów</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3" *ngIf="departments" style="min-width: 200px">
+                                    <label for="departments">Kierunek</label>
+                                    <select class="form-control" id="departments"
+                                            [(ngModel)]="department"
+                                            name="departments">
+                                        <option [value]=""></option>
+                                        <option *ngFor="let department of departments" [value]="department">{{department}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" *ngIf="years" style="min-width: 200px">
+                                    <label for="years">Rok akademicki:</label>
+                                    <select class="form-control" id="years"
+                                            [(ngModel)]="year"
+                                            name="years">
+                                        <option [value]=""></option>
+                                        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="semseter">Semestr</label>
+                        <select class="form-control" id="semester"
+                                [ngModel]="semesterId"
+                                (ngModelChange)="onSelectSemester($event)"
+                                name="semester">
+                            <option *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)" [value]="semester.id">
+                                {{semester.department}} {{semester.year}} {{semester.semesterNum}}
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="subject">Przedmiot</label>
+                        <select [disabled]="!semesterId" class="form-control" id="subject"
+                                [ngModel]="subjectId"
+                                (ngModelChange)="onSelectSubject($event)"
+                                name="semester">
+                            <option *ngFor="let subject of subjects" [value]="subject.id">
+                                {{subject.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="semesterId && subjectId">
+        <sections-list [semesterId]="semesterId" [subjectId]="subjectId"></sections-list>
+    </div>
+    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+</div>

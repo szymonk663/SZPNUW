@@ -1,0 +1,41 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Dodawanie semestrów</h4>
+    </div>
+    <div class="modal-body" >
+        <span>Średnia ocena z spotkań wynosi: {{average}}</span>
+        <form #ratingsForm="ngForm">
+            <div *ngIf="studSec" class="form-group">
+                <label for="rating">Ocena:</label>
+                <input type="number" class="form-control" id="rating" min="0" max="5" step="0.5"
+                       required
+                       [(ngModel)]="studSec.rate"
+                       name="rating"
+                       #rating="ngModel" />
+                <div [hidden]="rating.valid || rating.pristine"
+                     class="alert alert-danger">
+                    Musisz podać ocene
+                </div>
+            </div>
+            <div *ngIf="studSec" class="form-group">
+                <label for="date">Data: </label>{{studSec.date}}
+                <input type="date" class="form-control" id="date"
+                       required
+                       [(ngModel)]="studSec.date"
+                       name="date"
+                       #date="ngModel" />
+                <div [hidden]="date.valid || date.pristine"
+                     class="alert alert-danger">
+                    Musisz podać date.
+                </div>
+            </div>
+        </form>
+    </div>
+    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" *ngIf="studSec" [disabled]="!ratingsForm.form.valid" (click)="onSubmit()">Wystaw ocene</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onClear()">Zamknij</button>
+    </div>
+</div>

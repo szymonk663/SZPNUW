@@ -1,0 +1,70 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default" style="min-width: 300px">
+                <div class="panel-heading">
+                    Tematy projektów
+                    <button style="float: right" type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAdd">Nowy</button>
+                </div>
+                <div *ngIf="projectsInstructors">
+                    <ul class="list-group">
+                        <li class="list-group-item"
+                            *ngFor="let projectInstructor of projectsInstructors"
+                            [class.selected]="projectInstructor === selectedProject"
+                            (click)="onSelect(projectInstructor)">
+                            {{projectInstructor.project.topic}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+                    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-md-offset-1">
+            <div class="affix" style="min-width: 400px">
+                <div *ngIf="selectedProject">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Informacje o temacie</div>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Temat</th>
+                                    <td>{{selectedProject.project.topic}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Opis</th>
+                                    <td>{{selectedProject.project.description}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Aktywny</th>
+                                    <td *ngIf="selectedProject.project.active">Tak</td>
+                                    <td *ngIf="!selectedProject.project.active">Nie</td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Prowadzący wystawiający temat
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Imię</th>
+                                    <td>{{selectedProject.instructor.firstName}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nazwsiko</th>
+                                    <td>{{selectedProject.instructor.lastName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+     </div>
+        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <project-add [subjectId]="subjectId"></project-add>
+            </div>
+        </div>
+    </div>
+</div>

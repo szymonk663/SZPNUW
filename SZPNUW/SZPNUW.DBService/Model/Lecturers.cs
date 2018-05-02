@@ -13,7 +13,7 @@ namespace SZPNUW.DBService.Model
 
         public int Id { get; set; }
         public int Userid { get; set; }
-        public char Code { get; set; }
+        public string Code { get; set; }
 
         public Users User { get; set; }
         public ICollection<Projects> Projects { get; set; }

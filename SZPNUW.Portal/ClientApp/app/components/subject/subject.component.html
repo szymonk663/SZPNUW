@@ -1,0 +1,54 @@
+﻿<div class="container">
+    <div *ngIf="instructor && semesters">
+        <div *ngIf="!change">
+            <nav class="menu">
+                <a [routerLink]="['/subject/detail/', subject.id]">Edytuj</a>
+                <button type="button" class="btn btn-link" (click)="onChange(true)">Projekty</button>
+            </nav>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Nazwa przedmiotu</th>
+                        <td>{{subject.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Opis</th>
+                        <td>{{subject.description}}</td>
+                    </tr>
+                    <tr>
+                        <th>Kierownik przedmiotu:</th>
+                        <td>{{instructor.firstName}} {{instructor.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Semestry na jakich przedmiot występuje:</th>
+                        <td>
+                            <button type="button" class="btn btn-link" (click)="onAdd()">Dodaj</button>
+                            <span *ngIf="selectedSemester">
+                                <button type="button" class="btn btn-link" (click)="onEdit()">Edytuj</button>
+                                <button type="button" class="btn btn-link" (click)="onDelete()">Usuń</button>
+                            </span>
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngFor="let semester of semesters"
+                                    [class.selected]="semester === selectedSemester"
+                                    (click)="onSelect(semester)">
+                                    Wydział: {{semester.department}} Rok akademicki: {{semester.year}} Semestr: {{semester.semesterNum}}
+                                <li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="change">
+            <nav class="menu">
+                <button type="button" class="btn btn-link" (click)="onChange(false)">Przedmiot</button>
+            </nav>
+            <projects-list [subjectId]="subject.id"></projects-list>
+        </div>
+    </div>
+    <div *ngIf="!instructor || !semesters">
+    Proszę poczekać...
+    </div>
+    <button type="button" class="btn btn-default" (click)="onBack()">Powróć</button>
+    <span *ngIf="error" class="alert alert-danger">{{error}}</span>
+</div>

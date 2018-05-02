@@ -6,10 +6,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "7000:80"
+    depends_on:
+      - szpnuw.webapi.account
 
   szpnuw.webapi.account:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "80"
-
+      - "7001:80"

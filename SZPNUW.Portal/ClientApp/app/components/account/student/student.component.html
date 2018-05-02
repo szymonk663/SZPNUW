@@ -1,0 +1,52 @@
+﻿
+<div *ngIf="semester" class="container">
+    <div class="menu">
+        <a [routerLink]="['/student/detail']">Edytuj</a>
+        <a [routerLink]="['/student/password']">Zmień hasło</a>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Imię</th>
+                <td>{{student.firstName}}</td>
+            </tr>
+            <tr>
+                <th>Nazwisko</th>
+                <td>{{student.lastName}}</td>
+            </tr>
+            <tr>
+                <th>Pesel</th>
+                <td>{{student.pesel}}</td>
+            </tr>
+            <tr>
+                <th>Data urodzenia</th>
+                <td>{{student.birthday | date:'y-MM-dd'}}</td>
+            </tr>
+            <tr>
+                <th>Miasto</th>
+                <td>{{student.city}}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{student.addres}}</td>
+            </tr>
+            <tr>
+                <th>Rok</th>
+                <td>{{semester.year}}</td>
+            </tr>
+            <tr>
+                <th>Numer semestru</th>
+                <td>{{semester.semesterNum}}</td>
+            </tr>
+            <tr>
+                <th>Kierunek</th>
+                <td>{{semester.department}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-default" (click)="edit()">Edytuj</button>
+</div>
+<div *ngIf="!semester">
+    Poczekaj chwile...
+</div>
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>

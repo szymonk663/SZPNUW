@@ -1,0 +1,57 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edycja semestru</h4>
+    </div>
+    <div class="modal-body">
+        <form #studentSemesterForm="ngForm">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Filtr wyświetlanych semestrów</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3" *ngIf="departments" style="min-width: 200px">
+                            <label for="departments">Kierunek</label>
+                            <select class="form-control" id="departments"
+                                    [(ngModel)]="department" [ngModelOptions]="{standalone: true}"
+                                    name="departments">
+                                <option [value]=""></option>
+                                <option *ngFor="let department of departments" [value]="department">{{department}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3" *ngIf="years" style="min-width: 200px">
+                            <label for="years">Rok akademicki:</label>
+                            <select class="form-control" id="years"
+                                    [(ngModel)]="year" [ngModelOptions]="{standalone: true}"
+                                    name="years">
+                                <option [value]=""></option>
+                                <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="semseter">Semestr</label>
+                <select class="form-control" id="semester"
+                        required
+                        [(ngModel)]="semestersId.id_semesterNew"
+                        name="semester"
+                        #semester="ngModel">
+                    <option *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)" [value]="semester.id">
+                        {{semester.department}} {{semester.year}} {{semester.semesterNum}}
+                    </option>
+                </select>
+                <div [hidden]="semester.valid || semester.pristine" class="alert alert-danger">
+                    Musisz wybrać semestr.
+                </div>
+            </div>
+        </form>
+        <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+        <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" *ngIf(!selectedSemesterId) [disabled]="!studentSemesterForm.form.valid" (click)="add()">Dodaj</button>
+        <button type="button" class="btn btn-primary" *ngIf(selectedSemesterId) [disabled]="!studentSemesterForm.form.valid" (click)="edit()">Zmień</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+    </div>
+</div>

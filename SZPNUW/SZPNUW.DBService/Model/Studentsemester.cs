@@ -7,5 +7,8 @@ namespace SZPNUW.DBService.Model
     {
         public int Studentid { get; set; }
         public int Semesterid { get; set; }
+
+        public Semesters Semester { get; set; }
+        public Students Student { get; set; }
     }
 }
