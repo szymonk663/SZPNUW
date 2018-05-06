@@ -68,5 +68,77 @@ namespace SZPNUW.Base.Resources {
                 return ResourceManager.GetString("InsertDBError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieprawidłowe dane..
+        /// </summary>
+        public static string InvalidData {
+            get {
+                return ResourceManager.GetString("InvalidData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie można usunąć wpisu dla tego przedmiotu.
+        /// </summary>
+        public static string LastEntryForTheItem {
+            get {
+                return ResourceManager.GetString("LastEntryForTheItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak wskazanego semestru.
+        /// </summary>
+        public static string MissingSemester {
+            get {
+                return ResourceManager.GetString("MissingSemester", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak przedmiotu.
+        /// </summary>
+        public static string MissingSubject {
+            get {
+                return ResourceManager.GetString("MissingSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak takiego elementu.
+        /// </summary>
+        public static string NoSuchElement {
+            get {
+                return ResourceManager.GetString("NoSuchElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wpis już istnieje.
+        /// </summary>
+        public static string ObjectExist {
+            get {
+                return ResourceManager.GetString("ObjectExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ten semestr jest powiązany z pewnymi sekcjami i nie można go usunąć z wpisu.
+        /// </summary>
+        public static string SemesterDependence {
+            get {
+                return ResourceManager.GetString("SemesterDependence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przedmiot o podanej nazwie już istnieje.
+        /// </summary>
+        public static string SubjectExist {
+            get {
+                return ResourceManager.GetString("SubjectExist", resourceCulture);
+            }
+        }
     }
 }

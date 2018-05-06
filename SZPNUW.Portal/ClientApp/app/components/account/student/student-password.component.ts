@@ -5,7 +5,7 @@ import { AccountService } from "../../../services/account.service";
 import { ChangePasswordsModel } from "../../../viewmodels/ChangePasswordModel";
 
 @Component({
-    templateUrl: './passwords.components.html',
+    templateUrl: './student-password.component.html',
 })
 
 export class StudentPasswordComponent implements OnInit {

@@ -120,4 +120,28 @@
   <data name="InsertDBError" xml:space="preserve">
     <value>Wystąpił błąd podczas dodawania elementu do bazy.</value>
   </data>
+  <data name="InvalidData" xml:space="preserve">
+    <value>Nieprawidłowe dane.</value>
+  </data>
+  <data name="LastEntryForTheItem" xml:space="preserve">
+    <value>Nie można usunąć wpisu dla tego przedmiotu</value>
+  </data>
+  <data name="MissingSemester" xml:space="preserve">
+    <value>Brak wskazanego semestru</value>
+  </data>
+  <data name="MissingSubject" xml:space="preserve">
+    <value>Brak przedmiotu</value>
+  </data>
+  <data name="NoSuchElement" xml:space="preserve">
+    <value>Brak takiego elementu</value>
+  </data>
+  <data name="ObjectExist" xml:space="preserve">
+    <value>Wpis już istnieje</value>
+  </data>
+  <data name="SemesterDependence" xml:space="preserve">
+    <value>Ten semestr jest powiązany z pewnymi sekcjami i nie można go usunąć z wpisu</value>
+  </data>
+  <data name="SubjectExist" xml:space="preserve">
+    <value>Przedmiot o podanej nazwie już istnieje</value>
+  </data>
 </root>

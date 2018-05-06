@@ -13,3 +13,23 @@ services:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Account/Dockerfile
 
+  szpnuw.webapi.subject:
+    image: szpnuwwebapisubject
+    build:
+      context: .
+      dockerfile: Microservices/SZPNUW.WebAPI.Subject/Dockerfile
+
+
+  szpnuw.webapi.sections:
+    image: szpnuwwebapisections
+    build:
+      context: .
+      dockerfile: Microservices/SZPNUW.WebAPI.Sections/Dockerfile
+
+
+  szpnuw.webapi.projects:
+    image: szpnuwwebapiprojects
+    build:
+      context: .
+      dockerfile: Microservices/SZPNUW.WebAPI.Projects/Dockerfile
+

@@ -20,5 +20,15 @@ namespace SZPNUW.Base
                 return string.Empty;
             }
         }
+
+        public static bool AnyLazy<T>(this IEnumerable<T> collection)
+        {
+            return collection != null && collection.Any();
+        }
+
+        public static bool HasValue(this string value)
+        {
+            return value != null && value.Any();
+        }
     }
 }

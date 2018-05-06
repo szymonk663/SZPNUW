@@ -8,9 +8,31 @@ services:
       - "7000:80"
     depends_on:
       - szpnuw.webapi.account
+      - szpnuw.webapi.subject
+      - szpnuw.webapi.sections
+      - szpnuw.webapi.projects
 
   szpnuw.webapi.account:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "7001:80"
+
+  szpnuw.webapi.subject:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "7002:80"
+
+  szpnuw.webapi.sections:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "7003:80"
+
+  szpnuw.webapi.projects:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "7004:80"
+

@@ -33,3 +33,54 @@ services:
       com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
       com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
 
+
+  szpnuw.webapi.projects:
+    image: szpnuwwebapiprojects:dev
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_szpnuw.webapi.projects$
+    volumes:
+      - D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Projects:/app
+      - C:\Users\szymo\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_szpnuw.webapi.projects$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_szpnuw.webapi.projects$ bin/Debug/netcoreapp2.0/SZPNUW.WebAPI.Projects.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+
+
+  szpnuw.webapi.sections:
+    image: szpnuwwebapisections:dev
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_szpnuw.webapi.sections$
+    volumes:
+      - D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Sections:/app
+      - C:\Users\szymo\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_szpnuw.webapi.sections$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_szpnuw.webapi.sections$ bin/Debug/netcoreapp2.0/SZPNUW.WebAPI.Sections.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+
+
+  szpnuw.webapi.subject:
+    image: szpnuwwebapisubject:dev
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_szpnuw.webapi.subject$
+    volumes:
+      - D:\Repo\SZPNUW\Microservices\SZPNUW.WebAPI.Subject:/app
+      - C:\Users\szymo\vsdbg\vs2017u5:/remote_debugger:ro
+#$nuget_volume_mapping_szpnuw.webapi.subject$
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_szpnuw.webapi.subject$ bin/Debug/netcoreapp2.0/SZPNUW.WebAPI.Subject.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/bash -c \"if PID=$$(pidof -x dotnet); then kill $$PID; fi\""
+
