@@ -1,0 +1,32 @@
+﻿<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <nav class="panel-body">
+                <a [routerLink]="['/instructors/registration']">Nowy</a> 
+            </nav>
+            <div *ngIf="instructors">
+                <table class="table table-condensed">
+                    <tr>
+                        <td>Imię</td>
+                        <td>Nazwisko</td>
+                        <td>Pesel</td>
+                    </tr>
+                    <tr *ngFor="let instructor of instructors"
+                        [class.selected]="instructor === selectedInstructor"
+                        (click)="onSelect(instructor)">
+                        <td>{{instructor.firstName}}</td>
+                        <td>{{instructor.lastName}}</td>
+                        <td>{{instructor.pesel}}</td>
+                    </tr>
+                </table>
+            </div>
+            <span *ngIf="!instructors">Proszę poczekać...</span>
+            <span *ngIf="!error">{{error}}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="affix" style="min-width: 300px">
+            <instructor-detail *ngIf(selectedInstructor) [instructor]="selectedInstructor"></instructor-detail>
+        </div>
+    </div>
+</div>

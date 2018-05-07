@@ -10,7 +10,7 @@ import { InstructorModel } from '../../viewmodels/InstructorModel';
 
 export class InstructorDetailComponent {
     @Input()
-    instructor: Instructor;
+    instructor: InstructorModel;
  
     constructor() { }
 

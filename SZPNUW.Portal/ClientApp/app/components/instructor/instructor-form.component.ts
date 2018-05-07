@@ -1,32 +1,34 @@
 ﻿import { Component, OnInit} from "@angular/core";
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { InstructorService } from "../../services/instructor.service";
-import { Instructor } from "../../viewmodels/Instructor";
+import { AccountService } from "../../services/account.service";
+import { InstructorModel } from "../../viewmodels/InstructorModel";
 
 @Component({
     selector: 'instructor-form',
-    templateUrl: '/template/instructor/instructor-form.component.html',
+    templateUrl: './instructor-form.component.html',
 })
 
 export class InstructorFormComponent implements OnInit {
 
-    instructor: Instructor;
+    instructor: InstructorModel;
     error = '';
 
     constructor(private route: ActivatedRoute,
         private location: Location,
-        private instructorService: InstructorService
+        private accountService: AccountService
     ) { }
 
     ngOnInit() {
-        this.instructorService.getInstructor(this.instructorService.getInstructorId())
+        const userId = this.accountService.getUserId();
+        if(userId != null)
+            this.accountService.getInstructor(userId)
             .then(instructor => this.instructor = instructor,
                 reject => this.error = reject);
     }
 
     onSubmit(): void {
-        this.instructorService.update(this.instructor)
+        this.accountService.updateInstructor(this.instructor)
             .then(result => {
                 this.goBack();
             }, error => this.error = error);

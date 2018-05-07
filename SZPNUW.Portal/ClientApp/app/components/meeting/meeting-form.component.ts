@@ -7,7 +7,7 @@ import {MeetingModel} from '../../viewmodels/MeetingModel';
 
 @Component({
     selector: "meeting-form",
-    templateUrl: "template/meeting/meeting-form.component.html"
+    templateUrl: "./meeting-form.component.html"
 })
 
 export class MeetingFormComponent implements OnChanges {

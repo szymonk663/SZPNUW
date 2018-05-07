@@ -1,0 +1,29 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading"><h3>Prowadzący:</h3></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-5">Imię:</div>
+            <div class="col-xs-7  pull-left">{{ instructor.firstName }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Nazwisko:</div>
+            <div class="col-xs-7 pull-left">{{ instructor.lastName }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Pesel</div>
+            <div class="col-xs-7 pull-left">{{ instructor.pesel }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Data urodzenia:</div>
+            <div class="col-xs-7  pull-left">{{ instructor.birthday | date:'y-MM-dd'}}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Miasto zamieszkania:</div>
+            <div class="col-xs-7 pull-left">{{ instructor.city }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Adres:</div>
+            <div class="col-xs-7 pull-left">{{ instructor.addres }}</div>
+        </div>
+    </div>
+</div>

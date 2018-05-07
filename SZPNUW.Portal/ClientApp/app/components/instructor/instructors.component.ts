@@ -1,29 +1,29 @@
 ﻿import {Component, OnInit, Input} from "@angular/core";
 import {Router} from "@angular/router";
 
-import {Instructor} from '../../viewmodels/Instructor';
-import {InstructorService} from "../../services/instructor.service";
+import {InstructorModel} from '../../viewmodels/InstructorModel';
+import {AccountService} from "../../services/Account.service";
 import {SemesterService} from "../../services/semester.service";
 
 @Component({
     selector: "isntructors",
-    templateUrl: "template/instructor/instructors.component.html"
+    templateUrl: "./instructors.component.html"
 })
 
 export class InstructorsComponent implements OnInit {
     private error = '';
-    private instructors: Instructor[];
-    private selectedInstructor: Instructor;
+    private instructors: InstructorModel[];
+    private selectedInstructor: InstructorModel;
 
-    constructor(private router: Router, private instructorService: InstructorService) { }
+    constructor(private router: Router, private accountService: AccountService) { }
 
     ngOnInit() {
-        this.instructorService.getInstructors().then(
+        this.accountService.getInstructors().then(
             instructors => this.instructors = instructors,
             reject => this.error = reject
         );
     }
-    onSelect(instructor: Instructor): void {
+    onSelect(instructor: InstructorModel): void {
         this.selectedInstructor = instructor;
     }
 }

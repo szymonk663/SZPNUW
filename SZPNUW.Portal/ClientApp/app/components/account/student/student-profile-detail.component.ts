@@ -7,7 +7,7 @@ import { StudentProfileComponent } from "./student-profile.component";
 
 @Component({
     selector: 'student-profile-detail',
-    templateUrl: '/template/account/student-profile-detail.component.html',
+    templateUrl: './student-profile-detail.component.html',
 })
 
 export class StudentProfileDetailComponent implements OnInit {

@@ -1,0 +1,38 @@
+﻿<div *ngIf="instructor" class="container">
+    <div class="menu">
+        <a [routerLink]="['/instructor/detail']">Edytuj</a>
+        <a [routerLink]="['/instructor/password']">Zmień hasło</a>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Imię</th>
+                <td>{{instructor.firstName}}</td>
+            </tr>
+            <tr>
+                <th>Nazwisko</th>
+                <td>{{instructor.lastName}}</td>
+            </tr>
+            <tr>
+                <th>Pesel</th>
+                <td>{{instructor.pesel}}</td>
+            </tr>
+            <tr>
+                <th>Data urodzenia</th>
+                <td>{{instructor.birthday | date:'y-MM-dd'}}</td>
+            </tr>
+            <tr>
+                <th>Miasto</th>
+                <td>{{instructor.city}}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{instructor.addres}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="!instructor">
+    Proszę poczekać...
+</div>
+<span *ngIf="error" class="alert alert-danger">{{error}}</span>

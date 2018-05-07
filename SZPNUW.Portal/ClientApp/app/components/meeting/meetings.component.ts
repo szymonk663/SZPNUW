@@ -1,11 +1,11 @@
 ﻿import {Component, Input, OnChanges} from "@angular/core";
 import {Router} from "@angular/router"
 import {MeetingService} from '../../services/meeting.service';
-import {Meeting} from '../../viewmodels/Meeting';
+import {MeetingModel} from '../../viewmodels/MeetingModel';
 
 @Component({
     selector: "meetings",
-    templateUrl: "template/meeting/meetings.component.html"
+    templateUrl: "./meetings.component.html"
 })
 
 export class MeetingsComponent implements OnChanges {
@@ -15,8 +15,8 @@ export class MeetingsComponent implements OnChanges {
     studentId: number;
     @Input()
     permission: boolean;
-    meetings: Meeting[];
-    selectedMeeting: Meeting;
+    meetings: MeetingModel[];
+    selectedMeeting: MeetingModel;
     error: string = '';
     message: string = '';
 
@@ -27,7 +27,7 @@ export class MeetingsComponent implements OnChanges {
         this.onRefresh();
     }
 
-    onSelect(meeting: Meeting) {
+    onSelect(meeting: MeetingModel) {
         this.selectedMeeting = meeting;
     }
 

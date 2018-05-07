@@ -93,7 +93,7 @@ namespace SZPNUW.DBService
                     Semesternumber = model.SemesterNumber
                 };
                 context.Add(semester);
-                context.SaveChanges()
+                context.SaveChanges();
             }
         }
         public bool UpdateSemester(SemesterModel model, ref string errorMessage)
