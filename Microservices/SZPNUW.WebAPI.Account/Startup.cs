@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using SZPNUW.Base.Consts;
 
@@ -44,7 +45,12 @@ namespace SZPNUW.WebAPI.Account
                 opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                 opts.Cookie.SameSite = SameSiteMode.Strict;
             });
-            services.AddMvc();
+            services
+                .AddMvc()
+                .AddJsonOptions(opts =>
+                {
+                    opts.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("Account", new Info { Title = "Account", Version = "v1" });

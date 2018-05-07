@@ -19,28 +19,28 @@ namespace SZPNUW.WebAPI.Subject.Controllers
             string errorMessage = string.Empty;
             List<SubjectModel> list;
             list = service.GetSubjects(department, semesterNumber, ref errorMessage);
-            return new JsonResult(list, JsonSettings.DefaultJsonSettings);
+            return Json(list);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetSubjectById(int id)
         {
             SubjectModel model = service.GetSubjectById(id);
-            return new JsonResult(model, JsonSettings.DefaultJsonSettings);
+            return Json(model);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetSubjectBySemesterId(int id)
         {
             List<SubjectModel> subjects = service.GetSubjectsBySemesterId(id);
-            return new JsonResult(subjects, JsonSettings.DefaultJsonSettings);
+            return Json(subjects);
         }
 
         [HttpGet]
         public IActionResult GetSubjectSemester([FromQuery]int idSubject, int idSemester)
         {
             SubjectSemesterModel model = service.GetSubjectSemester(idSubject, idSemester);
-            return new JsonResult(model, JsonSettings.DefaultJsonSettings);
+            return Json(model);
         }
         [HttpPut]
         public IActionResult UpdateSubject([FromBody]SubjectModel model)
@@ -49,10 +49,10 @@ namespace SZPNUW.WebAPI.Subject.Controllers
             {
                 string errorMessage = string.Empty;
                 if(service.UpdateSubject(model, ref errorMessage))
-                    return new JsonResult(new Result(true), JsonSettings.DefaultJsonSettings);
-                return new JsonResult(new Result(errorMessage), JsonSettings.DefaultJsonSettings);
+                    return Json(new Result(true));
+                return Json(new Result(errorMessage));
             }
-            return new JsonResult(new Result(ModelState.GetFirstError()), JsonSettings.DefaultJsonSettings);
+            return Json(new Result(ModelState.GetFirstError()));
         }
         [HttpPost]
         public IActionResult AddSubject([FromBody]SubjectModel model)
@@ -61,10 +61,10 @@ namespace SZPNUW.WebAPI.Subject.Controllers
             {
                 string errorMessage = string.Empty;
                 if (service.UpdateSubject(model, ref errorMessage))
-                    return new JsonResult(new Result(true), JsonSettings.DefaultJsonSettings);
-                return new JsonResult(new Result(errorMessage), JsonSettings.DefaultJsonSettings);
+                    return Json(new Result(true));
+                return Json(new Result(errorMessage));
             }
-            return new JsonResult(new Result(ModelState.GetFirstError()), JsonSettings.DefaultJsonSettings);
+            return Json(new Result(ModelState.GetFirstError()));
         }
         [HttpPost]
         public IActionResult AddSubjectSemester([FromBody]SubjectSemesterModel model)
@@ -73,10 +73,10 @@ namespace SZPNUW.WebAPI.Subject.Controllers
             {
                 string errorMessage = string.Empty;
                 if (service.AddSubjectSemester(model, ref errorMessage))
-                    return new JsonResult(new Result(true), JsonSettings.DefaultJsonSettings);
-                return new JsonResult(new Result(errorMessage), JsonSettings.DefaultJsonSettings);
+                    return Json(new Result(true));
+                return Json(new Result(errorMessage));
             }
-            return new JsonResult(new Result(ModelState.GetFirstError()), JsonSettings.DefaultJsonSettings);
+            return Json(new Result(ModelState.GetFirstError()));
         }
         [HttpPut]
         public IActionResult UpdateSemester([FromBody]SubjectSemesterModel model)
@@ -85,18 +85,18 @@ namespace SZPNUW.WebAPI.Subject.Controllers
             {
                 string errorMessage = string.Empty;
                 if (service.UpdateSubjectSemester(model, ref errorMessage))
-                    return new JsonResult(new Result(true), JsonSettings.DefaultJsonSettings);
-                return new JsonResult(new Result(errorMessage), JsonSettings.DefaultJsonSettings);
+                    return Json(new Result(true));
+                return Json(new Result(errorMessage));
             }
-            return new JsonResult(new Result(ModelState.GetFirstError()), JsonSettings.DefaultJsonSettings);
+            return Json(new Result(ModelState.GetFirstError()));
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteSubjectSemester(int id)
         {
             string errorMessage = string.Empty;
             if (service.DeleteSubjectSemester(id, ref errorMessage))
-                return new JsonResult(new Result(true), JsonSettings.DefaultJsonSettings);
-            return new JsonResult(new Result(errorMessage), JsonSettings.DefaultJsonSettings);
+                return Json(new Result(true));
+            return Json(new Result(errorMessage));
         }
     }
 }

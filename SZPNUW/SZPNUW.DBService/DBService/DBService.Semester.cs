@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SZPNUW.Base.Resources;
 using SZPNUW.Data;
 using SZPNUW.DBService.Model;
 
@@ -30,110 +31,108 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                List<SemesterModel> list = new List<SemesterModel>();
-                List<int> semestersId = new List<int>();
-                semestersId = context.Subjectssemesters.Where(x => x.Subjectid == subjectId).Select(ps => ps.IdSemestru).ToList();
-                foreach (Semestr sem in context.Semestr
-                    .Where(s => semestersId.Contains(s.Id))
-                    .OrderBy(s => s.Kierunek)
-                    .ThenBy(s => s.NrSemestru)
-                    .ToList())
+                List<Semesters> semesters = context.Subjectssemesters
+                    .Where(x => x.Subjectid == subjectId)
+                    .Select(x => x.Semester)
+                    .OrderBy(s => s.Fieldofstudy)
+                    .ThenBy(s => s.Academicyear)
+                    .ToList();
+                return semesters.Select(x => new SemesterModel()
                 {
-                    list.Add(new Semester(sem));
-                }
-                return list;
+                    Id = x.Id,
+                    Department = x.Fieldofstudy,
+                    Year = x.Academicyear,
+                    SemesterNumber = x.Semesternumber
+                }).ToList();
             }
         }
 
-        public List<Semester> GetSemestersByStudentId(int id)
+        public List<SemesterModel> GetSemestersByStudentId(int studentId)
         {
-            List<Semester> list = new List<Semester>();
-            List<int> semestersId = new List<int>();
-            semestersId = context.StudSem.Where(ss => ss.IdStudent == id).Select(ss => ss.IdSemestru).ToList();
-            foreach (Semestr sem in context.Semestr
-                .Where(s => semestersId.Contains(s.Id))
-                .OrderBy(s => s.Kierunek)
-                .ThenBy(s => s.NrSemestru)
-                .ToList())
+            using (SZPNUWContext context = new SZPNUWContext())
             {
-                list.Add(new Semester(sem));
+                List<Semesters> semesters = context.Studentsemester
+                    .Where(x => x.Studentid == studentId)
+                    .Select(x => x.Semester)
+                    .OrderBy(s => s.Fieldofstudy)
+                    .ThenBy(s => s.Academicyear)
+                    .ToList();
+                return semesters.Select(x => new SemesterModel()
+                {
+                    Id = x.Id,
+                    Department = x.Fieldofstudy,
+                    Year = x.Academicyear,
+                    SemesterNumber = x.Semesternumber
+                }).ToList();
             }
-            return list;
+                
         }
-        public Semester GetSemesterById(int id)
+        public SemesterModel GetSemesterById(int id)
         {
-            Semestr semestr;
-            try
+            using (SZPNUWContext context = new SZPNUWContext())
             {
-                semestr = context.Semestr.Where(s => s.Id == id).First();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Nie ma takiego semestru.");
-            }
-            Semester sv = new Semester(semestr);
-            return sv;
-        }
-        public void AddSemester(Semester semester)
-        {
-            Semestr semestr = new Semestr();
-            semester.CopyToSemestr(semestr);
-            semestr.Id = 0;
-            try
-            {
-                context.Add(semestr);
-                context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Dane są niepoprawne.");
+                Semesters semester = context.Semesters.FirstOrDefault(s => s.Id == id);
+                SemesterModel model = new SemesterModel()
+                {
+                    Id = semester.Id,
+                    Department = semester.Fieldofstudy,
+                    SemesterNumber = semester.Semesternumber,
+                    Year = semester.Academicyear
+                };
+                return model;
             }
         }
-        public void UpdateSemester(Semester semester)
+        public void AddSemester(SemesterModel model)
         {
-            try
+            using (SZPNUWContext context = new SZPNUWContext())
             {
-                Semestr se = context.Semestr.Where(s => s.Id == semester.id).Single();
-                semester.CopyToSemestr(se);
-                context.SaveChanges();
+                Semesters semester = new Semesters()
+                {
+                    Fieldofstudy = model.Department,
+                    Academicyear = model.Year,
+                    Semesternumber = model.SemesterNumber
+                };
+                context.Add(semester);
+                context.SaveChanges()
             }
-            catch (Exception)
+        }
+        public bool UpdateSemester(SemesterModel model, ref string errorMessage)
+        {
+            using (SZPNUWContext context = new SZPNUWContext())
             {
-                throw new Exception("Nie można zmodyfikować tych danych.");
+                Semesters semester = context.Semesters.FirstOrDefault(x => x.Id == model.Id);
+                if(semester != null)
+                {
+                    semester.Fieldofstudy = model.Department;
+                    semester.Academicyear = model.Year;
+                    semester.Semesternumber = model.SemesterNumber;
+                    context.SaveChanges();
+                    return true;
+                }
+                errorMessage = PortalMessages.NoSuchElement;
+                return false;
             }
         }
         public List<string> GetDepartments()
         {
-            List<string> list = new List<string>();
-            foreach (var dep in context.Semestr
-                .GroupBy(s => s.Kierunek).Select(s => s.Key)
-                .ToList())
+            using (SZPNUWContext context = new SZPNUWContext())
             {
-                list.Add(dep.ToString().Trim());
+                return context.Semesters.GroupBy(x => x.Fieldofstudy).Select(x => x.Key).ToList();
             }
-            return list;
         }
         public List<string> GetYears()
         {
-            List<string> list = new List<string>();
-            foreach (var dep in context.Semestr
-                .GroupBy(s => s.RokAkademicki).Select(s => s.Key)
-                .ToList())
+            using (SZPNUWContext context = new SZPNUWContext())
             {
-                list.Add(dep.ToString().Trim());
+                return context.Semesters.GroupBy(x => x.Academicyear).Select(x => x.Key).ToList();
             }
-            return list;
         }
         public List<int> GetSemestersNum()
         {
-            List<int> list = new List<int>();
-            foreach (var dep in context.Semestr
-                .GroupBy(s => s.NrSemestru).Select(s => s.Key)
-                .ToList())
+            using (SZPNUWContext context = new SZPNUWContext())
             {
-                list.Add(dep);
+                return context.Semesters.GroupBy(x => x.Semesternumber).Select(x => x.Key).ToList();
             }
-            return list;
         }
     }
 }

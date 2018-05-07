@@ -16,128 +16,67 @@ namespace SZPNUW.WebAPI.Subject.Controllers
         [HttpGet]
         public IActionResult GetSemesters()
         {
-            List<Semester> list = querySemester.GetSemesters();
-            if (list.Count != 0)
-            {
-                Response.StatusCode = 200;
-                return new JsonResult(list, JsonSettings.DefaultJsonSettings);
-            }
-            Response.StatusCode = 204;
-            return StatusCode(204);
+            List<SemesterModel> list = service.GetSemesters();
+            return Json(list);
         }
 
-        [HttpGet("semesters/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetSemestersBySubjectId(int id)
         {
-            List<Semester> list = querySemester.GetSemestersBySubjectId(id);
-            if (list.Count != 0)
-            {
-                Response.StatusCode = 200;
-                return new JsonResult(list, JsonSettings.DefaultJsonSettings);
-            }
-            Response.StatusCode = 204;
-            return StatusCode(204);
+            List<SemesterModel> list = service.GetSemestersBySubjectId(id);
+            return Json(list);
         }
-        [HttpGet("semesters/student/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetSemestersByStudentId(int id)
         {
-            List<Semester> list = querySemester.GetSemestersByStudentId(id);
-            if (list.Count != 0)
-            {
-                Response.StatusCode = 200;
-                return new JsonResult(list, JsonSettings.DefaultJsonSettings);
-            }
-            Response.StatusCode = 204;
-            return StatusCode(204);
+            List<SemesterModel> list = service.GetSemestersByStudentId(id);
+            return Json(list);
         }
         [HttpGet("{id}")]
         public IActionResult GetSemesterById(int id)
         {
-            try
-            {
-                Semester sv = querySemester.GetSemesterById(id);
-                Response.StatusCode = 200;
-                return new JsonResult(sv, JsonSettings.DefaultJsonSettings);
-            }
-            catch (Exception ex)
-            {
-                Response.StatusCode = 400;
-                return new JsonResult(ex.Message);
-            }
+            SemesterModel model = service.GetSemesterById(id);
+            return Json(model);
         }
-        [HttpPost("new")]
-        public IActionResult AddNew([FromBody]Semester semester)
+        [HttpPost]
+        public IActionResult AddSemester([FromBody]SemesterModel model)
         {
-            if (semester != null)
+            if (ModelState.IsValid)
             {
-                try
-                {
-                    querySemester.AddSemester(semester);
-                    return StatusCode(201);
-                }
-                catch (Exception e)
-                {
-                    Response.StatusCode = 400;
-                    return new JsonResult(e.Message);
-                }
+                service.AddSemester(model);
+                return Json(new Result(true));
             }
-            Response.StatusCode = 400;
-            return new JsonResult("Formularz został błędnie wypełniony.");
+            return Json(new Result(ModelState.GetFirstError()));
         }
-        [HttpPut("update")]
-        public IActionResult Update([FromBody]Semester semester)
+        [HttpPut]
+        public IActionResult UpdateSemester([FromBody]SemesterModel model)
         {
-            if (semester != null)
+            if (ModelState.IsValid)
             {
-                try
-                {
-                    querySemester.UpdateSemester(semester);
-                    return StatusCode(201);
-                }
-                catch (Exception e)
-                {
-                    Response.StatusCode = 400;
-                    return new JsonResult(e.Message);
-                }
+                string errorMessage = string.Empty;
+                if(service.UpdateSemester(model, ref errorMessage))
+                    return Json(new Result(true));
+                return Json(new Result(errorMessage));
             }
-            Response.StatusCode = 400;
-            return new JsonResult("Formularz został błędnie wypełniony.");
+            return Json(new Result(ModelState.GetFirstError()));
         }
-        [HttpGet("departments")]
+        [HttpGet]
         public IActionResult GetDepartments()
         {
-            List<string> list = querySemester.GetDepartments();
-            if (list.Count != 0)
-            {
-                Response.StatusCode = 200;
-                return new JsonResult(list, JsonSettings.DefaultJsonSettings);
-            }
-            Response.StatusCode = 204;
-            return StatusCode(204);
+            List<string> list = service.GetDepartments();
+            return Json(list);
         }
-        [HttpGet("years")]
+        [HttpGet]
         public IActionResult GetYears()
         {
-            List<string> list = querySemester.GetYears();
-            if (list.Count != 0)
-            {
-                Response.StatusCode = 200;
-                return new JsonResult(list, JsonSettings.DefaultJsonSettings);
-            }
-            Response.StatusCode = 204;
-            return StatusCode(204);
+            List<string> list = service.GetYears();
+            return Json(list);
         }
         [HttpGet("semestersnum")]
         public IActionResult GetSemestersNum()
         {
-            List<int> list = querySemester.GetSemestersNum();
-            if (list.Count != 0)
-            {
-                Response.StatusCode = 200;
-                return new JsonResult(list, JsonSettings.DefaultJsonSettings);
-            }
-            Response.StatusCode = 204;
-            return StatusCode(204);
+            List<int> list = service.GetSemestersNum();
+            return Json(list);
         }
     }
 }
