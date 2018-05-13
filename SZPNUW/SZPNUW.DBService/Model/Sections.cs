@@ -7,7 +7,7 @@ namespace SZPNUW.DBService.Model
     {
         public Sections()
         {
-            Raports = new HashSet<Raports>();
+            Reports = new HashSet<Reports>();
             Studentssections = new HashSet<Studentssections>();
         }
 
@@ -18,7 +18,7 @@ namespace SZPNUW.DBService.Model
 
         public Projects Project { get; set; }
         public Subjectssemesters Subcjetsemester { get; set; }
-        public ICollection<Raports> Raports { get; set; }
+        public ICollection<Reports> Reports { get; set; }
         public ICollection<Studentssections> Studentssections { get; set; }
     }
 }

@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CanNotAddStudentToSection" xml:space="preserve">
+    <value>Nie można dodać studenta do sekcji.</value>
+  </data>
+  <data name="CanNotDeleteStudentFromSection" xml:space="preserve">
+    <value>Nie można cię wypisać. Są z toba powiązane pewne spotkania.</value>
+  </data>
+  <data name="CreatedSectionsSuccesfull" xml:space="preserve">
+    <value>Zostało utworzonych {0} sekcji.</value>
+  </data>
   <data name="InsertDBError" xml:space="preserve">
     <value>Wystąpił błąd podczas dodawania elementu do bazy.</value>
   </data>
@@ -132,16 +141,25 @@
   <data name="MissingSubject" xml:space="preserve">
     <value>Brak przedmiotu</value>
   </data>
+  <data name="NoSubjectOnSemester" xml:space="preserve">
+    <value>Nie można znaleść tego przedmiotu na takim semestrze.</value>
+  </data>
   <data name="NoSuchElement" xml:space="preserve">
     <value>Brak takiego elementu</value>
   </data>
   <data name="ObjectExist" xml:space="preserve">
     <value>Wpis już istnieje</value>
   </data>
+  <data name="SectionWithStudents" xml:space="preserve">
+    <value>"Do tej sekcji przypisani są studenci i nie można jej usunąć."</value>
+  </data>
   <data name="SemesterDependence" xml:space="preserve">
     <value>Ten semestr jest powiązany z pewnymi sekcjami i nie można go usunąć z wpisu</value>
   </data>
   <data name="SubjectExist" xml:space="preserve">
     <value>Przedmiot o podanej nazwie już istnieje</value>
+  </data>
+  <data name="TopicIsUsed" xml:space="preserve">
+    <value>Temat się powtarza.</value>
   </data>
 </root>

@@ -61,6 +61,33 @@ namespace SZPNUW.Base.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie można dodać studenta do sekcji..
+        /// </summary>
+        public static string CanNotAddStudentToSection {
+            get {
+                return ResourceManager.GetString("CanNotAddStudentToSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie można cię wypisać. Są z toba powiązane pewne spotkania..
+        /// </summary>
+        public static string CanNotDeleteStudentFromSection {
+            get {
+                return ResourceManager.GetString("CanNotDeleteStudentFromSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zostało utworzonych {0} sekcji..
+        /// </summary>
+        public static string CreatedSectionsSuccesfull {
+            get {
+                return ResourceManager.GetString("CreatedSectionsSuccesfull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wystąpił błąd podczas dodawania elementu do bazy..
         /// </summary>
         public static string InsertDBError {
@@ -106,6 +133,15 @@ namespace SZPNUW.Base.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie można znaleść tego przedmiotu na takim semestrze..
+        /// </summary>
+        public static string NoSubjectOnSemester {
+            get {
+                return ResourceManager.GetString("NoSubjectOnSemester", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brak takiego elementu.
         /// </summary>
         public static string NoSuchElement {
@@ -124,6 +160,15 @@ namespace SZPNUW.Base.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;Do tej sekcji przypisani są studenci i nie można jej usunąć.&quot;.
+        /// </summary>
+        public static string SectionWithStudents {
+            get {
+                return ResourceManager.GetString("SectionWithStudents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ten semestr jest powiązany z pewnymi sekcjami i nie można go usunąć z wpisu.
         /// </summary>
         public static string SemesterDependence {
@@ -138,6 +183,15 @@ namespace SZPNUW.Base.Resources {
         public static string SubjectExist {
             get {
                 return ResourceManager.GetString("SubjectExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Temat się powtarza..
+        /// </summary>
+        public static string TopicIsUsed {
+            get {
+                return ResourceManager.GetString("TopicIsUsed", resourceCulture);
             }
         }
     }

@@ -135,4 +135,7 @@
   <data name="UsedLogin" xml:space="preserve">
     <value>Login jest już używany.</value>
   </data>
+  <data name="ValueCanNotBeEmpty" xml:space="preserve">
+    <value>Wartość nie może być pusta.</value>
+  </data>
 </root>

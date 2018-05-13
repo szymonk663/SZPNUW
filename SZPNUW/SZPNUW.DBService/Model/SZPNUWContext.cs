@@ -9,7 +9,7 @@ namespace SZPNUW.DBService.Model
         public virtual DbSet<Lecturers> Lecturers { get; set; }
         public virtual DbSet<Meetings> Meetings { get; set; }
         public virtual DbSet<Projects> Projects { get; set; }
-        public virtual DbSet<Raports> Raports { get; set; }
+        public virtual DbSet<Reports> Reports { get; set; }
         public virtual DbSet<Sections> Sections { get; set; }
         public virtual DbSet<Semesters> Semesters { get; set; }
         public virtual DbSet<Students> Students { get; set; }
@@ -87,6 +87,8 @@ namespace SZPNUW.DBService.Model
 
                 entity.Property(e => e.Subjectid).HasColumnName("subjectid");
 
+                entity.Property(e => e.Active).HasColumnName("active");
+
                 entity.Property(e => e.Topic)
                     .IsRequired()
                     .HasColumnName("topic");
@@ -104,11 +106,13 @@ namespace SZPNUW.DBService.Model
                     .HasConstraintName("fk_subjects");
             });
 
-            modelBuilder.Entity<Raports>(entity =>
+            modelBuilder.Entity<Reports>(entity =>
             {
-                entity.ToTable("raports");
+                entity.ToTable("reports");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("nextval('raports_id_seq'::regclass)");
 
                 entity.Property(e => e.Content)
                     .IsRequired()
@@ -121,7 +125,7 @@ namespace SZPNUW.DBService.Model
                 entity.Property(e => e.Sectionid).HasColumnName("sectionid");
 
                 entity.HasOne(d => d.Section)
-                    .WithMany(p => p.Raports)
+                    .WithMany(p => p.Reports)
                     .HasForeignKey(d => d.Sectionid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_sections");
@@ -324,6 +328,8 @@ namespace SZPNUW.DBService.Model
 
                 entity.Property(e => e.Usertype).HasColumnName("usertype");
             });
+
+            modelBuilder.HasSequence("raports_id_seq");
         }
     }
 }

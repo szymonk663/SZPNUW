@@ -15,6 +15,7 @@ namespace SZPNUW.DBService.Model
         public string Description { get; set; }
         public int Lecturerid { get; set; }
         public int Subjectid { get; set; }
+        public bool Active { get; set; }
 
         public Lecturers Lecturer { get; set; }
         public Subjects Subject { get; set; }

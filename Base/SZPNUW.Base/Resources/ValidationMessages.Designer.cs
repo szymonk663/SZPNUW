@@ -113,5 +113,14 @@ namespace SZPNUW.Base.Resources {
                 return ResourceManager.GetString("UsedLogin", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wartość nie może być pusta..
+        /// </summary>
+        public static string ValueCanNotBeEmpty {
+            get {
+                return ResourceManager.GetString("ValueCanNotBeEmpty", resourceCulture);
+            }
+        }
     }
 }

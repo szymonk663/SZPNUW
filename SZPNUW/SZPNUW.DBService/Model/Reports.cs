@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SZPNUW.DBService.Model
 {
-    public partial class Raports
+    public partial class Reports
     {
         public int Id { get; set; }
         public string Filename { get; set; }

@@ -8,6 +8,7 @@ namespace SZPNUW.Data
     {
         public bool IsSucceeded { get; set; }
         public string ErrorMessages { get; set; }
+        public string PortalMessages { get; set; }
         public int? Id { get; set; }
 
         public Result()

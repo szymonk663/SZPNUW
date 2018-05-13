@@ -8,5 +8,15 @@ namespace SZPNUW.Data
     {
         public SectionModel Section { get; set; }
         public List<StudentModel> Students { get; set; }
+
+        public SectionStudentsModel()
+        {
+
+        }
+        public SectionStudentsModel(SectionModel section, List<StudentModel> students)
+        {
+            this.Section = section;
+            this.Students = students;
+        }
     }
 }

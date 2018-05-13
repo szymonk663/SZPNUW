@@ -8,5 +8,16 @@ namespace SZPNUW.Data
     {
         public ProjectModel Project { get; set; }
         public SubjectModel Subject { get; set; }
+
+        public ProjectSubjectModel()
+        {
+
+        }
+
+        public ProjectSubjectModel(ProjectModel project, SubjectModel subject)
+        {
+            this.Project = project;
+            this.Subject = subject;
+        }
     }
 }
