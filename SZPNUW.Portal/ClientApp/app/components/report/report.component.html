@@ -9,9 +9,9 @@
             <input type="file" #fileInput  accept="application/pdf,application/zip"/>
             <br /><br />
             <div>
-                <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
+                <span *ngIf="message" class="alert alert-info" role="alert">{{message}}</span>
                 <br />
-                <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+                <span *ngIf="error" class="alert alert-danger" role="alert">{{error}}</span>
             </div>
         </div>
     </div>

@@ -156,10 +156,22 @@
   <data name="SemesterDependence" xml:space="preserve">
     <value>Ten semestr jest powiązany z pewnymi sekcjami i nie można go usunąć z wpisu</value>
   </data>
+  <data name="StudentSemesterCanNotChange" xml:space="preserve">
+    <value>Nie można zmienić wpisu dla studenta {0} {1}.</value>
+  </data>
+  <data name="StudentSemesterCanNotDelete" xml:space="preserve">
+    <value>Nie można usunąć wpisu dla studenta {0} {1}.</value>
+  </data>
+  <data name="StudentSemesterExist" xml:space="preserve">
+    <value>Taki wpis już istnieje dla studenta {0} {1}.</value>
+  </data>
   <data name="SubjectExist" xml:space="preserve">
     <value>Przedmiot o podanej nazwie już istnieje</value>
   </data>
   <data name="TopicIsUsed" xml:space="preserve">
     <value>Temat się powtarza.</value>
+  </data>
+  <data name="UserDoesNotExist" xml:space="preserve">
+    <value>Użytkownik nie istnieje.</value>
   </data>
 </root>

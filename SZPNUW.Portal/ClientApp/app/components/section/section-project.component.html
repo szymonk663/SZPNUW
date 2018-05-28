@@ -44,8 +44,8 @@
             </tbody>
         </table>
     </div>
-    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
-    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+    <span *ngIf="message" class="alert alert-info" role="alert">{{message}}</span>
+    <span *ngIf="error" class="alert alert-danger" role="alert">{{error}}</span>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" [disabled]="!sectionProjectForm.form.valid" (click)="onSubmit()">Zatwierdź</button>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onClear()">Zamknij</button>

@@ -58,6 +58,6 @@
     <div *ngIf="semesterId && subjectId">
         <sections-list [semesterId]="semesterId" [subjectId]="subjectId"></sections-list>
     </div>
-    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
-    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+    <span *ngIf="message" class="alert alert-info" role="alert">{{message}}</span>
+    <span *ngIf="error" class="alert alert-danger" role="alert">{{error}}</span>
 </div>

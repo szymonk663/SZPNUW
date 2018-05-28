@@ -26,11 +26,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SZPNUW.Data", "SZPNUW\SZPNUW.Data\SZPNUW.Data.csproj", "{81E7D3BB-A82F-474D-AA8F-F5EBA7A7D545}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SZPNUW.WebAPI.Sections", "Microservices\SZPNUW.WebAPI.Sections\SZPNUW.WebAPI.Sections.csproj", "{A2DC09F6-23B0-4142-91DD-8631D5FE3A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SZPNUW.WebAPI.Sections", "Microservices\SZPNUW.WebAPI.Sections\SZPNUW.WebAPI.Sections.csproj", "{A2DC09F6-23B0-4142-91DD-8631D5FE3A3E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SZPNUW.WebAPI.Subject", "Microservices\SZPNUW.WebAPI.Subject\SZPNUW.WebAPI.Subject.csproj", "{C7CEB3B3-1083-4321-88BA-7404C96AD003}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SZPNUW.WebAPI.Projects", "Microservices\SZPNUW.WebAPI.Projects\SZPNUW.WebAPI.Projects.csproj", "{46925D00-7357-4CA2-AF7A-35DFA27C0422}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SZPNUW.WebAPI.Projects", "Microservices\SZPNUW.WebAPI.Projects\SZPNUW.WebAPI.Projects.csproj", "{46925D00-7357-4CA2-AF7A-35DFA27C0422}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NGINX", "NGINX", "{098961EE-C37B-47C1-9EAC-EEC62A7F7F90}"
+	ProjectSection(SolutionItems) = preProject
+		NGINX\Dockerfile = NGINX\Dockerfile
+		NGINX\nginx.conf = NGINX\nginx.conf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

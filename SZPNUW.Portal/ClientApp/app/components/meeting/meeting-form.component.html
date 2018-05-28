@@ -24,8 +24,8 @@
             </div>
         </form>
     </div>
-    <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
-    <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+    <span *ngIf="message" class="alert alert-info" role="alert">{{message}}</span>
+    <span *ngIf="error" class="alert alert-danger" role="alert">{{error}}</span>
     <div class="modal-footer">
         <button *ngIf="!edit && meeting" type="button" class="btn btn-primary" [disabled]="!meeting.date" (click)="onAdd()">Dodaj</button>
         <button *ngIf="edit && meeting" type="button" class="btn btn-primary" [disabled]="!meeting.date" (click)="onEdit()">Zmień</button>

@@ -60,8 +60,8 @@
                 </div>
             </div>
         </div>
-        <span *ngIf(message) class="alert alert-info" role="alert">{{message}}</span>
-        <span *ngIf(error) class="alert alert-danger" role="alert">{{error}}</span>
+        <span *ngIf="message" class="alert alert-info" role="alert">{{message}}</span>
+        <span *ngIf="error" class="alert alert-danger" role="alert">{{error}}</span>
     </div>
 </div>
 <div class="modal fade" id="checkBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

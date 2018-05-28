@@ -30,5 +30,10 @@ namespace SZPNUW.Base
         {
             return value != null && value.Any();
         }
+
+        public static string WithFormatExtesion(this string value, object[] args)
+        {
+            return string.Format(value, args);
+        }
     }
 }

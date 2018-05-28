@@ -55,7 +55,7 @@ export class SubjectSemesterComponent implements OnInit {
     }
 
     onAdd() {
-        this.subjectService.newSemester(this.subsem)
+        this.subjectService.addSemester(this.subsem)
             .then(result => this.goBack(),
             error => this.error = error);
     }

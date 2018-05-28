@@ -9,7 +9,14 @@ namespace SZPNUW.DBService
     {
         public List<SemesterModel> GetSemesters()
         {
-            return service.GetSemesters();
+            return new List<SemesterModel> { new SemesterModel { Id = 1, Department = "AEiI", SemesterNumber = 1, Year = "2018" },
+            new SemesterModel { Id = 1, Department = "AEiI", SemesterNumber = 2, Year = "2018" },
+            new SemesterModel { Id = 1, Department = "AEiI", SemesterNumber = 3, Year = "2018" },
+            new SemesterModel { Id = 1, Department = "AEiI", SemesterNumber = 4, Year = "2018" },
+            new SemesterModel { Id = 1, Department = "AEiI", SemesterNumber = 5, Year = "2018" },
+            new SemesterModel { Id = 1, Department = "AEiI", SemesterNumber = 6, Year = "2018" },
+            new SemesterModel { Id = 1, Department = "AEiI", SemesterNumber = 7, Year = "2018" }};
+            //return service.GetSemesters();
         }
         public List<SemesterModel> GetSemestersBySubjectId(int subjectId)
         {

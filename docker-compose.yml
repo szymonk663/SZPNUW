@@ -1,6 +1,8 @@
 version: '3'
 
 services:
+  
+      
   szpnuw.portal:
     image: szpnuwportal
     build:
@@ -33,3 +35,10 @@ services:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Projects/Dockerfile
 
+  szpnuw.proxy:
+    image: szpnuwproxy
+    build:
+      context: .
+      dockerfile: NGINX/Dockerfile
+    links:
+      - szpnuw.portal:szpnuw.portal

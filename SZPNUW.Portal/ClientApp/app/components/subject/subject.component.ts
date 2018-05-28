@@ -39,10 +39,11 @@ export class SubjectComponent implements OnInit {
                 this.subjectService.getSubject(id).then(subject => {
                     this.subject = subject;
                     this.refresh();
-                    this.accountService
-                        .getInstructor(this.subject.id_manager)
-                        .then(instructor => this.instructor = instructor,
-                            error => this.error = error);
+                    if (this.subject.id_manager)
+                        this.accountService
+                            .getInstructor(this.subject.id_manager)
+                            .then(instructor => this.instructor = instructor,
+                                error => this.error = error);
                 },
                     reject => this.error = reject);
         });

@@ -79,6 +79,15 @@ namespace SZPNUW.Base.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stare hasło jest nie zgodne z aktualnym..
+        /// </summary>
+        public static string OldPasswordError {
+            get {
+                return ResourceManager.GetString("OldPasswordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wartość w polu &apos;{0}&apos; może składać się jedynie z cyfr..
         /// </summary>
         public static string OnlyNumbersError {
@@ -120,6 +129,15 @@ namespace SZPNUW.Base.Resources {
         public static string ValueCanNotBeEmpty {
             get {
                 return ResourceManager.GetString("ValueCanNotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Błędny login lub hasło..
+        /// </summary>
+        public static string WrongUserNameOrPassword {
+            get {
+                return ResourceManager.GetString("WrongUserNameOrPassword", resourceCulture);
             }
         }
     }

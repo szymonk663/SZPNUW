@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Base\SZPNUW.Base\SZPNUW.Base.csproj" />
     <ProjectReference Include="..\..\SZPNUW\SZPNUW.Data\SZPNUW.Data.csproj" />
+    <ProjectReference Include="..\..\SZPNUW\SZPNUW.DBService\SZPNUW.DBService.csproj" />
   </ItemGroup>
 
 </Project>

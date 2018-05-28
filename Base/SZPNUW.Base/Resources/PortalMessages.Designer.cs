@@ -178,6 +178,33 @@ namespace SZPNUW.Base.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie można zmienić wpisu dla studenta {0} {1}..
+        /// </summary>
+        public static string StudentSemesterCanNotChange {
+            get {
+                return ResourceManager.GetString("StudentSemesterCanNotChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie można usunąć wpisu dla studenta {0} {1}..
+        /// </summary>
+        public static string StudentSemesterCanNotDelete {
+            get {
+                return ResourceManager.GetString("StudentSemesterCanNotDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taki wpis już istnieje dla studenta {0} {1}..
+        /// </summary>
+        public static string StudentSemesterExist {
+            get {
+                return ResourceManager.GetString("StudentSemesterExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Przedmiot o podanej nazwie już istnieje.
         /// </summary>
         public static string SubjectExist {
@@ -192,6 +219,15 @@ namespace SZPNUW.Base.Resources {
         public static string TopicIsUsed {
             get {
                 return ResourceManager.GetString("TopicIsUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Użytkownik nie istnieje..
+        /// </summary>
+        public static string UserDoesNotExist {
+            get {
+                return ResourceManager.GetString("UserDoesNotExist", resourceCulture);
             }
         }
     }

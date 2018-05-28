@@ -8,7 +8,7 @@ namespace SZPNUW.Data
 {
     public class ChangePasswordModel
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         [Required(ErrorMessageResourceType = typeof(ValidationMessages), ErrorMessageResourceName = "RequiredError")]
         [StringLength(64, ErrorMessageResourceType = typeof(ValidationMessages), ErrorMessageResourceName = "MaximumLengthError")]
         public string OldPassword { get; set; }

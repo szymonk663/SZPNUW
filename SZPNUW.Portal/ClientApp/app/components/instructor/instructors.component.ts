@@ -2,7 +2,7 @@
 import {Router} from "@angular/router";
 
 import {InstructorModel} from '../../viewmodels/InstructorModel';
-import {AccountService} from "../../services/Account.service";
+import {AccountService} from "../../services/account.service";
 import {SemesterService} from "../../services/semester.service";
 
 @Component({

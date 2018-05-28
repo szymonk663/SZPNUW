@@ -7,9 +7,14 @@ namespace SZPNUW.DBService
 {
     public partial class Service
     {
-        public void RegisterStudent(StudentModel model)
+        public bool ChangePassword(ChangePasswordModel model, ref string errorMessage)
         {
-            service.RegisterStudent(model);
+            return service.ChangePassword(model, ref errorMessage);
+        }
+
+        public Auth Login(LoginModel model, ref string errorMessage)
+        {
+            return service.Login(model, ref errorMessage);
         }
     }
 }

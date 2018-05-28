@@ -123,6 +123,9 @@
   <data name="MaximumLengthError" xml:space="preserve">
     <value>Wartośc w polu '{0}' nie może przekraczać {1} znaków.</value>
   </data>
+  <data name="OldPasswordError" xml:space="preserve">
+    <value>Stare hasło jest nie zgodne z aktualnym.</value>
+  </data>
   <data name="OnlyNumbersError" xml:space="preserve">
     <value>Wartość w polu '{0}' może składać się jedynie z cyfr.</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="ValueCanNotBeEmpty" xml:space="preserve">
     <value>Wartość nie może być pusta.</value>
+  </data>
+  <data name="WrongUserNameOrPassword" xml:space="preserve">
+    <value>Błędny login lub hasło.</value>
   </data>
 </root>
