@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+ï»¿import { Component } from '@angular/core';
 
 @Component({
     selector: 'home',
@@ -39,7 +39,7 @@ import { Component } from '@angular/core';
     `]
 })
 export class HomeComponent {
-    private title = "Aplikacja wspomagaj¹ca zarz¹dzanie projektami";
-    private info = "Jest to aplikacja pozwalaj¹ca na zarz¹dzanie projektami studentów."
+    private title = "Aplikacja wspomagajÄ…ca zarzÄ…dzanie projektami";
+    private info = "Jest to aplikacja pozwalajÄ…ca na zarzÄ…dzanie projektami studentÃ³w."
     private autor = "Szymon Krawieczek"
 }

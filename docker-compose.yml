@@ -1,8 +1,6 @@
 version: '3'
 
-services:
-  
-      
+services:   
   szpnuw.portal:
     image: szpnuwportal
     build:
@@ -39,6 +37,4 @@ services:
     image: szpnuwproxy
     build:
       context: .
-      dockerfile: NGINX/Dockerfile
-    links:
-      - szpnuw.portal:szpnuw.portal
+      dockerfile: ApiGw/APIGateway/Dockerfile
