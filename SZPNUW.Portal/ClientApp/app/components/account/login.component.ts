@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { AccountService } from '../../services/account.service';
 import { LoginModel } from '../../viewmodels/LoginModel';
-import {AppComponent} from '../app/app.component'
+import { AppComponent } from '../app/app.component';
 
 @Component({
     selector: 'login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private appComponent: AppComponent,
+        private navMenuComponent: AppComponent,
         private accountService: AccountService) { }
 
     ngOnInit() {
@@ -28,12 +28,14 @@ export class LoginComponent implements OnInit {
         this.loading = true;
         this.accountService.login(this.user)
             .subscribe(result => {
-                if (result === true) {
-                    this.appComponent.SetLoggedIn();
-                    this.appComponent.SetAuthProfile();
-                    this.loading = false;
+                if (result.IsSucceeded) {
+                    this.navMenuComponent.SetLoggedIn();
+                    this.navMenuComponent.SetAuthProfile();
                     this.router.navigate(['/']);
-                } 
+                } else {
+                    this.error = result.ErrorMessages;
+                }
+                this.loading = false;
             },
             error => {
                 this.loading = false;

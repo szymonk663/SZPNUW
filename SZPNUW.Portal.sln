@@ -19,11 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SZPNUW", "SZPNUW", "{BCA44F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SZPNUW.DBService", "SZPNUW\SZPNUW.DBService\SZPNUW.DBService.csproj", "{1EEFDF15-12C3-46EF-B148-D530D66A1938}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D5B08E14-6692-4592-8936-EAB4B6865A45}"
-	ProjectSection(SolutionItems) = preProject
-		Helpful.txt = Helpful.txt
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SZPNUW.Data", "SZPNUW\SZPNUW.Data\SZPNUW.Data.csproj", "{81E7D3BB-A82F-474D-AA8F-F5EBA7A7D545}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SZPNUW.WebAPI.Sections", "Microservices\SZPNUW.WebAPI.Sections\SZPNUW.WebAPI.Sections.csproj", "{A2DC09F6-23B0-4142-91DD-8631D5FE3A3E}"
@@ -40,7 +35,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NGINX", "NGINX", "{098961EE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGw", "ApiGw", "{63FEF9E3-1664-4848-8FF6-7B82C2A5711D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "ApiGw\APIGateway\APIGateway.csproj", "{3315BFCE-8880-4DE7-A708-CB4D0FB82C0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "ApiGw\APIGateway\APIGateway.csproj", "{3315BFCE-8880-4DE7-A708-CB4D0FB82C0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{9DFFC068-3E22-42DE-84AB-BF1D9077E79D}"
+	ProjectSection(SolutionItems) = preProject
+		Database\10-init.sql = Database\10-init.sql
+		Database\Dockerfile = Database\Dockerfile
+		Database\init.sh = Database\init.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

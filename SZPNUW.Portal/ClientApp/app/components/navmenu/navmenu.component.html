@@ -32,6 +32,8 @@
                         <span class='glyphicon glyphicon-pencil'></span> Rejestracja
                     </a>
                 </li>
+                <li *ngIf="!appComponent.loggedIn" [routerLinkActive]="['link-active']"> <a [routerLink]="['/login']">Zaloguj</a></li>
+                <li *ngIf="appComponent.loggedIn" [routerLinkActive]="['link-active']"> <button class="btn btn-link navbar-btn" (click)="appComponent.Logout()">Wyloguj</button></li>
             </ul>
         </div>
     </div>

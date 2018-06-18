@@ -1,23 +1,54 @@
 version: '3'
 
 services:   
+  szpnuw.database:
+    image: szpnuwdatabase
+    restart: always
+    build:
+      context: .
+      dockerfile: Database/Dockerfile
+    ports:
+       - 5433:5432
+    environment:
+         POSTGRES_PASSWORD: qwerty
+    volumes:
+       - pgdata:/var/lib/postgresql/data
+    networks:
+       - mynetwork
+
   szpnuw.portal:
     image: szpnuwportal
     build:
       context: .
       dockerfile: SZPNUW.Portal/Dockerfile
+    volumes:
+       - pgdata:/var/lib/postgresql/data
+    networks:
+       - mynetwork
 
   szpnuw.webapi.account:
     image: szpnuwwebapiaccount
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Account/Dockerfile
+    links:
+       - szpnuw.database
+    depends_on:
+       - szpnuw.database
+    networks:
+       - mynetwork
 
   szpnuw.webapi.subject:
     image: szpnuwwebapisubject
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Subject/Dockerfile
+    links:
+       - szpnuw.database
+    depends_on:
+       - szpnuw.database
+    networks:
+       - mynetwork
 
 
   szpnuw.webapi.sections:
@@ -25,6 +56,12 @@ services:
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Sections/Dockerfile
+    links:
+       - szpnuw.database
+    depends_on:
+       - szpnuw.database
+    networks:
+       - mynetwork
 
 
   szpnuw.webapi.projects:
@@ -32,9 +69,24 @@ services:
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Projects/Dockerfile
+    links:
+       - szpnuw.database
+    depends_on:
+       - szpnuw.database
+    networks:
+       - mynetwork
 
   szpnuw.proxy:
     image: szpnuwproxy
     build:
       context: .
       dockerfile: ApiGw/APIGateway/Dockerfile
+    networks:
+       - mynetwork
+
+volumes:
+  pgdata:
+
+networks:
+  mynetwork:
+     driver: bridge

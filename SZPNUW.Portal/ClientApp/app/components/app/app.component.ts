@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AccountService } from "../../services/account.service";
-import { Router } from "@angular/router";
+import { AccountService } from '../../services/account.service';
 import { Auth } from '../../viewmodels/Auth';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app',
@@ -9,7 +9,7 @@ import { Auth } from '../../viewmodels/Auth';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    private loggedIn: boolean;
+    public loggedIn: boolean;
     private auth: Auth | null;
     constructor(private accountService: AccountService, private router: Router) {
         this.loggedIn = this.accountService.isLoggedIn();

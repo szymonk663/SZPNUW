@@ -20,13 +20,10 @@ namespace SZPNUW.WebAPI.Account.Controllers
         {
             if (ModelState.IsValid)
             {
-                string errorMessage = string.Empty;
-                Auth auth = service.Login(model, ref errorMessage);
-                if (errorMessage.HasValue())
-                    return Json(new Result(errorMessage));
+                Auth auth = service.Login(model);
                 return Json(auth);
             }
-            return Json(new Result(ModelState.GetFirstError()));
+            return Json(new Auth(ModelState.GetFirstError()));
         }
 
         [HttpPut]
@@ -66,6 +63,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
         [HttpGet("{id}")]
         public IActionResult GetStudentBySemesterId(int id)
         {
+            var a =HttpContext.Request;
                 List<StudentModel> list = service.GetStudentBySemesterId(id);
                 return Json(list);
         }
@@ -243,7 +241,11 @@ namespace SZPNUW.WebAPI.Account.Controllers
             }
             return Json(new Result(ModelState.GetFirstError()));
         }
-
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return Json(SecurityService.GetSHA256Hash("qwerty"));
+        }
         #endregion
     }
 }

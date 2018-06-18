@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { RegistrationComponent } from './components/account/registration.component';
+import { LoginComponent } from './components/account/login.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,10 @@ const routes: Routes = [
     {
         path: 'registration',
         component: RegistrationComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
     },
     {
         path: '**',

@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  szpnuwdatabasetest7:
+     image: szpnuwdatabase:v0.1
+     restart: always
+     build:
+       context: .
+       dockerfile: Dockerfile
+     ports:
+       - 5433:5432
+     environment:
+         POSTGRES_PASSWORD: qwerty
+

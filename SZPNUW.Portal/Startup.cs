@@ -28,6 +28,7 @@ namespace SZPNUW.Portal
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseTest();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -40,7 +41,7 @@ namespace SZPNUW.Portal
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

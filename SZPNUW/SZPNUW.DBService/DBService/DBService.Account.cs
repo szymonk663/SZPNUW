@@ -11,17 +11,16 @@ namespace SZPNUW.DBService
 {
     public partial class DBService
     {
-        public Auth Login(LoginModel model, ref string errorMessage)
+        public Auth Login(LoginModel model)
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
                 Users user = context.Users.FirstOrDefault(x => x.Login == model.UserName && x.Password == SecurityService.GetSHA256Hash(model.Password));
                 if (user != null)
                 {
-                    return new Auth { Id = user.Id, UserType = (UserTypes)user.Usertype };
+                    return new Auth(true) { Id = user.Id, UserType = (UserTypes)user.Usertype };
                 }
-                errorMessage = ValidationMessages.WrongUserNameOrPassword;
-                return null;
+                return new Auth(ValidationMessages.WrongUserNameOrPassword);
             }
         }
 

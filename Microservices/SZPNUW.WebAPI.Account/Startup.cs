@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+using SZPNUW.Base;
 using SZPNUW.Base.Consts;
 
 namespace SZPNUW.WebAPI.Account
@@ -60,6 +61,7 @@ namespace SZPNUW.WebAPI.Account
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseExceptionHandling();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

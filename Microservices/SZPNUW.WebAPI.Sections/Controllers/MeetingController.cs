@@ -54,5 +54,10 @@ namespace SZPNUW.WebAPI.Sections.Controllers
             service.DeleteMeeting(id);
             return Json(new Result(true));
         }
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return Json("meeting");
+        }
     }
 }

@@ -43,14 +43,14 @@ export class AccountService {
         return this.sendPost(this.url + "RegisterInstructor", model);
     }
 
-    login(user: LoginModel): Observable<boolean> {
-        return this.http.post(this.url + 'login', JSON.stringify(user), { headers: this.headers })
+    login(user: LoginModel): Observable<Auth> {
+        return this.http.post(this.url + 'Login', JSON.stringify(user), { headers: this.headers })
             .map(response => {
                 if (response.status == 200) {
-                    this.auth = <Auth>response.json();
+                    this.auth = response.json() as Auth;
                     localStorage.setItem('currentUser', JSON.stringify(this.auth));
                     this.loggedIn = true;
-                    return true;
+                    return this.auth;
                 }
             }).catch(this.handleError);
     }

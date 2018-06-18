@@ -12,9 +12,9 @@ namespace SZPNUW.DBService
             return service.ChangePassword(model, ref errorMessage);
         }
 
-        public Auth Login(LoginModel model, ref string errorMessage)
+        public Auth Login(LoginModel model)
         {
-            return service.Login(model, ref errorMessage);
+            return service.Login(model);
         }
     }
 }

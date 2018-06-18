@@ -78,5 +78,10 @@ namespace SZPNUW.WebAPI.Subject.Controllers
             List<int> list = service.GetSemestersNum();
             return Json(list);
         }
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return Json("semester");
+        }
     }
 }

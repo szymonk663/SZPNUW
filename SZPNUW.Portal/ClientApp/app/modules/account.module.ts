@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 //Components
+import { LoginComponent } from '../components/account/login.component';
 import { StudentComponent } from '../components/account/student/student.component';
 import { StudentProfileComponent } from '../components/account/student/student-profile.component';
 import { StudentProfileDetailComponent } from '../components/account/student/student-profile-detail.component';
@@ -34,6 +35,7 @@ import { AuthGuard } from '../guards/auth.guard';
 @NgModule({
     // directives, components, and pipes
     declarations: [
+        LoginComponent,
         StudentComponent,
         StudentProfileComponent,
         StudentProfileDetailComponent,

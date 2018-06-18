@@ -69,5 +69,10 @@ namespace SZPNUW.WebAPI.Projects.Controllers
             service.DeleteProject(id);
             return Json(new Result(true));
         }
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return Json("project");
+        }
     }
 }

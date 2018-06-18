@@ -67,5 +67,10 @@ namespace SZPNUW.WebAPI.Sections.Controllers
                 }
             }
         }
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return Json("report");
+        }
     }
 }

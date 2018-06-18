@@ -98,5 +98,10 @@ namespace SZPNUW.WebAPI.Subject.Controllers
                 return Json(new Result(true));
             return Json(new Result(errorMessage));
         }
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return Json("subject");
+        }
     }
 }

@@ -45,6 +45,7 @@
     <None Remove="ClientApp\app\viewmodels\ProjectSubjectModel.ts" />
     <None Remove="ClientApp\app\viewmodels\RegistrationModel.ts" />
     <None Remove="ClientApp\app\viewmodels\ReportModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\Result.ts" />
     <None Remove="ClientApp\app\viewmodels\SectionModel.ts" />
     <None Remove="ClientApp\app\viewmodels\SectionsCreateModel.ts" />
     <None Remove="ClientApp\app\viewmodels\SectionStudentsModel.ts" />
@@ -70,6 +71,7 @@
     <TypeScriptCompile Include="ClientApp\app\services\account.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\semester.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewmodels\Auth.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\Result.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewmodels\ChangePasswordModel.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewmodels\InstructorModel.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewmodels\LoginModel.ts" />
@@ -101,6 +103,10 @@
     <Folder Include="ClientApp\app\components\student\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Base\SZPNUW.Base\SZPNUW.Base.csproj" />
+  </ItemGroup>
+
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
@@ -123,7 +129,7 @@
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
-      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
+      <DistFiles Include="wwwroot\Portal\**; ClientApp\dist\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
