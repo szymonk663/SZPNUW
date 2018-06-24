@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using SZPNUW.Base;
 using SZPNUW.Base.Resources;
 
 namespace SZPNUW.Data
@@ -33,5 +35,11 @@ namespace SZPNUW.Data
         [Required(ErrorMessageResourceType = typeof(ValidationMessages), ErrorMessageResourceName = "RequiredError")]
         [StringLength(128, ErrorMessageResourceType = typeof(ValidationMessages), ErrorMessageResourceName = "MaximumLengthError")]
         public string Address { get; set; }
+
+        public void SkipPasswordValidation(ModelStateDictionary modelState)
+        {
+            if(modelState != null)
+                modelState.ClearModelStateErrorLazy("Password");
+        }
     }
 }

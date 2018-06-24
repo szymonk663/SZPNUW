@@ -22,6 +22,11 @@ namespace SZPNUW.DBService
             return service.GetInstructorById(id);
         }
 
+        public InstructorModel GetInstructorByUserId(int id)
+        {
+            return service.GetInstructorByUserId(id);
+        }
+
         public bool UpdateInstructor(InstructorModel model, ref string errorMessage)
         {
             return service.UpdateInstructor(model, ref errorMessage);

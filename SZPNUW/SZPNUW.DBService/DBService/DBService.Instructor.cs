@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -90,14 +91,38 @@ namespace SZPNUW.DBService
             }
         }
 
+        public InstructorModel GetInstructorByUserId(int id)
+        {
+            using (SZPNUWContext context = new SZPNUWContext())
+            {
+                Lecturers lecturer = context.Lecturers.Include(x => x.User).FirstOrDefault(s => s.User.Id == id);
+                if (lecturer == null)
+                    return null;
+                InstructorModel model = new InstructorModel
+                {
+                    Id = lecturer.Id,
+                    Login = lecturer.User.Login,
+                    FirstName = lecturer.User.Firstname,
+                    LastName = lecturer.User.Lastname,
+                    PESEL = lecturer.User.Pesel,
+                    Address = lecturer.User.Address,
+                    City = lecturer.User.City,
+                    Code = lecturer.Code,
+                    DateOfBirth = lecturer.User.Dateofbirth,
+                    UserId = lecturer.Userid,
+                    UserType = (UserTypes)lecturer.User.Usertype,
+                };
+                return model;
+            }
+        }
+
         public bool UpdateInstructor(InstructorModel model, ref string errorMessage)
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                Lecturers lecturer = context.Lecturers.FirstOrDefault(p => p.Id == model.Id);
+                Lecturers lecturer = context.Lecturers.Include(x => x.User).FirstOrDefault(p => p.Id == model.Id);
                 if(lecturer != null)
                 {
-                    lecturer.User.Login = model.Login;
                     lecturer.User.Firstname = model.FirstName;
                     lecturer.User.Lastname = model.LastName;
                     lecturer.User.Pesel = model.PESEL;

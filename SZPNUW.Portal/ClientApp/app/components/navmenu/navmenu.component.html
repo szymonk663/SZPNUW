@@ -27,13 +27,35 @@
                         <span class='glyphicon glyphicon-th-list'></span> Fetch data
                     </a>
                 </li>
+                <li *ngIf="appComponent.loggedIn" [routerLinkActive]="['link-active']"><button class="btn btn-link navbar-btn" (click)="appComponent.Logout()">
+                    <span class='glyphicon glyphicon-off'></span>Wyloguj
+                   </button>
+                </li>
+            </ul>
+            <ul class='nav navbar-nav' *ngIf="!appComponent.loggedIn">
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/registration']">
                         <span class='glyphicon glyphicon-pencil'></span> Rejestracja
                     </a>
                 </li>
-                <li *ngIf="!appComponent.loggedIn" [routerLinkActive]="['link-active']"> <a [routerLink]="['/login']">Zaloguj</a></li>
-                <li *ngIf="appComponent.loggedIn" [routerLinkActive]="['link-active']"> <button class="btn btn-link navbar-btn" (click)="appComponent.Logout()">Wyloguj</button></li>
+                <li [routerLinkActive]="['link-active']"><a [routerLink]="['/login']">
+                        <span class='glyphicon glyphicon-off'></span>Zaloguj
+                    </a>
+                </li>
+            </ul>
+            <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 1" class='nav navbar-nav'>
+            </ul>
+            <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 2" class='nav navbar-nav'>
+                <li><a [routerLink]="['/instructor']">
+                        <span class='glyphicon glyphicon-user'></span>Profil
+                    </a>
+                </li>
+            </ul>
+            <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 3" class='nav navbar-nav'>
+                <li><a [routerLink]="['/instructors']">
+                    <span class='glyphicon glyphicon-list-alt'></span>Prowadzący
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

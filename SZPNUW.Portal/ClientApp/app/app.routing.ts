@@ -10,6 +10,11 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { RegistrationComponent } from './components/account/registration.component';
 import { LoginComponent } from './components/account/login.component';
+import { InstructorsComponent } from "./components/instructor/instructors.component";
+import { InstructorRegistrationComponent } from "./components/account/instructor-registration.component";
+import { InstructorComponent } from "./components/instructor/instructor.component";
+import { InstructorFormComponent } from "./components/instructor/instructor-form.component";
+import { InstructorPasswordComponent } from "./components/instructor/instructor-password.component";
 
 const routes: Routes = [
     {
@@ -36,6 +41,31 @@ const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'instructors',
+        component: InstructorsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'instructors/registration',
+        component: InstructorRegistrationComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'instructor',
+        component: InstructorComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'instructor/detail',
+        component: InstructorFormComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'instructor/password',
+        component: InstructorPasswordComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: '**',

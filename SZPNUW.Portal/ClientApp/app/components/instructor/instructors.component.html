@@ -14,9 +14,9 @@
                     <tr *ngFor="let instructor of instructors"
                         [class.selected]="instructor === selectedInstructor"
                         (click)="onSelect(instructor)">
-                        <td>{{instructor.firstName}}</td>
-                        <td>{{instructor.lastName}}</td>
-                        <td>{{instructor.pesel}}</td>
+                        <td>{{instructor.FirstName}}</td>
+                        <td>{{instructor.LastName}}</td>
+                        <td>{{instructor.PESEL}}</td>
                     </tr>
                 </table>
             </div>

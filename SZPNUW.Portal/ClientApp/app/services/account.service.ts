@@ -14,6 +14,7 @@ import { Auth } from '../viewmodels/Auth'
 import { LoginModel } from '../viewmodels/LoginModel'
 
 import { AccountModule } from '../modules/account.module';
+import { Result } from '../viewmodels/Result';
 
 @Injectable()
 export class AccountService {
@@ -21,7 +22,7 @@ export class AccountService {
 
     private url = 'Account/';
     private headers = new Headers({ 'Content-Type': 'application/json' });
-    private auth: Auth | null;
+    private auth: Auth | null = null;
     private loggedIn: boolean;
 
     private handleError(error: Response): Promise<any> {
@@ -57,6 +58,7 @@ export class AccountService {
 
     logout(): void {
         localStorage.removeItem('currentUser');
+        this.http.get(this.url + "LogOut").toPromise();
         this.loggedIn = false;
         this.auth = null;
     }
@@ -68,6 +70,14 @@ export class AccountService {
         this.loggedIn = true;
     }
     getAuthProfile(): Auth | null {
+        if (this.auth === null) {
+            this.http.get(this.url + "GetAuth").toPromise().then(result => {
+                if (result.status == 200) {
+                    this.auth = result.json() as Auth;
+                }
+            });
+        }
+        console.log(this.auth);
         return this.auth;
     }
 
@@ -134,13 +144,13 @@ export class AccountService {
             }).catch(this.handleError);
     }
 
-    changePassword(passwords: ChangePasswordsModel): Promise<boolean> {
+    changePassword(passwords: ChangePasswordsModel): Promise<Result> {
         return this.http.put(this.url + 'ChangePassword', JSON.stringify(passwords), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
@@ -217,7 +227,7 @@ export class AccountService {
     } 
 
     getInstructor(id: number): Promise<InstructorModel> {
-        return this.http.get(this.url + id).toPromise().then(result => {
+        return this.http.get(this.url + "GetInstructor/" + id).toPromise().then(result => {
             if (result.status == 200) {
                 return <InstructorModel>result.json();
             }
@@ -225,8 +235,17 @@ export class AccountService {
         }).catch(this.handleError);
     }
 
+    getCurrentInstructor(): Promise<InstructorModel> {
+        return this.http.get(this.url + "GetCurrentInstructor").toPromise().then(result => {
+            if (result.status == 200) {
+                return result.json() as InstructorModel;
+            }
+            return null;
+        }).catch(this.handleError);
+    }
+
     getInstructors(): Promise<InstructorModel[]> {
-        return this.http.get(this.url).toPromise().then(result => {
+        return this.http.get(this.url + "GetInstructors").toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -234,13 +253,13 @@ export class AccountService {
         }).catch(this.handleError);
     }
 
-    updateInstructor(instructor: InstructorModel): Promise<boolean> {
-        return this.http.put(this.url + 'update', JSON.stringify(instructor), { headers: this.headers })
+    updateInstructor(instructor: InstructorModel): Promise<Result> {
+        return this.http.put(this.url + 'UpdateInstructor', JSON.stringify(instructor), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 }

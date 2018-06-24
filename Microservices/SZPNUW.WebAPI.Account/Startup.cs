@@ -14,6 +14,7 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using SZPNUW.Base;
 using SZPNUW.Base.Consts;
+using SZPNUW.DBService;
 
 namespace SZPNUW.WebAPI.Account
 {
@@ -68,6 +69,7 @@ namespace SZPNUW.WebAPI.Account
             }
             app.UseExceptionHandler();
             app.UseSession();
+            app.UseSessionRefresh();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

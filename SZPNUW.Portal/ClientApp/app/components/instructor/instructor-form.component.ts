@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit} from "@angular/core";
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AccountService } from "../../services/account.service";
 import { InstructorModel } from "../../viewmodels/InstructorModel";
 
@@ -15,26 +14,29 @@ export class InstructorFormComponent implements OnInit {
     error = '';
 
     constructor(private route: ActivatedRoute,
-        private location: Location,
+        private router : Router,
         private accountService: AccountService
     ) { }
 
     ngOnInit() {
-        const userId = this.accountService.getUserId();
-        if(userId != null)
-            this.accountService.getInstructor(userId)
-            .then(instructor => this.instructor = instructor,
-                reject => this.error = reject);
+        this.accountService.getCurrentInstructor()
+        .then(instructor => this.instructor = instructor,
+            reject => this.error = reject);
     }
 
     onSubmit(): void {
         this.accountService.updateInstructor(this.instructor)
             .then(result => {
+                if (result !== null)
+                    if (result.IsSucceeded)
+                        this.goBack();
+                    else
+                        this.error = result.ErrorMessages;
                 this.goBack();
             }, error => this.error = error);
     }
 
     goBack(): void {
-        this.location.back();
+        this.router.navigateByUrl("/instructor");
     }
 }

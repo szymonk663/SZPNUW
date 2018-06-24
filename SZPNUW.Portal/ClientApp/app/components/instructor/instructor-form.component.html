@@ -5,7 +5,7 @@
             <label for="firstname">Imię:</label>
             <input type="text" class="form-control" id="firstname"
                    maxlength="20" pattern="[a-zA-Z]{0,20}"
-                   [(ngModel)]="instructor.firstName"
+                   [(ngModel)]="instructor.FirstName"
                    name="firstname"
                    #firstName="ngModel" />
             <div [hidden]="firstName.valid || firstName.pristine"
@@ -17,7 +17,7 @@
             <label for="lastname">Nazwisko:</label>
             <input type="text" class="form-control" id="lastname"
                    maxlength="20" pattern="[a-zA-Z]{0,20}"
-                   [(ngModel)]="instructor.lastName"
+                   [(ngModel)]="instructor.LastName"
                    name="lastname"
                    #lastName="ngModel" />
             <div [hidden]="lastName.valid || lastName.pristine"
@@ -29,7 +29,7 @@
             <label for="pesel">Pesel:</label>
             <input type="text" class="form-control" id="pesel"
                    maxlength="11" pattern="[0-9]{11}"
-                   [(ngModel)]="instructor.pesel"
+                   [(ngModel)]="instructor.PESEL"
                    name="pesel"
                    #pesel="ngModel" />
             <div [hidden]="pesel.valid || pesel.pristine"
@@ -40,9 +40,9 @@
 
         <div class="form-group">
             <label for="birthday">Data urodzenia:</label>
-            <span *ngIf="instructor.birthday">{{instructor.birthday | date:'y-MM-dd'}}</span>
+            <span *ngIf="instructor.DateOfBirth">{{instructor.DateOfBirth | date:'y-MM-dd'}}</span>
             <input type="date" class="form-control" id="birthday"
-                   [(ngModel)]="instructor.birthday"
+                   [(ngModel)]="instructor.DateOfBirth"
                    name="birthday"
                    #birthday="ngModel" />
             <div *ngIf="!instructor.birthday" class="alert alert-danger">
@@ -53,7 +53,7 @@
             <label for="city">Miasto:</label>
             <input type="text" class="form-control" id="city"
                    maxlength="20"
-                   [(ngModel)]="instructor.city"
+                   [(ngModel)]="instructor.City"
                    name="city"
                    #city="ngModel" />
             <div [hidden]="city.valid || city.pristine"
@@ -62,18 +62,30 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="addres">Adres:</label>
-            <input type="text" class="form-control" id="addres"
+            <label for="address">Adres:</label>
+            <input type="text" class="form-control" id="address"
                    maxlength="20"
-                   [(ngModel)]="instructor.addres"
+                   [(ngModel)]="instructor.Address"
                    name="addres"
-                   #addres="ngModel" />
-            <div [hidden]="addres.valid || addres.pristine"
+                   #address="ngModel" />
+            <div [hidden]="address.valid || address.pristine"
                  class="alert alert-danger">
                 Adres jest wymagany
             </div>
         </div>
-        <button type="submit" class="btn btn-default" [disabled]="!instructorForm.form.valid || !instructor.birthday">Wyślij</button>
+        <div class="form-group">
+            <label for="code">Kod:</label>
+            <input type="text" class="form-control" id="code"
+                   maxlength="8" pattern="[0-9]{8}"
+                   [(ngModel)]="instructor.Code"
+                   name="code"
+                   #code="ngModel" />
+            <div [hidden]="code.valid || code.pristine"
+                 class="alert alert-danger">
+                Składa się tylko z cyfr.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default" [disabled]="!instructorForm.form.valid || !instructor.DateOfBirth">Wyślij</button>
         <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
     </form>
 </div>

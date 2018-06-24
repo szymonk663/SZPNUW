@@ -1,11 +1,13 @@
 ﻿export class InstructorModel {
     constructor(
-        public id: number,
-        public firstName: string,
-        public lastName: string,
-        public pesel: string,
-        public birthday: Date | null,
-        public city: string,
-        public addres: string
+        public Id: number,
+        public UserId: number,
+        public Login: number,
+        public FirstName: string,
+        public LastName: string,
+        public PESEL: string,
+        public DateOfBirth: Date | null,
+        public City: string,
+        public Address: string
     ) { }
 }

@@ -20,7 +20,7 @@ export class InstructorsComponent implements OnInit {
     ngOnInit() {
         this.accountService.getInstructors().then(
             instructors => this.instructors = instructors,
-            reject => this.error = reject
+                reject => this.error = reject
         );
     }
     onSelect(instructor: InstructorModel): void {

@@ -11,7 +11,5 @@ import { AppComponent } from '../app/app.component';
 })
 export class NavMenuComponent {
     constructor(private appComponent: AppComponent) {
-        
     }
-
 }

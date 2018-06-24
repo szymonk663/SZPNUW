@@ -11,7 +11,7 @@ namespace SZPNUW.Data
         public int Id { get; set; }
         public int UserId { get; set; }
         [Required(ErrorMessageResourceType = typeof(ValidationMessages), ErrorMessageResourceName = "RequiredError")]
-        [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ValidationMessages), ErrorMessageResourceName = "LengthError")]
+        [StringLength(8, MinimumLength = 8, ErrorMessageResourceType = typeof(ValidationMessages), ErrorMessageResourceName = "LengthError")]
         public string Code { get; set; }
     }
 }

@@ -12,8 +12,8 @@ export class StudentGuard implements CanActivate {
     canActivate() {
         if (localStorage.getItem('currentUser')) {
             const item = localStorage.getItem('currentUser');
-            this.auth = item !== null ? <Auth>JSON.parse(item) : new Auth(null, '', false, '', '');
-            if (this.auth.Permissions == "u")
+            this.auth = item !== null ? <Auth>JSON.parse(item) : new Auth(null, null, false, '', '');
+            if (this.auth.UserType == 1)
                 return true;
         }
         this.router.navigate(['/login']);

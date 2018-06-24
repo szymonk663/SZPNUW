@@ -18,9 +18,7 @@ export class InstructorComponent implements OnInit {
     constructor(private router: Router, private accountService: AccountService) { }
 
     ngOnInit() {
-        const userId = this.accountService.getUserId();
-        if(userId != null)
-            this.accountService.getInstructor(userId).then(instructor => this.instructor = instructor,
-                reject => this.error = reject);
+        this.accountService.getCurrentInstructor().then(instructor => this.instructor = instructor,
+            reject => this.error = reject);
     }
 }

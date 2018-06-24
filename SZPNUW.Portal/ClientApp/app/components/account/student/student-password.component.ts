@@ -19,13 +19,12 @@ export class StudentPasswordComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        const userId = this.accountService.getUserId()
-        this.passwords = new ChangePasswordsModel(userId !== null ? userId : 0, '', '');
+        this.passwords = new ChangePasswordsModel('', '');
     }
 
     onSubmit(): void {
         this.error = '';
-        if (this.passwords.newPassword == this.retryPassword) {
+        if (this.passwords.NewPassword == this.retryPassword) {
             this.accountService.changePassword(this.passwords).then(result => {
                 if (result)
                     this.goBack();

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SZPNUW.Base;
+using SZPNUW.Base.Consts;
 using SZPNUW.Data;
 using SZPNUW.DBService;
 
@@ -13,6 +17,22 @@ namespace SZPNUW.WebAPI.Account.Controllers
     public class AccountController : Controller
     {
         Service service = new Service();
+
+        public ISession Session
+        {
+            get
+            {
+                return this.HttpContext.Session;
+            }
+        }
+
+        public UserModel CurrentUserSessionData
+        {
+            get
+            {
+                return HttpContext.Session.GetItem<UserModel>();
+            }
+        }
         #region Common
 
         [HttpPost]
@@ -20,10 +40,37 @@ namespace SZPNUW.WebAPI.Account.Controllers
         {
             if (ModelState.IsValid)
             {
-                Auth auth = service.Login(model);
-                return Json(auth);
+                string errorMessage = string.Empty;
+                UserModel user = service.Login(model, ref errorMessage);
+                if (!errorMessage.HasValue())
+                {
+                    LoginUser(user);
+                    Auth auth = new Auth(true) { Id = user.UserId, UserType = user.UserType };
+                    return Json(auth);
+                }
+                return Json(new Auth(errorMessage));
             }
             return Json(new Auth(ModelState.GetFirstError()));
+        }
+
+        private void LoginUser(UserModel user)
+        {
+            Session.AddItem<UserModel>(user);
+            string userDataString = string.Join(";", user.UserId, user.UserType);
+            List<Claim> userClaims = new List<Claim>
+            {
+                new Claim("userId", user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.Login),
+                new Claim(ClaimTypes.Role, user.UserType.ToString())
+            };
+            ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(userClaims, "local"));
+            AuthenticationProperties props = new AuthenticationProperties
+            {
+                IsPersistent = false,
+                IssuedUtc = DateTime.UtcNow,
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(60)
+            };
+            HttpContext.SignInAsync(Consts.AuthenticateScheme, principal, props);
         }
 
         [HttpPut]
@@ -32,7 +79,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
             if (ModelState.IsValid)
             {
                 string errorMessage = string.Empty;
-                if (service.ChangePassword(model, ref errorMessage))
+                if (service.ChangePassword(CurrentUserSessionData.UserId, model, ref errorMessage))
                 {
                     return Json(new Result(true));
                 }
@@ -60,10 +107,24 @@ namespace SZPNUW.WebAPI.Account.Controllers
             return Json(new Result(ModelState.GetFirstError()));
         }
 
+        [HttpGet]
+        public IActionResult GetAuth()
+        {
+            UserModel user = HttpContext.Session.GetItem<UserModel>();
+            return Json(user);
+        }
+
+        [HttpGet]
+        public void LogOut()
+        {
+            HttpContext.SignOutAsync(Consts.AuthenticateScheme);
+            Session.Clear();
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetStudentBySemesterId(int id)
         {
-            var a =HttpContext.Request;
+            var a = HttpContext.Request;
                 List<StudentModel> list = service.GetStudentBySemesterId(id);
                 return Json(list);
         }
@@ -227,9 +288,17 @@ namespace SZPNUW.WebAPI.Account.Controllers
             InstructorModel model = service.GetInstructorById(id);
             return Json(model);
         }
+
+        [HttpGet]
+        public IActionResult GetCurrentInstructor()
+        {
+            InstructorModel model = service.GetInstructorByUserId(CurrentUserSessionData.UserId);
+            return Json(model);
+        }
         [HttpPut]
         public IActionResult UpdateInstructor([FromBody]InstructorModel model)
         {
+            model.SkipPasswordValidation(ModelState);
             if (ModelState.IsValid)
             {
                 string errorMessage = string.Empty;

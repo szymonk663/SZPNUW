@@ -7,6 +7,6 @@ export class LastNameFilterPipe implements PipeTransform {
         if (allInstructors == null)
             return null;
         else
-            return allInstructors.filter(instructor => instructor.lastName.includes(lastName));
+            return allInstructors.filter(instructor => instructor.LastName.includes(lastName));
     }
 }

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
     public loggedIn: boolean;
-    private auth: Auth | null;
+    public auth: Auth | null;
     constructor(private accountService: AccountService, private router: Router) {
         this.loggedIn = this.accountService.isLoggedIn();
         this.auth = this.accountService.getAuthProfile();

@@ -11,27 +11,28 @@ namespace SZPNUW.DBService
 {
     public partial class DBService
     {
-        public Auth Login(LoginModel model)
+        public UserModel Login(LoginModel model, ref string errorMessage)
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
                 Users user = context.Users.FirstOrDefault(x => x.Login == model.UserName && x.Password == SecurityService.GetSHA256Hash(model.Password));
                 if (user != null)
                 {
-                    return new Auth(true) { Id = user.Id, UserType = (UserTypes)user.Usertype };
+                    return new UserModel() { UserId = user.Id, Login = user.Login, FirstName = user.Firstname, LastName = user.Lastname, Address = user.Address, City = user.Address, DateOfBirth = user.Dateofbirth, PESEL = user.Pesel, UserType = (UserTypes)user.Usertype };
                 }
-                return new Auth(ValidationMessages.WrongUserNameOrPassword);
+                errorMessage = ValidationMessages.WrongUserNameOrPassword;
+                return null;
             }
         }
 
-        public bool ChangePassword(ChangePasswordModel model, ref string errorMessage)
+        public bool ChangePassword(int userId, ChangePasswordModel model, ref string errorMessage)
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                Users user = context.Users.FirstOrDefault(s => s.Id == model.UserId);
+                Users user = context.Users.FirstOrDefault(s => s.Id == userId);
                 if(user != null)
                 {
-                    if(user.Password == model.OldPassword)
+                    if(user.Password == SecurityService.GetSHA256Hash(model.OldPassword))
                     {
                         user.Password = SecurityService.GetSHA256Hash(model.NewPassword);
                         context.SaveChanges();
@@ -42,6 +43,29 @@ namespace SZPNUW.DBService
                 }
                 errorMessage = PortalMessages.NoSuchElement;
                 return false;
+            }
+        }
+
+        public UserModel GetUser(int userId)
+        {
+            using (SZPNUWContext context = new SZPNUWContext())
+            {
+                Users user = context.Users.FirstOrDefault(s => s.Id == userId);
+                if (user != null)
+                {
+                    return new UserModel {
+                        UserId = user.Id,
+                        Login = user.Login,
+                        FirstName = user.Firstname,
+                        LastName = user.Lastname,
+                        Address = user.Address,
+                        City = user.City,
+                        DateOfBirth = user.Dateofbirth,
+                        PESEL = user.Pesel,
+                        UserType = (UserTypes)user.Usertype
+                    };
+                }
+                return null;
             }
         }
 

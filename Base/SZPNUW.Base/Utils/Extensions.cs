@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Force.DeepCloner;
+using System.Security.Principal;
 
 namespace SZPNUW.Base
 {
@@ -34,6 +36,23 @@ namespace SZPNUW.Base
         public static string WithFormatExtesion(this string value, object[] args)
         {
             return string.Format(value, args);
+        }
+
+        public static T Clone<T>(this T item) where T : class, new()
+        {
+            return item != null ? item.DeepClone() : default(T);
+        }
+
+        public static bool IsLogedIn(this IPrincipal principal)
+        {
+            try
+            {
+                return principal.Identity.IsAuthenticated;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

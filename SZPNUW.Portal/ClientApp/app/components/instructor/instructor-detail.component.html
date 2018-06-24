@@ -2,28 +2,32 @@
     <div class="panel-heading"><h3>Prowadzący:</h3></div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-xs-5">Imię:</div>
-            <div class="col-xs-7  pull-left">{{ instructor.firstName }}</div>
+            <div class="col-xs-7">Imię:</div>
+            <div class="col-xs-5  pull-left">{{ instructor.FirstName }}</div>
         </div>
         <div class="row">
-            <div class="col-xs-5">Nazwisko:</div>
-            <div class="col-xs-7 pull-left">{{ instructor.lastName }}</div>
+            <div class="col-xs-7">Nazwisko:</div>
+            <div class="col-xs-5 pull-left">{{ instructor.LastName }}</div>
         </div>
         <div class="row">
-            <div class="col-xs-5">Pesel</div>
-            <div class="col-xs-7 pull-left">{{ instructor.pesel }}</div>
+            <div class="col-xs-7">Pesel</div>
+            <div class="col-xs-5 pull-left">{{ instructor.PESEL }}</div>
         </div>
         <div class="row">
-            <div class="col-xs-5">Data urodzenia:</div>
-            <div class="col-xs-7  pull-left">{{ instructor.birthday | date:'y-MM-dd'}}</div>
+            <div class="col-xs-7">Data urodzenia:</div>
+            <div class="col-xs-5  pull-left">{{ instructor.DateOfBirth | date:'y-MM-dd'}}</div>
         </div>
         <div class="row">
-            <div class="col-xs-5">Miasto zamieszkania:</div>
-            <div class="col-xs-7 pull-left">{{ instructor.city }}</div>
+            <div class="col-xs-7">Miasto zamieszkania:</div>
+            <div class="col-xs-5 pull-left">{{ instructor.City }}</div>
         </div>
         <div class="row">
-            <div class="col-xs-5">Adres:</div>
-            <div class="col-xs-7 pull-left">{{ instructor.addres }}</div>
+            <div class="col-xs-7">Adres:</div>
+            <div class="col-xs-5 pull-left">{{ instructor.Address }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-7">Kod:</div>
+            <div class="col-xs-5 pull-left">{{ instructor.Code }}</div>
         </div>
     </div>
 </div>
