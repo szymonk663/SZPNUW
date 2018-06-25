@@ -43,7 +43,7 @@ export class StudentDetailComponent implements OnInit {
     delete() {
         this.clear();
         this.accountService
-            .deleteStudentSemester(this.student.id, this.selectedSemester.id)
+            .deleteStudentSemester(this.student.id, this.selectedSemester.Id)
             .then(result => {
                 this.message = 'Student został wypisany z tego semestru.';
                 this.refresh();

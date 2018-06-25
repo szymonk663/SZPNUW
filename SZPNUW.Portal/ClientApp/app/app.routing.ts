@@ -1,6 +1,8 @@
 ﻿import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "./guards/auth.guard";
+import { AdminGuard } from "./guards/admin.guard";
+import { LecturerGuard } from "./guards/lecturer.guard";
+import { StudentGuard } from "./guards/student.guard";
 
 //Components
 import { AppComponent } from './components/app/app.component';
@@ -15,6 +17,13 @@ import { InstructorRegistrationComponent } from "./components/account/instructor
 import { InstructorComponent } from "./components/instructor/instructor.component";
 import { InstructorFormComponent } from "./components/instructor/instructor-form.component";
 import { InstructorPasswordComponent } from "./components/instructor/instructor-password.component";
+import { SemesterComponent } from "./components/semester/semester.component";
+import { SemesterDetailComponent } from "./components/semester/semester-detail.component";
+import { SubjectsComponent } from "./components/subject/subjects.component";
+import { SubjectComponent } from "./components/subject/subject.component";
+import { SubjectDetailComponent } from "./components/subject/subject-detail.component";
+import { SubjectFormComponent } from "./components/subject/subject-form.component";
+import { SubjectSemesterComponent } from "./components/subject/subject-semester.component";
 
 const routes: Routes = [
     {
@@ -45,27 +54,72 @@ const routes: Routes = [
     {
         path: 'instructors',
         component: InstructorsComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AdminGuard]
     },
     {
         path: 'instructors/registration',
         component: InstructorRegistrationComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AdminGuard]
     },
     {
         path: 'instructor',
         component: InstructorComponent,
-        canActivate: [AuthGuard]
+        canActivate: [LecturerGuard]
     },
     {
         path: 'instructor/detail',
         component: InstructorFormComponent,
-        canActivate: [AuthGuard]
+        canActivate: [LecturerGuard]
     },
     {
         path: 'instructor/password',
         component: InstructorPasswordComponent,
-        canActivate: [AuthGuard]
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'semester',
+        component: SemesterComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'semester/detail',
+        component: SemesterDetailComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'semester/detail/:id',
+        component: SemesterDetailComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'subjects',
+        component: SubjectsComponent,
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'subject/:id',
+        component: SubjectComponent,
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'subject/detail/:id',
+        component: SubjectDetailComponent,
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'newsubject',
+        component: SubjectFormComponent,
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'subject/semester/:id_subject/:id_semester',
+        component: SubjectSemesterComponent,
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'subject/semester/:id_subject',
+        component: SubjectSemesterComponent,
+        canActivate: [LecturerGuard]
     },
     {
         path: '**',

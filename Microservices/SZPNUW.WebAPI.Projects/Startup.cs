@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+using SZPNUW.Base.Consts;
 
 namespace SZPNUW.WebAPI.Projects
 {
@@ -25,6 +27,23 @@ namespace SZPNUW.WebAPI.Projects
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(Consts.AuthenticateScheme)
+                .AddCookie(Consts.AuthenticateScheme, opts =>
+                {
+                    opts.LoginPath = "/Account/LogIn";
+                    opts.LogoutPath = "/Account/LogOut";
+                    opts.AccessDeniedPath = "/Account/UnAuthenticated";
+                    opts.Cookie.Name = "SZPNUW.Authentication";
+                    opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                    opts.Cookie.SameSite = SameSiteMode.Strict;
+                });
+            services.AddSession(opts =>
+            {
+                opts.Cookie.Name = "SZPNUW.Session";
+                opts.IdleTimeout = TimeSpan.FromHours(6);
+                opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                opts.Cookie.SameSite = SameSiteMode.Strict;
+            });
             services
                 .AddMvc()
                 .AddJsonOptions(opts =>
@@ -44,6 +63,7 @@ namespace SZPNUW.WebAPI.Projects
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSession();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

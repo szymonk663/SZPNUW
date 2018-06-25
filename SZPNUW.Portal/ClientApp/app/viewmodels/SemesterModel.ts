@@ -1,8 +1,8 @@
 ﻿export class SemesterModel {
     constructor(
-        public id: number,
-        public year: string,
-        public semesterNumber: number | null,
-        public department: string
+        public Id: number,
+        public Year: string,
+        public SemesterNumber: number | null,
+        public Department: string
     ) { }
 }

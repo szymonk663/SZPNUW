@@ -4,17 +4,18 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 
 import { SemesterModel } from '../viewmodels/SemesterModel'
+import { Result } from '../viewmodels/Result';
 
 @Injectable()
 export class SemesterService {
     constructor(private http: Http) { }
 
-    private url = 'Semesters/';
+    private url = 'Semester/';
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     getSemesters(): Promise<SemesterModel[]> {
 
-        return this.http.get(this.url + 'semesters').toPromise().then(result => {
+        return this.http.get(this.url + 'GetSemesters').toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -24,7 +25,7 @@ export class SemesterService {
 
     getSemestersBySubjectId(id: number): Promise<SemesterModel[]> {
 
-        return this.http.get(this.url + 'semesters/' + id).toPromise().then(result => {
+        return this.http.get(this.url + 'GetSemestersBySubjectId/' + id).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -34,7 +35,7 @@ export class SemesterService {
 
     getSemestersByStudentId(id: number): Promise<SemesterModel[]> {
 
-        return this.http.get(this.url + 'semesters/student/' + id).toPromise().then(result => {
+        return this.http.get(this.url + 'GetSemestersBySubjectId/' + id).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -43,31 +44,31 @@ export class SemesterService {
     }
 
     getSemester(id: number) {
-        return this.http.get(this.url + id).toPromise().then(result => {
+        return this.http.get(this.url + "GetSemesterById/" + id).toPromise().then(result => {
             if (result.status == 200) {
-                return <SemesterModel>result.json();
+                return result.json() as SemesterModel;
             }
             return null;
         }).catch(this.handleError);
     }
 
-    new(semester: SemesterModel): Promise<boolean> {
-        return this.http.post(this.url + 'new', JSON.stringify(semester), { headers: this.headers })
+    addSemester(semester: SemesterModel): Promise<Result> {
+        return this.http.post(this.url + 'AddSemester', JSON.stringify(semester), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    update(semester: SemesterModel): Promise<boolean> {
-        return this.http.put(this.url + 'update', JSON.stringify(semester), { headers: this.headers })
+    updateSemester(semester: SemesterModel): Promise<Result> {
+        return this.http.put(this.url + 'UpdateSemester', JSON.stringify(semester), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
@@ -81,7 +82,7 @@ export class SemesterService {
     }
 
     getDepartments(): Promise<string[]> {
-        return this.http.get(this.url + 'departments').toPromise().then(result => {
+        return this.http.get(this.url + 'GetDepartments').toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -90,7 +91,7 @@ export class SemesterService {
     }
 
     getYears(): Promise<string[]> {
-        return this.http.get(this.url + 'years').toPromise().then(result => {
+        return this.http.get(this.url + 'GetYears').toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -99,7 +100,7 @@ export class SemesterService {
     }
 
     getSemestersNum(): Promise<number[]> {
-        return this.http.get(this.url + 'semestersnum').toPromise().then(result => {
+        return this.http.get(this.url + 'GetSemestersNum').toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }

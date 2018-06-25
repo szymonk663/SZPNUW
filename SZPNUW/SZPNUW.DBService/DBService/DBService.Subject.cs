@@ -102,7 +102,7 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                Subjectssemesters subsem = context.Subjectssemesters.FirstOrDefault(x => x.Subjectid == subjectId && x.Semesterid == x.Semesterid);
+                Subjectssemesters subsem = context.Subjectssemesters.FirstOrDefault(x => x.Subjectid == subjectId && x.Semesterid == semesterId);
                 return subsem == null ? null : new SubjectSemesterModel
                 {
                     Id = subsem.Id,
@@ -133,13 +133,13 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                if (context.Subjects.Where(x => x.Name == model.Name).AnyLazy())
+                if (!context.Subjects.Where(x => x.Name == model.Name).AnyLazy())
                 {
                     Subjects subject = new Subjects()
                     {
                         Name = model.Name,
                         Description = model.Description,
-                        Leaderid = model.LeaderId
+                        Leaderid = model.LeaderId.Value
                     };
                     Subjectssemesters subSem = new Subjectssemesters();
                     using (var transaction = context.Database.BeginTransaction())
@@ -150,7 +150,7 @@ namespace SZPNUW.DBService
                             context.SaveChanges();
                             int id = context.Subjects.Where(x => x.Name == subject.Name).Select(x => x.Id).First();
                             subSem.Subjectid = id;
-                            subSem.Semesterid = model.SemesterId;
+                            subSem.Semesterid = model.SemesterId.Value;
                             context.Add(subSem);
                             context.SaveChanges();
                             transaction.Commit();
@@ -175,7 +175,7 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                if (context.Subjectssemesters.Where(x => x.Subjectid == model.SubjectId && x.Semesterid == model.SemesterId).AnyLazy())
+                if (!context.Subjectssemesters.Where(x => x.Subjectid == model.SubjectId && x.Semesterid == model.SemesterId).AnyLazy())
                 {
                     Subjectssemesters subSem = new Subjectssemesters();
                     subSem.Subjectid = model.SubjectId;
@@ -193,7 +193,7 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                if (context.Subjectssemesters.Where(x => x.Subjectid == model.SubjectId && x.Semesterid == model.SemesterId).AnyLazy())
+                if (!context.Subjectssemesters.Where(x => x.Subjectid == model.SubjectId && x.Semesterid == model.SemesterId).AnyLazy())
                 {
                     Subjectssemesters subSem = context.Subjectssemesters
                         .Where(x => x.Id == model.Id)
@@ -212,7 +212,13 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                if (context.Subjectssemesters.Where(x => x.Id == id).ToList().Count <= 1)
+                Subjectssemesters subSem = context.Subjectssemesters.FirstOrDefault(x => x.Id == id);
+                if(subSem == null)
+                {
+                    errorMessage = PortalMessages.NoSuchElement;
+                    return false;
+                }
+                if (context.Subjectssemesters.Where(x => x.Subjectid == subSem.Subjectid).ToList().Count <= 1)
                 {
                     errorMessage = PortalMessages.LastEntryForTheItem;
                     return false;
@@ -222,7 +228,6 @@ namespace SZPNUW.DBService
                     errorMessage = PortalMessages.SemesterDependence;
                     return false;
                 }
-                Subjectssemesters subSem = new Subjectssemesters { Id = id };
                 context.Subjectssemesters.Attach(subSem);
                 context.Subjectssemesters.Remove(subSem);
                 context.SaveChanges();

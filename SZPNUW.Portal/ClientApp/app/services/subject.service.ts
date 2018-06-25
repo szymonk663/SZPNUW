@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map'
 
 import {SubjectModel} from '../viewmodels/SubjectModel';
 import {SubjectSemesterModel} from '../viewmodels/SubjectSemesterModel';
+import { Result } from '../viewmodels/Result';
 
 @Injectable()
 export class SubjectService {
@@ -16,8 +17,8 @@ export class SubjectService {
     getSubjects(department: string, semesterNum: number): Promise<SubjectModel[]> {
         let params: URLSearchParams = new URLSearchParams();
         params.set('department', department);
-        params.set('semesterNum', semesterNum.toString());
-        return this.http.get(this.url, { search: params }).toPromise().then(result => {
+        params.set('semesterNumber', semesterNum.toString());
+        return this.http.get(this.url + "GetSubjects", { search: params }).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -25,7 +26,7 @@ export class SubjectService {
         }).catch(this.handleError);
     }
     getSubjectsBySemester(semesterId: number): Promise<SubjectModel[]> {
-        return this.http.get(this.url + 'GetSubjectsBySemester/' + semesterId).toPromise().then(result => {
+        return this.http.get(this.url + 'GetSubjectsBySemesterId/' + semesterId).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -34,73 +35,73 @@ export class SubjectService {
     }
 
     getSubject(id: number): Promise<SubjectModel> {
-        return this.http.get(this.url + id).toPromise().then(result => {
+        return this.http.get(this.url + "GetSubjectById/" + id).toPromise().then(result => {
             if (result.status == 200) {
-                return <SubjectModel>result.json();
+                return result.json() as SubjectModel;
             }
             return null;
         }).catch(this.handleError);
     }
 
-    update(subject: SubjectModel): Promise<boolean> {
+    updateSubject(subject: SubjectModel): Promise<Result> {
         return this.http.put(this.url + 'UpdateSubject', JSON.stringify(subject), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    add(subject: SubjectModel): Promise<boolean> {
+    addSubject(subject: SubjectModel): Promise<Result> {
         return this.http.post(this.url + 'AddSubject', JSON.stringify(subject), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
     getSubjectSemester(id_subject: number, id_semester: number): Promise<SubjectSemesterModel> {
         let params: URLSearchParams = new URLSearchParams();
-        params.set('idsubject', id_subject.toString());
-        params.set('idsemester', id_semester.toString());
+        params.set('subjectId', id_subject.toString());
+        params.set('semesterId', id_semester.toString());
         return this.http.get(this.url + 'GetSubjectSemester', { search: params }).toPromise().then(result => {
             if (result.status == 200) {
-                return <SubjectSemesterModel>result.json();
+                return result.json() as SubjectSemesterModel;
             }
             return null;
         }).catch(this.handleError);
     }
 
-    updateSemester(subSem: SubjectSemesterModel): Promise<boolean> {
-        return this.http.put(this.url + 'UpdateSemester', JSON.stringify(subSem), { headers: this.headers })
-            .toPromise()
-            .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
-            }).catch(this.handleError);
-    }
-
-    addSemester(subSem: SubjectSemesterModel): Promise<boolean> {
-        return this.http.post(this.url + 'AddSemester', JSON.stringify(subSem), { headers: this.headers })
-            .toPromise()
-            .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
-            }).catch(this.handleError);
-    }
-
-    deleteSemester(id: number): Promise<boolean> {
-        return this.http.delete(this.url + 'DeleteSemester/' + id)
+    updateSemester(subSem: SubjectSemesterModel): Promise<Result> {
+        return this.http.put(this.url + 'UpdateSubjectSemester', JSON.stringify(subSem), { headers: this.headers })
             .toPromise()
             .then(result => {
                 if (result.status == 200)
-                    return true;
-                return false;
+                    return result.json() as Result;
+                return null;
+            }).catch(this.handleError);
+    }
+
+    addSemester(subSem: SubjectSemesterModel): Promise<Result> {
+        return this.http.post(this.url + 'AddSubjectSemester', JSON.stringify(subSem), { headers: this.headers })
+            .toPromise()
+            .then(result => {
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
+            }).catch(this.handleError);
+    }
+
+    deleteSemester(id: number): Promise<Result> {
+        return this.http.delete(this.url + 'DeleteSubjectSemester/' + id)
+            .toPromise()
+            .then(result => {
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 

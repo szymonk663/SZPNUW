@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit} from "@angular/core";
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AccountService } from "../../services/account.service";
 import { InstructorModel } from "../../viewmodels/InstructorModel";
 import {SubjectModel} from "../../viewmodels/SubjectModel";
@@ -26,7 +25,7 @@ export class SubjectFormComponent implements OnInit {
     error = '';
 
     constructor(private route: ActivatedRoute,
-        private location: Location,
+        private router: Router,
         private accountService: AccountService,
         private subjectService: SubjectService,
         private semesterService: SemesterService
@@ -53,13 +52,17 @@ export class SubjectFormComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.subjectService.add(this.subject)
+        this.subjectService.addSubject(this.subject)
             .then(result => {
-                this.goBack();
+                if (result !== null)
+                    if (result.IsSucceeded)
+                        this.goBack();
+                    else
+                        this.error = result.ErrorMessages;
             }, error => this.error = error);
     }
 
     goBack(): void {
-        this.location.back();
+        this.router.navigateByUrl("/subjects");
     }
 }

@@ -4,7 +4,7 @@
             <label for="department">Kierunek:</label>
             <input type="text" class="form-control" id="department"
                    required maxlength="20"
-                   [(ngModel)]="semester.department"
+                   [(ngModel)]="semester.Department"
                    name="department"
                    #department="ngModel" />
             <div [hidden]="department.valid || department.pristine"
@@ -16,19 +16,19 @@
             <label for="year">Rok akademicki:</label>
             <input type="text" class="form-control" id="year"
                    required pattern="[0-9]{4}/[0-9]{4}"
-                   [(ngModel)]="semester.year"
+                   [(ngModel)]="semester.Year"
                    name="year"
                    #year="ngModel" />
             <div [hidden]="year.valid || year.pristine"
                  class="alert alert-danger">
-                Rok akademicki jest wymagany(Przykład 2015/2016)
+                Rok akademicki jest wymagany(Przykład 2017/2018)
             </div>
         </div>
         <div class="form-group">
             <label for="semesternum">Semestr:</label>
             <input type="number" class="form-control" id="semesternum"
                    required
-                   [(ngModel)]="semester.semesterNum"
+                   [(ngModel)]="semester.SemesterNumber"
                    name="semesternum"
                    #semesterNum="ngModel" />
             <div [hidden]="semesterNum.valid || semesterNum.pristine"

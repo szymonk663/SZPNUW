@@ -32,11 +32,11 @@
                     <label for="instructor">Kierownik</label>
                     <select class="form-control" id="instructor"
                             required
-                            [(ngModel)]="subject.id_manager"
+                            [(ngModel)]="subject.LeaderId"
                             name="instructor"
                             #instructor="ngModel">
-                        <option *ngFor="let instructor of (instructors | lastNameFilter: lastName)" [value]="instructor.id">
-                            {{instructor.firstName}} {{instructor.lastName}} {{instructor.pesel}}
+                        <option *ngFor="let instructor of (instructors | lastNameFilter: lastName)" [value]="instructor.Id">
+                            {{instructor.FirstName}} {{instructor.LastName}} {{instructor.PESEL}}
                         </option>
                     </select>
                     <div [hidden]="instructor.valid || instructor.pristine" class="alert alert-danger">
@@ -73,11 +73,11 @@
                     <label for="semseter">Semestr</label>
                     <select class="form-control" id="semester"
                             required
-                            [(ngModel)]="subject.id_semester"
+                            [(ngModel)]="subject.SemesterId"
                             name="semester"
                             #semester="ngModel">
-                        <option *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)" [value]="semester.id">
-                            {{semester.department}} {{semester.year}} {{semester.semesterNum}}
+                        <option *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)" [value]="semester.Id">
+                            {{semester.Department}} {{semester.Year}} {{semester.SemesterNumber}}
                         </option>
                     </select>
                     <div [hidden]="semester.valid || semester.pristine" class="alert alert-danger">

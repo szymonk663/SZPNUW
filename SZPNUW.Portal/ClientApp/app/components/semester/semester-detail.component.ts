@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit} from "@angular/core";
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SemesterService } from "../../services/semester.service";
 import { SemesterModel } from "../../viewmodels/SemesterModel";
 
@@ -16,7 +15,7 @@ export class SemesterDetailComponent implements OnInit {
     error = '';
 
     constructor(private route: ActivatedRoute,
-        private location: Location,
+        private router: Router,
         private semesterService: SemesterService
     ) { }
 
@@ -33,20 +32,28 @@ export class SemesterDetailComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.semesterService.new(this.semester)
+        this.semesterService.addSemester(this.semester)
             .then(result => {
-                this.goBack();
+                if (result !== null)
+                    if (result.IsSucceeded)
+                        this.goBack();
+                    else
+                        this.error = result.ErrorMessages;
             }, error => this.error = error);
     }
 
     change(): void {
-        this.semesterService.update(this.semester)
+        this.semesterService.updateSemester(this.semester)
             .then(result => {
-                this.goBack();
+                if (result !== null)
+                    if (result.IsSucceeded)
+                        this.goBack();
+                    else
+                        this.error = result.ErrorMessages;
             }, error => this.error = error);
     }
 
     goBack(): void {
-        this.location.back();
+        this.router.navigateByUrl("/semester");
     }
 }

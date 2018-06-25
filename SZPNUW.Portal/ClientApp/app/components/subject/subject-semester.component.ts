@@ -48,7 +48,7 @@ export class SubjectSemesterComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.subsem.id == 0)
+        if (this.subsem.Id == 0)
             this.onAdd();
         else
             this.onEdit();
@@ -56,17 +56,29 @@ export class SubjectSemesterComponent implements OnInit {
 
     onAdd() {
         this.subjectService.addSemester(this.subsem)
-            .then(result => this.goBack(),
+            .then(result => {
+                if (result !== null)
+                    if (result.IsSucceeded)
+                        this.goBack();
+                    else
+                        this.error = result.ErrorMessages;
+            },
             error => this.error = error);
     }
 
     onEdit() {
         this.subjectService.updateSemester(this.subsem)
-            .then(() => this.goBack(),
+            .then(result => {
+                if (result !== null)
+                    if (result.IsSucceeded)
+                        this.goBack();
+                    else
+                        this.error = result.ErrorMessages;
+            },
             error => this.error = error);
     }
 
     goBack() {
-        this.router.navigate(['/subject', this.subsem.id_subject])
+        this.router.navigate(['/subject', this.subsem.SubjectId])
     }
 }

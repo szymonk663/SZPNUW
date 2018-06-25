@@ -27,6 +27,7 @@ namespace SZPNUW.DBService
                     }).ToList();
             }  
         }
+
         public List<SemesterModel> GetSemestersBySubjectId(int subjectId)
         {
             using (SZPNUWContext context = new SZPNUWContext())

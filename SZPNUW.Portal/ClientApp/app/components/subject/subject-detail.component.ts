@@ -37,13 +37,17 @@ export class SubjectDetailComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.subjectService.update(this.subject)
+        this.subjectService.updateSubject(this.subject)
             .then(result => {
-                this.goBack();
+                if (result !== null)
+                    if (result.IsSucceeded)
+                        this.goBack();
+                    else
+                        this.error = result.ErrorMessages;
             }, error => this.error = error);
     }
 
     goBack(): void {
-        this.router.navigate(['/subject', this.subject.id]);
+        this.router.navigate(['/subject', this.subject.Id]);
     }
 }

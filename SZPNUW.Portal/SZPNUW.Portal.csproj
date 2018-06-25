@@ -29,7 +29,8 @@
     <None Remove="ClientApp\app\components\account\student\student-profile-detail.component.ts" />
     <None Remove="ClientApp\app\components\account\student\student-profile.component.ts" />
     <None Remove="ClientApp\app\components\account\student\student.component.ts" />
-    <None Remove="ClientApp\app\guards\auth.guard.ts" />
+    <None Remove="ClientApp\app\guards\admin.guard.ts" />
+    <None Remove="ClientApp\app\guards\lecturer.guard.ts" />
     <None Remove="ClientApp\app\modules\account.module.ts" />
     <None Remove="ClientApp\app\modules\semester.module.ts" />
     <None Remove="ClientApp\app\pipes\semester.pipe.ts" />
@@ -64,7 +65,8 @@
     <TypeScriptCompile Include="ClientApp\app\components\account\student\student-profile-detail.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\account\student\student-profile.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\account\student\student.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\guards\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\app\guards\lecturer.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\app\guards\admin.guard.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\account.module.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\semester.module.ts" />
     <TypeScriptCompile Include="ClientApp\app\pipes\semester.pipe.ts" />

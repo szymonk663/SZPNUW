@@ -32,7 +32,6 @@ export class InstructorFormComponent implements OnInit {
                         this.goBack();
                     else
                         this.error = result.ErrorMessages;
-                this.goBack();
             }, error => this.error = error);
     }
 

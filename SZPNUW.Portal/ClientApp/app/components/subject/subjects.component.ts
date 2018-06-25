@@ -49,6 +49,6 @@ export class SubjectsComponent implements OnInit {
         this.selectedSubject = subject;
     }
     onDetail() {
-        this.router.navigate(['/subject', this.selectedSubject.id]);
+        this.router.navigate(['/subject', this.selectedSubject.Id]);
     }
 }

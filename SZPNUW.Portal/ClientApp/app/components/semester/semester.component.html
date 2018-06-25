@@ -11,9 +11,9 @@
                     <tr *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)"
                         [class.selected]="semester === selectedSemester"
                         (click)="onSelect(semester)">
-                        <td>{{semester.department}}</td>
-                        <td>{{semester.year}}</td>
-                        <td>{{semester.semesterNum}}</td>
+                        <td>{{semester.Department}}</td>
+                        <td>{{semester.Year}}</td>
+                        <td>{{semester.SemesterNumber}}</td>
                     </tr>
                 </table>
             </div>

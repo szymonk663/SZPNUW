@@ -34,6 +34,6 @@ export class SemesterComponent implements OnInit {
     }
 
     edit() {
-        this.router.navigate(['/semester/detail', this.selectedSemester.id]);
+        this.router.navigate(['/semester/detail', this.selectedSemester.Id]);
     }
 }

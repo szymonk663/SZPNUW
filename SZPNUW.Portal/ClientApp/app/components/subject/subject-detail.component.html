@@ -4,7 +4,7 @@
             <label for="name">Nazwa:</label>
             <input type="text" class="form-control" id="name"
                    required maxlength="20"
-                   [(ngModel)]="subject.name"
+                   [(ngModel)]="subject.Name"
                    name="name"
                    #name="ngModel" />
             <div [hidden]="name.valid || name.pristine"
@@ -16,7 +16,7 @@
             <label for="desription">Opis:</label>
             <input type="text" class="form-control" id="description"
                    maxlength="500"
-                   [(ngModel)]="subject.description"
+                   [(ngModel)]="subject.Description"
                    name="description"
                    #description="ngModel" />
             <div [hidden]="description.valid || description.pristine"
@@ -32,11 +32,11 @@
                     <label for="instructor">Kierownik</label>
                     <select class="form-control" id="instructor"
                             required
-                            [(ngModel)]="subject.id_manager"
+                            [(ngModel)]="subject.LeaderId"
                             name="instructor"
                             #instructor="ngModel">
-                        <option *ngFor="let instructor of (instructors | lastNameFilter: lastName)" [value]="instructor.id">
-                            {{instructor.firstName}} {{instructor.lastName}} {{instructor.pesel}}
+                        <option *ngFor="let instructor of (instructors | lastNameFilter: lastName)" [value]="instructor.Id">
+                            {{instructor.FirstName}} {{instructor.LastName}} {{instructor.PESEL}}
                         </option>
                     </select>
                     <div [hidden]="instructor.valid || instructor.pristine" class="alert alert-danger">

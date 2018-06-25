@@ -2,22 +2,22 @@
     <div *ngIf="instructor && semesters">
         <div *ngIf="!change">
             <nav class="menu">
-                <a [routerLink]="['/subject/detail/', subject.id]">Edytuj</a>
+                <a [routerLink]="['/subject/detail/', subject.Id]">Edytuj</a>
                 <button type="button" class="btn btn-link" (click)="onChange(true)">Projekty</button>
             </nav>
             <table class="table">
                 <tbody>
                     <tr>
                         <th>Nazwa przedmiotu</th>
-                        <td>{{subject.name}}</td>
+                        <td>{{subject.Name}}</td>
                     </tr>
                     <tr>
                         <th>Opis</th>
-                        <td>{{subject.description}}</td>
+                        <td>{{subject.Description}}</td>
                     </tr>
                     <tr>
                         <th>Kierownik przedmiotu:</th>
-                        <td>{{instructor.firstName}} {{instructor.lastName}}</td>
+                        <td>{{instructor.FirstName}} {{instructor.LastName}}</td>
                     </tr>
                     <tr>
                         <th>Semestry na jakich przedmiot występuje:</th>
@@ -31,7 +31,7 @@
                                 <li class="list-group-item" *ngFor="let semester of semesters"
                                     [class.selected]="semester === selectedSemester"
                                     (click)="onSelect(semester)">
-                                    Wydział: {{semester.department}} Rok akademicki: {{semester.year}} Semestr: {{semester.semesterNum}}
+                                    Wydział: {{semester.Department}} Rok akademicki: {{semester.Year}} Semestr: {{semester.SemesterNumber}}
                                 <li>
                             </ul>
                         </td>
@@ -43,7 +43,7 @@
             <nav class="menu">
                 <button type="button" class="btn btn-link" (click)="onChange(false)">Przedmiot</button>
             </nav>
-            <projects-list [subjectId]="subject.id"></projects-list>
+            <projects-list [subjectId]="subject.Id"></projects-list>
         </div>
     </div>
     <div *ngIf="!instructor || !semesters">

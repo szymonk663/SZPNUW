@@ -70,7 +70,7 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                Lecturers lecturer = context.Lecturers.Where(s => s.Id == id).FirstOrDefault();
+                Lecturers lecturer = context.Lecturers.Include(x => x.User).FirstOrDefault(s => s.Id == id);
                 if (lecturer == null)
                     return null;
                 InstructorModel model = new InstructorModel

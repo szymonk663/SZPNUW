@@ -37,15 +37,16 @@ namespace SZPNUW.WebAPI.Subject.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetSubjectSemester([FromQuery]int idSubject, int idSemester)
+        public IActionResult GetSubjectSemester([FromQuery]int subjectId, int semesterId)
         {
-            SubjectSemesterModel model = service.GetSubjectSemester(idSubject, idSemester);
+            SubjectSemesterModel model = service.GetSubjectSemester(subjectId, semesterId);
             return Json(model);
         }
         [HttpPut]
         public IActionResult UpdateSubject([FromBody]SubjectModel model)
         {
-            if(ModelState.IsValid)
+            model.SkipSemesterIdValidation(ModelState);
+            if (ModelState.IsValid)
             {
                 string errorMessage = string.Empty;
                 if(service.UpdateSubject(model, ref errorMessage))
@@ -60,7 +61,7 @@ namespace SZPNUW.WebAPI.Subject.Controllers
             if (ModelState.IsValid)
             {
                 string errorMessage = string.Empty;
-                if (service.UpdateSubject(model, ref errorMessage))
+                if (service.AddSubject(model, ref errorMessage))
                     return Json(new Result(true));
                 return Json(new Result(errorMessage));
             }
@@ -79,7 +80,7 @@ namespace SZPNUW.WebAPI.Subject.Controllers
             return Json(new Result(ModelState.GetFirstError()));
         }
         [HttpPut]
-        public IActionResult UpdateSemester([FromBody]SubjectSemesterModel model)
+        public IActionResult UpdateSubjectSemester([FromBody]SubjectSemesterModel model)
         {
             if (ModelState.IsValid)
             {

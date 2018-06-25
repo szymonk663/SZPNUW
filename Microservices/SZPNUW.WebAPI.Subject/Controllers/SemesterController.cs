@@ -72,7 +72,7 @@ namespace SZPNUW.WebAPI.Subject.Controllers
             List<string> list = service.GetYears();
             return Json(list);
         }
-        [HttpGet("semestersnum")]
+        [HttpGet]
         public IActionResult GetSemestersNum()
         {
             List<int> list = service.GetSemestersNum();
@@ -81,6 +81,7 @@ namespace SZPNUW.WebAPI.Subject.Controllers
         [HttpGet]
         public IActionResult Test()
         {
+            var a =HttpContext.Session.GetItem<UserModel>();
             return Json("semester");
         }
     }

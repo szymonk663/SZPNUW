@@ -7,7 +7,7 @@ export class DepartmentFilterPipe implements PipeTransform {
         if (allSemesters == null)
             return null;
         else
-            return allSemesters.filter(semester => semester.department.includes(department));
+            return allSemesters.filter(semester => semester.Department.includes(department));
     }
 }
 
@@ -17,6 +17,6 @@ export class YearFilterPipe implements PipeTransform {
         if (allSemesters == null)
             return null;
         else
-            return allSemesters.filter(x => x.year.includes(year));
+            return allSemesters.filter(x => x.Year.includes(year));
     }
 }

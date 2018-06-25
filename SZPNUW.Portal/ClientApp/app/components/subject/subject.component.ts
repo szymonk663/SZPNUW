@@ -39,9 +39,9 @@ export class SubjectComponent implements OnInit {
                 this.subjectService.getSubject(id).then(subject => {
                     this.subject = subject;
                     this.refresh();
-                    if (this.subject.id_manager)
+                    if (this.subject.LeaderId)
                         this.accountService
-                            .getInstructor(this.subject.id_manager)
+                            .getInstructor(this.subject.LeaderId)
                             .then(instructor => this.instructor = instructor,
                                 error => this.error = error);
                 },
@@ -55,10 +55,16 @@ export class SubjectComponent implements OnInit {
 
     onDelete() {
         this.subjectService
-            .getSubjectSemester(this.subject.id, this.selectedSemester.id)
+            .getSubjectSemester(this.subject.Id, this.selectedSemester.Id)
             .then(subsem => {
                 this.subsem = subsem;
-                this.subjectService.deleteSemester(this.subsem.id).then(() => this.refresh(),
+                this.subjectService.deleteSemester(this.subsem.Id).then(result => {
+                    if (result !== null)
+                        if (result.IsSucceeded)
+                            this.refresh();
+                        else
+                            this.error = result.ErrorMessages;
+                },
                     error => this.error = error);
             }, error => this.error = error);
 
@@ -66,17 +72,17 @@ export class SubjectComponent implements OnInit {
 
     refresh() {
         this.semesterService
-            .getSemestersBySubjectId(this.subject.id)
+            .getSemestersBySubjectId(this.subject.Id)
             .then(semesters => this.semesters = semesters,
             error => this.error = error);
     }
 
     onEdit() {
-        this.router.navigate(['/subject/semester', this.subject.id, this.selectedSemester.id]);
+        this.router.navigate(['/subject/semester', this.subject.Id, this.selectedSemester.Id]);
     }
 
     onAdd() {
-        this.router.navigate(['/subject/semester', this.subject.id]);
+        this.router.navigate(['/subject/semester', this.subject.Id]);
     }
 
     onBack() {

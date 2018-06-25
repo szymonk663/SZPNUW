@@ -30,7 +30,8 @@ import { AppRouting } from '../app.routing';
 import { AccountService } from '../services/account.service';
 //Guards
 import { StudentGuard } from '../guards/student.guard'
-import { AuthGuard } from '../guards/auth.guard';
+import { LecturerGuard } from '../guards/lecturer.guard';
+import { AdminGuard } from '../guards/admin.guard';
 
 @NgModule({
     // directives, components, and pipes
@@ -56,7 +57,8 @@ import { AuthGuard } from '../guards/auth.guard';
     providers: [
         AccountService,
         StudentGuard,
-        AuthGuard
+        AdminGuard,
+        LecturerGuard
     ],
     // modules
     imports: [

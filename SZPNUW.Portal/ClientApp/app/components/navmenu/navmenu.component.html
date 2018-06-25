@@ -46,14 +46,22 @@
             <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 1" class='nav navbar-nav'>
             </ul>
             <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 2" class='nav navbar-nav'>
-                <li><a [routerLink]="['/instructor']">
+                <li>
+                    <a [routerLink]="['/instructor']">
                         <span class='glyphicon glyphicon-user'></span>Profil
                     </a>
                 </li>
+                <li><a [routerLink]="['/subjects']">Przedmioty</a></li>
             </ul>
             <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 3" class='nav navbar-nav'>
-                <li><a [routerLink]="['/instructors']">
-                    <span class='glyphicon glyphicon-list-alt'></span>Prowadzący
+                <li>
+                    <a [routerLink]="['/instructors']">
+                        <span class='glyphicon glyphicon-list-alt'></span>Prowadzący
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/semester']">
+                        <span class='glyphicon glyphicon-list-alt'></span>Semestry
                     </a>
                 </li>
             </ul>

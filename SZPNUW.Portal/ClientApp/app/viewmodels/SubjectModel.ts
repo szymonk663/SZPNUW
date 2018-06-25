@@ -1,9 +1,9 @@
 ﻿export class SubjectModel {
     constructor(
-        public id: number,
-        public name: string,
-        public description: string,
-        public id_manager: number | null,
-        public id_semester: number | null
+        public Id: number,
+        public Name: string,
+        public Description: string,
+        public LeaderId: number | null,
+        public SemesterId: number | null
     ) { }
 }
