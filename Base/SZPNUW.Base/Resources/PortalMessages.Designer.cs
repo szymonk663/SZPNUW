@@ -133,6 +133,15 @@ namespace SZPNUW.Base.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brak studentów w wybranym semestrze..
+        /// </summary>
+        public static string NoStudentsOnSemester {
+            get {
+                return ResourceManager.GetString("NoStudentsOnSemester", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nie można znaleść tego przedmiotu na takim semestrze..
         /// </summary>
         public static string NoSubjectOnSemester {

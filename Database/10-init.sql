@@ -126,7 +126,6 @@ CREATE TABLE public.projects (
     subjectid INTEGER NOT NULL,
 	active BOOLEAN NOT NULL,
     CONSTRAINT pk_projects PRIMARY KEY(id),
-    CONSTRAINT ux_projects UNIQUE (lecturerid, subjectid),
     CONSTRAINT fk_lecturers FOREIGN KEY (lecturerid)
     REFERENCES public.lecturers(id)
     ON DELETE NO ACTION

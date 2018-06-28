@@ -43,7 +43,7 @@ export class StudentDetailComponent implements OnInit {
     delete() {
         this.clear();
         this.accountService
-            .deleteStudentSemester(this.student.id, this.selectedSemester.Id)
+            .deleteStudentSemester(this.student.Id, this.selectedSemester.Id)
             .then(result => {
                 this.message = 'Student został wypisany z tego semestru.';
                 this.refresh();
@@ -54,7 +54,7 @@ export class StudentDetailComponent implements OnInit {
     refresh() {
         this.clear();
         this.semesterService
-            .getSemestersByStudentId(this.student.id)
+            .getSemestersByStudentId(this.student.Id)
             .then(semesters => {
             this.semesters = semesters; console.log(semesters);
     },

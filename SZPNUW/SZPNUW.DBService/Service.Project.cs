@@ -11,9 +11,9 @@ namespace SZPNUW.DBService
         {
             return service.GetProjectInstructorBySubjectId(subjectId);
         }
-        public List<ProjectSubjectModel> GetProjectSubjectByInstructorId(int instructorId)
+        public List<ProjectSubjectModel> GetProjectSubjectByInstructorId(int userId)
         {
-            return service.GetProjectSubjectByInstructorId(instructorId);
+            return service.GetProjectSubjectByInstructorId(userId);
         }
         public List<ProjectInstructorModel> GetProjectsBySectionId(int sectionId)
         {

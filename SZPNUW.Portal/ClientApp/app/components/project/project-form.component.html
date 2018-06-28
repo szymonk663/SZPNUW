@@ -9,7 +9,7 @@
                 <label for="topic">Temat:</label>
                 <input type="text" class="form-control" id="topic"
                        required maxlength="20"
-                       [(ngModel)]="project.topic"
+                       [(ngModel)]="project.Topic"
                        name="topic"
                        #topic="ngModel" />
                 <div [hidden]="topic.valid || topic.pristine"
@@ -21,7 +21,7 @@
                 <label for="description">Opis:</label>
                 <textarea class="form-control" id="description"
                        required maxlength="500"
-                       [(ngModel)]="project.description"
+                       [(ngModel)]="project.Description"
                        name="description"
                        #description="ngModel">
                 </textarea>
@@ -34,7 +34,7 @@
                 <label for="active">Czy temat ma być aktywny:</label>
                 <select class="form-control" id="active"
                         required
-                        [(ngModel)]="project.active"
+                        [(ngModel)]="project.Active"
                         name="active"
                         #active="ngModel">
                     <option [value]="true">Tak</option>

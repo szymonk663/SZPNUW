@@ -189,11 +189,16 @@ namespace SZPNUW.DBService
                 try
                 {
                     List<int> studentsId = context.Studentsemester.Where(x => x.Semesterid == model.SemesterId).Select(x => x.Studentid).ToList();
-                    foreach(int id in studentsId)
+                    if (studentsId.AnyLazy())
                     {
-                        RewriteStudentSemester(context, id, model.NewSemesterId, ref errorMessage);
+                        foreach (int id in studentsId)
+                        {
+                            RewriteStudentSemester(context, id, model.NewSemesterId.Value, ref errorMessage);
+                        }
+                        transaction.Commit();
                     }
-                    transaction.Commit();
+                    else
+                        errorMessage = PortalMessages.NoStudentsOnSemester;
                 }
                 catch (Exception e)
                 {
@@ -229,11 +234,16 @@ namespace SZPNUW.DBService
                 try
                 {
                     List<int> studentsId = context.Studentsemester.Where(x => x.Semesterid == model.SemesterId).Select(x => x.Studentid).ToList();
-                    foreach (int studentId in studentsId)
+                    if (studentsId.AnyLazy())
                     {
-                        UpdateStudentSemester(context, studentId, model.SemesterId, model.NewSemesterId, ref errorMessage);
+                        foreach (int studentId in studentsId)
+                        {
+                            UpdateStudentSemester(context, studentId, model.SemesterId.Value, model.NewSemesterId.Value, ref errorMessage);
+                        }
+                        transaction.Commit();
                     }
-                    transaction.Commit();
+                    else
+                        errorMessage = PortalMessages.NoStudentsOnSemester;
                 }
                 catch (Exception e)
                 {

@@ -36,7 +36,7 @@ export class SectionProjectComponent implements OnInit {
     }
 
     onSubmit() {
-        this.section.idProject = this.selectedProject.project.id;
+        this.section.idProject = this.selectedProject.Project.Id;
         this.sectionService
             .update(this.section)
             .then(result => {

@@ -65,7 +65,7 @@ export class SectionsListStudentComponent implements OnChanges, OnInit {
     getSectionStudent() {
         if (this.selectedSection !== null && this.selectedStudent !== null)
             this.accountService
-                .getStudentSection(this.selectedStudent.id, this.selectedSection.section.id)
+                .getStudentSection(this.selectedStudent.Id, this.selectedSection.section.id)
                 .then(result => this.sectionStudent = result, error => this.error = error);
     }
 
@@ -85,7 +85,7 @@ export class SectionsListStudentComponent implements OnChanges, OnInit {
         if (this.selectedSection !== null && this.selectedSection.students.length == 0) {
             this.storred = false;
             this.selectedSection.students.forEach(student => {
-                if (student.id == this.studentId) {
+                if (student.Id == this.studentId) {
                     this.storred = true;
                     return true;
                 }

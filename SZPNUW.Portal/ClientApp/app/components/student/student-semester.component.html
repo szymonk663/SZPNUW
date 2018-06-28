@@ -38,7 +38,7 @@
                         name="semester"
                         #semester="ngModel">
                     <option *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)" [value]="semester.id">
-                        {{semester.department}} {{semester.year}} {{semester.semesterNum}}
+                        {{semester.Department}} {{semester.Year}} {{semester.SemesterNumber}}
                     </option>
                 </select>
                 <div [hidden]="semester.valid || semester.pristine" class="alert alert-danger">

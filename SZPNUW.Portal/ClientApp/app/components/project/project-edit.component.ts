@@ -33,9 +33,16 @@ export class ProjectEditComponent implements OnInit {
 
     onEdit() {
         this.onClear();
-        this.projectService.update(this.project).then(result => {
-            this.message = 'Temat projektu został zmodyfikowany.';
-            this.projectsListInstructorComponent.onRefresh();
+        this.projectService.updateProject(this.project).then(result => {
+            if (result != null) {
+                if (result.IsSucceeded) {
+                    this.message = 'Temat projektu został zmodyfikowany.';
+                    this.projectsListInstructorComponent.onRefresh();
+                }
+                else {
+                    this.error = result.ErrorMessages;
+                }
+            }
         },
             error => this.error = error);
     }

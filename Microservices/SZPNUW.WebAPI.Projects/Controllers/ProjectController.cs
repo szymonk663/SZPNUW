@@ -47,7 +47,7 @@ namespace SZPNUW.WebAPI.Projects.Controllers
                 string errorMessage = string.Empty;
                 if (service.AddProject(model, ref errorMessage))
                     return Json(new Result(true));
-                return Json(errorMessage);
+                return Json(new Result(errorMessage));
             }
             return Json(new Result(ModelState.GetFirstError()));
         }
@@ -59,7 +59,7 @@ namespace SZPNUW.WebAPI.Projects.Controllers
                 string errorMessage = string.Empty;
                 if (service.UpdateProject(model, ref errorMessage))
                     return Json(new Result(true));
-                return Json(errorMessage);
+                return Json(new Result(errorMessage));
             }
             return Json(new Result(ModelState.GetFirstError()));
         }

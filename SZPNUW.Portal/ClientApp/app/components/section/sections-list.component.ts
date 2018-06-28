@@ -58,7 +58,7 @@ export class SectionsListComponent implements OnChanges {
     getSectionStudent() {
         if (this.selectedStudent !== null && this.selectedSection !== null)
             this.accountService
-                .getStudentSection(this.selectedStudent.id, this.selectedSection.section.id)
+                .getStudentSection(this.selectedStudent.Id, this.selectedSection.section.id)
                 .then(result => this.sectionStudent = result, error => this.error = error);
     }
 

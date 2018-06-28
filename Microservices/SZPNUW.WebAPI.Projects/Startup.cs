@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using SZPNUW.Base.Consts;
+using SZPNUW.DBService;
 
 namespace SZPNUW.WebAPI.Projects
 {
@@ -35,14 +36,14 @@ namespace SZPNUW.WebAPI.Projects
                     opts.AccessDeniedPath = "/Account/UnAuthenticated";
                     opts.Cookie.Name = "SZPNUW.Authentication";
                     opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                    opts.Cookie.SameSite = SameSiteMode.Strict;
+                    opts.Cookie.SameSite = SameSiteMode.None;
                 });
             services.AddSession(opts =>
             {
                 opts.Cookie.Name = "SZPNUW.Session";
                 opts.IdleTimeout = TimeSpan.FromHours(6);
                 opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                opts.Cookie.SameSite = SameSiteMode.Strict;
+                opts.Cookie.SameSite = SameSiteMode.None;
             });
             services
                 .AddMvc()
@@ -64,6 +65,7 @@ namespace SZPNUW.WebAPI.Projects
                 app.UseDeveloperExceptionPage();
             }
             app.UseSession();
+            app.UseSessionRefresh();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

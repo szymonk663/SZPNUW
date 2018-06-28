@@ -12,7 +12,7 @@
                             *ngFor="let projectInstructor of projectsInstructors"
                             [class.selected]="projectInstructor === selectedProject"
                             (click)="onSelect(projectInstructor)">
-                            {{projectInstructor.project.topic}}
+                            {{projectInstructor.Project.Topic}}
                         </li>
                     </ul>
                 </div>
@@ -31,16 +31,16 @@
                             <tbody>
                                 <tr>
                                     <th>Temat</th>
-                                    <td>{{selectedProject.project.topic}}</td>
+                                    <td>{{selectedProject.Project.Topic}}</td>
                                 </tr>
                                 <tr>
                                     <th>Opis</th>
-                                    <td>{{selectedProject.project.description}}</td>
+                                    <td>{{selectedProject.Project.Description}}</td>
                                 </tr>
                                 <tr>
                                     <th>Aktywny</th>
-                                    <td *ngIf="selectedProject.project.active">Tak</td>
-                                    <td *ngIf="!selectedProject.project.active">Nie</td>
+                                    <td *ngIf="selectedProject.Project.Active">Tak</td>
+                                    <td *ngIf="!selectedProject.Project.Active">Nie</td>
                                 </tr>
                                 <tr>
                                     <th>
@@ -49,11 +49,11 @@
                                 </tr>
                                 <tr>
                                     <th>Imię</th>
-                                    <td>{{selectedProject.instructor.firstName}}</td>
+                                    <td>{{selectedProject.Instructor.FirstName}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Nazwsiko</th>
-                                    <td>{{selectedProject.instructor.lastName}}</td>
+                                    <th>Nazwisko</th>
+                                    <td>{{selectedProject.Instructor.LastName}}</td>
                                 </tr>
                             </tbody>
                         </table>

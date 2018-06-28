@@ -41,25 +41,38 @@ export class StudentsSemesterComponent implements OnInit {
         if (this.check()) {
             this.accountService
                 .rewriteTheStudentsForTheNewSemester(this.semestersId)
-                .then(result => this.message = 'Studenci zostali dopisani do nowego semestru.',
-                    error => this.error = error);
+                .then(result => {
+                    if (result != null) {
+                        if (result.IsSucceeded)
+                            this.message = 'Studenci zostali dopisani do nowego semestru.';
+                        else
+                            this.error = result.ErrorMessages;
+                    }
+                },
+                error => this.error = error);
         }
-        console.log(this.semestersId);
     }
 
     edit() {
         if (this.check()) {
             this.accountService
                 .updateTheStudentsSemester(this.semestersId)
-                .then(result => this.message = 'Wpis został zmodyfikowany, studenci zostali przepisani z poprzedniego semestru na nowy.',
-                    error => this.error = error);
+                .then(result => {
+                    if (result != null) {
+                        if (result.IsSucceeded)
+                            this.message = 'Wpis został zmodyfikowany, studenci zostali przepisani z poprzedniego semestru na nowy.';
+                        else
+                            this.error = result.ErrorMessages;
+                    }
+                },
+                error => this.error = error);
         }
     }
 
     private check(): boolean {
         this.clear();
-        this.semestersId.id_semester = this.selectedSemesterId;
-        if (this.semestersId.id_semester == this.semestersId.id_semesterNew) {
+        this.semestersId.SemesterId = this.selectedSemesterId;
+        if (this.semestersId.SemesterId == this.semestersId.NewSemesterId) {
             this.error = 'Próbujesz przypisać studentów do semestru do którego są już przypisani.';
             return false;
         }

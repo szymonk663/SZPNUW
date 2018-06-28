@@ -7,7 +7,7 @@
                     <label for="login">Login:</label>
                     <input type="text" class="form-control" id="login"
                            required maxlength="16"
-                           [(ngModel)]="user.login"
+                           [(ngModel)]="user.Login"
                            name="login"
                            #login="ngModel" />
                     <div [hidden]="login.valid || login.pristine"
@@ -19,7 +19,7 @@
                     <label for="password">Hasło:</label>
                     <input type="password" class="form-control" id="password"
                            required maxlength="16" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                           [(ngModel)]="user.password"
+                           [(ngModel)]="user.Password"
                            name="password"
                            #password="ngModel" />
                     <div [hidden]="password.valid || password.pristine"
@@ -31,7 +31,7 @@
                     <label for="firstname">Imię:</label>
                     <input type="text" class="form-control" id="firstname"
                            required maxlength="20" pattern="[a-zA-Z]{1,20}"
-                           [(ngModel)]="user.firstName"
+                           [(ngModel)]="user.FirstName"
                            name="firstname"
                            #firstName="ngModel" />
                     <div [hidden]="firstName.valid || firstName.pristine"
@@ -43,7 +43,7 @@
                     <label for="lastname">Nazwisko:</label>
                     <input type="text" class="form-control" id="lastname"
                            required maxlength="20"
-                           [(ngModel)]="user.lastName"
+                           [(ngModel)]="user.LastName"
                            name="lastname"
                            #lastName="ngModel" />
                     <div [hidden]="lastName.valid || lastName.pristine"
@@ -55,7 +55,7 @@
                     <label for="pesel">Pesel:</label>
                     <input type="text" class="form-control" id="pesel"
                            required maxlength="11" pattern="[0-9]{11}"
-                           [(ngModel)]="user.pesel"
+                           [(ngModel)]="user.PESEL"
                            name="pesel"
                            #pesel="ngModel" />
                     <div [hidden]="pesel.valid || pesel.pristine"
@@ -67,7 +67,7 @@
                     <label for="birthday">Data urodzenia:</label>
                     <input type="date" class="form-control" id="birthday"
                            required
-                           [(ngModel)]="user.birthday"
+                           [(ngModel)]="user.DateOfBirth"
                            name="birthday"
                            #birthday="ngModel" />
                     <div [hidden]="birthday.valid || birthday.pristine"
@@ -79,7 +79,7 @@
                     <label for="city">Miasto:</label>
                     <input type="text" class="form-control" id="city"
                            required maxlength="20"
-                           [(ngModel)]="user.city"
+                           [(ngModel)]="user.City"
                            name="city"
                            #city="ngModel" />
                     <div [hidden]="city.valid || city.pristine"
@@ -91,7 +91,7 @@
                     <label for="addres">Adres:</label>
                     <input type="text" class="form-control" id="addres"
                            required maxlength="20"
-                           [(ngModel)]="user.addres"
+                           [(ngModel)]="user.Address"
                            name="addres"
                            #addres="ngModel" />
                     <div [hidden]="addres.valid || addres.pristine"
@@ -103,7 +103,7 @@
                     <label for="album">Numer albumu:</label>
                     <input type="text" class="form-control" id="album"
                            required pattern="[0-9]{6}" maxlength="6" placeholder="123456"
-                           [(ngModel)]="user.album"
+                           [(ngModel)]="user.Album"
                            name="album"
                            #album="ngModel" />
                     <div [hidden]="album.valid || album.pristine"
@@ -115,10 +115,10 @@
                     <label for="semester">Semestr</label>
                     <select class="form-control" id="semester"
                             required
-                            [(ngModel)]="user.id_sem"
+                            [(ngModel)]="user.SemesterId"
                             name="semester"
                             #semester="ngModel">
-                        <option *ngFor="let semester of semesters" [value]="semester.id">{{semester.department}} {{semester.year}} {{semester.semesterNum}}</option>
+                        <option *ngFor="let semester of semesters" [value]="semester.Id">{{semester.Department}} {{semester.Year}} {{semester.SemesterNumber}}</option>
                     </select>
                     <div [hidden]="semester.valid || semester.pristine" class="alert alert-danger">
                         Musisz wybrać semestr.

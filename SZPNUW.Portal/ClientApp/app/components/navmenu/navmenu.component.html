@@ -44,6 +44,8 @@
                 </li>
             </ul>
             <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 1" class='nav navbar-nav'>
+                <li> <a [routerLink]="['/student']">Profil</a></li>
+                <li> <a [routerLink]="['/student/sections']">Sekcje</a></li>
             </ul>
             <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 2" class='nav navbar-nav'>
                 <li>
@@ -52,6 +54,10 @@
                     </a>
                 </li>
                 <li><a [routerLink]="['/subjects']">Przedmioty</a></li>
+                <li><a [routerLink]="['/students']">Studenci</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a [routerLink]="['/sections']">Sekcje</a></li>
+                <li> <a [routerLink]="['/projects']">Projekty</a></li>
             </ul>
             <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 3" class='nav navbar-nav'>
                 <li>

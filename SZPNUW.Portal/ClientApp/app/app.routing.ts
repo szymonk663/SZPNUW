@@ -24,6 +24,12 @@ import { SubjectComponent } from "./components/subject/subject.component";
 import { SubjectDetailComponent } from "./components/subject/subject-detail.component";
 import { SubjectFormComponent } from "./components/subject/subject-form.component";
 import { SubjectSemesterComponent } from "./components/subject/subject-semester.component";
+import { StudentListComponent } from "./components/student/student-list.component";
+import { StudentDetailComponent } from "./components/student/student-detail.component";
+import { ProjectsListInstructorComponent } from "./components/project/projects-list-instructor.component";
+import { SectionsComponent } from "./components/section/sections.component";
+import { SectionsStudentComponent } from "./components/section/sections-student.component";
+import { ReportsComponent } from "./components/report/reports.component";
 
 const routes: Routes = [
     {
@@ -120,6 +126,35 @@ const routes: Routes = [
         path: 'subject/semester/:id_subject',
         component: SubjectSemesterComponent,
         canActivate: [LecturerGuard]
+    },
+    {
+        path: 'students',
+        component: StudentListComponent,
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'student/detail/:id',
+        component: StudentDetailComponent,
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'projects',
+        component: ProjectsListInstructorComponent,
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'sections',
+        component: SectionsComponent,
+        canActivate: [LecturerGuard]
+    },
+    {
+        path: 'student/sections',
+        component: SectionsStudentComponent,
+        canActivate: [StudentGuard]
+    },
+    {
+        path: 'report/section/:id',
+        component: ReportsComponent
     },
     {
         path: '**',

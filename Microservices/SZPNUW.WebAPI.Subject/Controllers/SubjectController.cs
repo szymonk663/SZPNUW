@@ -30,7 +30,7 @@ namespace SZPNUW.WebAPI.Subject.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetSubjectBySemesterId(int id)
+        public IActionResult GetSubjectsBySemesterId(int id)
         {
             List<SubjectModel> subjects = service.GetSubjectsBySemesterId(id);
             return Json(subjects);

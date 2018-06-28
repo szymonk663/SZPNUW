@@ -15,9 +15,9 @@
                         <tr *ngFor="let student of students"
                             [class.selected]="student === selectedStudent"
                             (click)="onSelect(student)">
-                            <td>{{student.firstName}}</td>
-                            <td>{{student.lastName}}</td>
-                            <td>{{student.album}}</td>
+                            <td>{{student.FirstName}}</td>
+                            <td>{{student.LastName}}</td>
+                            <td>{{student.Album}}</td>
                         </tr>
                     </table>
                 </div>
@@ -59,8 +59,8 @@
                         <select class="form-control" id="semester"
                                 [(ngModel)]="semesterId"
                                 name="semester">
-                            <option *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)" [value]="semester.id">
-                                {{semester.department}} {{semester.year}} {{semester.semesterNum}}
+                            <option *ngFor="let semester of (semesters | departmentFilter: department | yearFilter: year)" [value]="semester.Id">
+                                {{semester.Department}} {{semester.Year}} {{semester.SemesterNumber}}
                             </option>
                         </select>
                     </div>

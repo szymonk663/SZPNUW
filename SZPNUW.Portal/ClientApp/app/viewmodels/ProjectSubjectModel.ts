@@ -4,7 +4,7 @@ import { SubjectModel } from './SubjectModel';
 
 export class ProjectSubjectModel {
     constructor(
-        public project: ProjectModel,
-        public subject: SubjectModel
+        public Project: ProjectModel,
+        public Subject: SubjectModel
     ) { }
 }

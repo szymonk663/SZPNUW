@@ -15,7 +15,7 @@
                             *ngFor="let projectSubject of projectsSubjects"
                             [class.selected]="projectSubject === selectedProject"
                             (click)="onSelect(projectSubject)">
-                            {{projectSubject.project.topic}}
+                            {{projectSubject.Project.Topic}}
                         </li>
                     </ul>
                 </div>
@@ -34,20 +34,20 @@
                             <tbody>
                                 <tr>
                                     <th>Temat</th>
-                                    <td>{{selectedProject.project.topic}}</td>
+                                    <td>{{selectedProject.Project.Topic}}</td>
                                 </tr>
                                 <tr>
                                     <th>Opis</th>
-                                    <td>{{selectedProject.project.description}}</td>
+                                    <td>{{selectedProject.Project.Description}}</td>
                                 </tr>
                                 <tr>
                                     <th>Aktywny</th>
-                                    <td *ngIf="selectedProject.project.active">Tak</td>
-                                    <td *ngIf="!selectedProject.project.active">Nie</td>
+                                    <td *ngIf="selectedProject.Project.Active">Tak</td>
+                                    <td *ngIf="!selectedProject.Project.Active">Nie</td>
                                 </tr>
                                 <tr>
                                     <th>Przedmiot:</th>
-                                    <td>{{selectedProject.subject.name}}</td>
+                                    <td>{{selectedProject.Subject.Name}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -58,7 +58,7 @@
         <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div *ngIf="selectedProject">
-                    <project-edit [subjectId]="subjectId" [project]="selectedProject.project"></project-edit>
+                    <project-edit [subjectId]="subjectId" [project]="selectedProject.Project"></project-edit>
                 </div>
             </div>
         </div>

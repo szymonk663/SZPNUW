@@ -56,7 +56,7 @@ export class StudentSemesterComponent implements OnInit {
     }
 
     edit() {
-        this.semestersId.id_semester = this.selectedSemesterId;
+        this.semestersId.SemesterId = this.selectedSemesterId;
         if (this.check()) {
             this.accountService
                 .updateTheStudentSemester(this.semestersId)
@@ -70,8 +70,8 @@ export class StudentSemesterComponent implements OnInit {
 
     private check(): boolean {
         this.clear();
-        this.semestersId.id_semester = this.selectedSemesterId;
-        if (this.semestersId.id_semester == this.semestersId.id_semesterNew) {
+        this.semestersId.SemesterId = this.selectedSemesterId;
+        if (this.semestersId.SemesterId == this.semestersId.NewSemesterId) {
             this.error = 'Próbujesz przypisać studentów do semestru do którego są już przypisani.';
             return false;
         }

@@ -42,7 +42,7 @@ export class StudentListComponent implements OnInit {
     }
 
     onDetail() {
-        this.router.navigate(['/student/detail', this.selectedStudent.id])
+        this.router.navigate(['/student/detail', this.selectedStudent.Id])
     }
 
     onSend() {

@@ -28,15 +28,23 @@ export class ProjectAddComponent implements OnInit {
     ngOnInit() {
         this.onClear();
         this.flag = false;
-        let id_instructor = this.accountService.getUserId();
-        this.project = new ProjectModel(0, '', '', id_instructor, this.subjectId, null);
+        let userId = this.accountService.getUserId();
+        this.project = new ProjectModel(0, '', '', userId, this.subjectId, null);
     }
 
     onAdd() {
         this.onClear();
-        this.projectService.addNew(this.project).then(result => {
-            this.message = 'Temat projektu został dodany.';
-            this.projectsListComponent.onRefresh();
+        this.projectService.addProject(this.project).then(result => {
+            if (result != null) {
+                console.log(result);
+                if (result.IsSucceeded) {
+                    this.message = 'Temat projektu został dodany.';
+                    this.projectsListComponent.onRefresh();
+                }
+                else {
+                    this.error = result.ErrorMessages;
+                }
+            }
         },
             error => this.error = error);
     }

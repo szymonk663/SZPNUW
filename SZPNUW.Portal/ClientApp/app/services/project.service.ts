@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map'
 import {ProjectModel} from '../viewmodels/ProjectModel';
 import {ProjectInstructorModel} from '../viewmodels/ProjectInstructorModel';
 import {ProjectSubjectModel} from '../viewmodels/ProjectSubjectModel';
+import { Result } from '../viewmodels/Result';
 
 @Injectable()
 export class ProjectService {
@@ -15,7 +16,7 @@ export class ProjectService {
 
     getProjectsBySubjectId(subjectId: number): Promise<ProjectInstructorModel[]> {
         console.log(subjectId);
-        return this.http.get(this.url + 'GetBySubject/' + subjectId).toPromise().then(result => {
+        return this.http.get(this.url + 'GetBySubjectId/' + subjectId).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -24,7 +25,7 @@ export class ProjectService {
     }
 
     getProjectsByInstructorId(instructorId: number): Promise<ProjectSubjectModel[]> {
-        return this.http.get(this.url + 'GetByInstructor/' + instructorId).toPromise().then(result => {
+        return this.http.get(this.url + 'GetProjectSubjectByInstructorId/' + instructorId).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -50,33 +51,33 @@ export class ProjectService {
         }).catch(this.handleError);
     }
 
-    addNew(project: ProjectModel): Promise<boolean> {
+    addProject(project: ProjectModel): Promise<Result> {
         return this.http.post(this.url + 'AddProject', JSON.stringify(project), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    update(project: ProjectModel): Promise<boolean> {
+    updateProject(project: ProjectModel): Promise<Result> {
         return this.http.put(this.url + 'UpdateProject', JSON.stringify(project), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    delete(projectId: number): Promise<boolean> {
+    deleteProject(projectId: number): Promise<Result> {
         return this.http.delete(this.url + 'DeleteProject/' + projectId)
             .toPromise()
             .then(result => {
                 if (result.status == 200)
-                    return true;
-                return false;
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 

@@ -30,7 +30,7 @@ namespace SZPNUW.WebAPI.Sections.Controllers
                 service.AddMeeting(model);
                 return Json(new Result(true));
             }
-            return Json(ModelState.GetFirstError());
+            return Json(new Result(ModelState.GetFirstError()));
         }
 
         [HttpPut]
@@ -45,7 +45,7 @@ namespace SZPNUW.WebAPI.Sections.Controllers
                 }
                 return Json(new Result(errorMessage));
             }
-            return Json(ModelState.GetFirstError());
+            return Json(new Result(ModelState.GetFirstError()));
         }
 
         [HttpDelete("{id}")]

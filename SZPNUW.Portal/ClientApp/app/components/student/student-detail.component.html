@@ -7,27 +7,27 @@
                         <tbody>
                             <tr>
                                 <th>Imię</th>
-                                <td>{{student.firstName}}</td>
+                                <td>{{student.FirstName}}</td>
                             </tr>
                             <tr>
                                 <th>Nazwisko</th>
-                                <td>{{student.lastName}}</td>
+                                <td>{{student.LastName}}</td>
                             </tr>
                             <tr>
                                 <th>Pesel</th>
-                                <td>{{student.pesel}}</td>
+                                <td>{{student.PESEL}}</td>
                             </tr>
                             <tr>
                                 <th>Data urodzenia</th>
-                                <td>{{student.birthday | date:'y-MM-dd'}}</td>
+                                <td>{{student.DateOfBirth | date:'y-MM-dd'}}</td>
                             </tr>
                             <tr>
                                 <th>Miasto</th>
-                                <td>{{student.city}}</td>
+                                <td>{{student.City}}</td>
                             </tr>
                             <tr>
                                 <th>Adres</th>
-                                <td>{{student.addres}}</td>
+                                <td>{{student.Address}}</td>
                             </tr>
                             <tr>
                                 <th>Semestry:</th>
@@ -41,7 +41,7 @@
                                         <li class="list-group-item" *ngFor="let semester of semesters"
                                             [class.selected]="semester === selectedSemester"
                                             (click)="onSelect(semester)">
-                                            Wydział: {{semester.department}} Rok akademicki: {{semester.year}} Semestr: {{semester.semesterNum}}
+                                            Wydział: {{semester.Department}} Rok akademicki: {{semester.Year}} Semestr: {{semester.SemesterNumber}}
                                         <li>
                                     </ul>
                                 </td>
@@ -63,7 +63,7 @@
         <div class="modal-dialog" role="document">
             <div *ngIf="student">
                 <div *ngIf="selectedSemester">
-                    <student-semester [selectedSemesterId]="selectedSemester.id" [studentId]="student.id"></student-semester>
+                    <student-semester [selectedSemesterId]="selectedSemester.Id" [studentId]="student.Id"></student-semester>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
     <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div *ngIf="student">
-                <student-semester [studentId]="student.id"></student-semester>
+                <student-semester [studentId]="student.Id"></student-semester>
             </div>
         </div>
     </div>

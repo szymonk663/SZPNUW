@@ -122,9 +122,8 @@ namespace SZPNUW.WebAPI.Account.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetStudentBySemesterId(int id)
+        public IActionResult GetStudentsBySemesterId(int id)
         {
-            var a = HttpContext.Request;
                 List<StudentModel> list = service.GetStudentBySemesterId(id);
                 return Json(list);
         }
@@ -215,7 +214,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
             if (ModelState.IsValid)
             {
                 string errorMessage = string.Empty;
-                service.RewriteStudentSemester(model.StudentId, model.SemesterId, ref errorMessage);
+                service.RewriteStudentSemester(model.StudentId, model.SemesterId.Value, ref errorMessage);
                 if (errorMessage.HasValue())
                     return Json(new Result(errorMessage));
                 return Json(new Result(true));
@@ -229,7 +228,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
             if (ModelState.IsValid)
             {
                 string errorMessage = string.Empty;
-                service.UpdateStudentSemester(model.StudentId, model.SemesterId, model.NewSemesterId, ref errorMessage);
+                service.UpdateStudentSemester(model.StudentId, model.SemesterId.Value, model.NewSemesterId.Value, ref errorMessage);
                 if (errorMessage.HasValue())
                     return Json(new Result(errorMessage));
                 return Json(new Result(true));

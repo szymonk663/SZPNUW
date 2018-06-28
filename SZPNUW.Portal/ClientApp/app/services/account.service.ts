@@ -32,8 +32,10 @@ export class AccountService {
     //Authentication and authorizatrion
     
     getUserId(): number | null {
-        const userJson = localStorage.getItem('currentUser');
-        return userJson !== null ? JSON.parse(userJson).id : null;
+        if (this.auth === null) {
+            this.auth = this.getAuthProfile();
+        }
+        return this.auth !== null ? this.auth.Id : null;
     }
 
     registerStudent(model: RegistrationModel): Promise<Boolean> {
@@ -77,7 +79,6 @@ export class AccountService {
                 }
             });
         }
-        console.log(this.auth);
         return this.auth;
     }
 
@@ -155,7 +156,7 @@ export class AccountService {
     }
 
     getStudentsBySemester(id: number): Promise<StudentModel[]> {
-        return this.http.get(this.url + 'GetStudentsBySemester/' + id).toPromise().then(result => {
+        return this.http.get(this.url + 'GetStudentsBySemesterId/' + id).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -163,23 +164,23 @@ export class AccountService {
         }).catch(this.handleError);
     }
 
-    rewriteTheStudentsForTheNewSemester(semestersId: SemestersIdModel): Promise<boolean> {
+    rewriteTheStudentsForTheNewSemester(semestersId: SemestersIdModel): Promise<Result> {
         return this.http.post(this.url + 'RewriteStudentsSemester', JSON.stringify(semestersId), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    updateTheStudentsSemester(semestersId: SemestersIdModel): Promise<boolean> {
+    updateTheStudentsSemester(semestersId: SemestersIdModel): Promise<Result> {
         return this.http.put(this.url + 'UpdateStudentsSemester', JSON.stringify(semestersId), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
@@ -197,7 +198,7 @@ export class AccountService {
         return this.http.post(this.url + 'RewriteStudentSemester', JSON.stringify(semestersId), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
+                if (result.status == 200)
                     return true;
                 return false;
             }).catch(this.handleError);
@@ -207,7 +208,7 @@ export class AccountService {
         return this.http.put(this.url + 'UpdateStudentSemester', JSON.stringify(semestersId), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
+                if (result.status == 200)
                     return true;
                 return false;
             }).catch(this.handleError);

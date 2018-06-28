@@ -141,6 +141,9 @@
   <data name="MissingSubject" xml:space="preserve">
     <value>Brak przedmiotu</value>
   </data>
+  <data name="NoStudentsOnSemester" xml:space="preserve">
+    <value>Brak studentów w wybranym semestrze.</value>
+  </data>
   <data name="NoSubjectOnSemester" xml:space="preserve">
     <value>Nie można znaleść tego przedmiotu na takim semestrze.</value>
   </data>

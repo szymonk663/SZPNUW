@@ -40,9 +40,14 @@ export class ProjectsListInstructorComponent implements OnInit {
     }
 
     onDelete() {
-        this.projectService.delete(this.selectedProject.project.id).then(result => {
-            this.message = 'Projekt został usunięty.';
-            this.onRefresh();
+        this.projectService.deleteProject(this.selectedProject.Project.Id).then(result => {
+            if (result.IsSucceeded) {
+                this.message = 'Projekt został usunięty.';
+                this.onRefresh();
+            }
+            else {
+                this.error = result.ErrorMessages;
+            }
         },
             error => this.error = error);
     }

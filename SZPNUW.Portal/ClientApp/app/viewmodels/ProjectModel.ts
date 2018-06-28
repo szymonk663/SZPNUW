@@ -1,10 +1,10 @@
 ﻿export class ProjectModel {
     constructor(
-        public id: number,
-        public topic: string,
-        public description: string,
-        public id_instructor: number | null,
-        public id_subject: number,
-        public active: boolean | null
+        public Id: number,
+        public Topic: string,
+        public Description: string,
+        public UserId: number | null,
+        public SubjectId: number,
+        public Active: boolean | null
     ) { }
 }
