@@ -86,7 +86,7 @@ namespace SZPNUW.DBService
                             context.SaveChanges();
                             c++;
                         }
-                        catch
+                        catch(Exception ex)
                         {
                             notCreated++;
                         }

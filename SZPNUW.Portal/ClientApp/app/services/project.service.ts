@@ -15,7 +15,6 @@ export class ProjectService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     getProjectsBySubjectId(subjectId: number): Promise<ProjectInstructorModel[]> {
-        console.log(subjectId);
         return this.http.get(this.url + 'GetBySubjectId/' + subjectId).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();

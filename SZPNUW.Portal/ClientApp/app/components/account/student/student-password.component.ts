@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AccountService } from "../../../services/account.service";
 import { ChangePasswordsModel } from "../../../viewmodels/ChangePasswordModel";
 
@@ -14,7 +13,7 @@ export class StudentPasswordComponent implements OnInit {
     error = '';
 
     constructor(private route: ActivatedRoute,
-        private location: Location,
+        private router: Router,
         private accountService: AccountService
     ) { }
 
@@ -26,8 +25,11 @@ export class StudentPasswordComponent implements OnInit {
         this.error = '';
         if (this.passwords.NewPassword == this.retryPassword) {
             this.accountService.changePassword(this.passwords).then(result => {
-                if (result)
-                    this.goBack();
+                if (result !== null)
+                    if (result.IsSucceeded)
+                        this.goBack();
+                    else
+                        this.error = result.ErrorMessages;
             }, error => this.error = error);
         }
         else
@@ -35,6 +37,6 @@ export class StudentPasswordComponent implements OnInit {
     }
 
     goBack(): void {
-        this.location.back();
+        this.router.navigateByUrl("/student");
     }
 }

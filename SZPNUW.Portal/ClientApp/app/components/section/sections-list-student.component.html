@@ -14,7 +14,7 @@
                                 *ngFor="let section of sections"
                                 [class.selected]="section === selectedSection"
                                 (click)="onSelect(section)">
-                                Sekcja: {{section.section.sectionNum}}
+                                Sekcja: {{section.Section.SectionNumber}}
                             </li>
                         </ul>
                     </div>
@@ -28,20 +28,20 @@
                         <div class="panel-heading">
                             Studenci z sekcji
                         </div>
-                        <div *ngIf="selectedSection.students.length == 0" class="panel-body">
+                        <div *ngIf="selectedSection.Students.length == 0" class="panel-body">
                             Nikt się jeszcze nie wpisał.
                         </div>
                         <ul class="list-group">
                             <li class="list-group-item"
-                                *ngFor="let student of selectedSection.students"
+                                *ngFor="let student of selectedSection.Students"
                                 [class.selected]="student === selectedStudent"
                                 (click)="onSelectStudent(student)">
-                                {{student.firstName}} {{student.lastName}}
+                                {{student.FirstName}} {{student.LastName}}
                             </li>
                         </ul>
                         <div class="panel-body" *ngIf="project">
-                            {{project.topic}}<br />
-                            {{project.description}}
+                            {{project.Topic}}<br />
+                            {{project.Description}}
                         </div>
                         <div class="panel-footer">
                             <button type="button" [disabled]="!selectedSection || !storred" class="btn btn-link" data-toggle="modal" data-target="#modalSelect">Wybierz projekt</button>
@@ -53,10 +53,10 @@
             <div class="col-md-3 col-md-offset-1">
                 <br /><br />
                 <div *ngIf="selectedStudent">
-                    <meetings *ngIf="selectedStudent.id == studentId" [sectionId]="selectedSection.section.id" [studentId]="selectedStudent.id" [permission]="false"></meetings>
+                    <meetings *ngIf="selectedStudent.Id == studentId" [sectionId]="selectedSection.Section.Id" [studentId]="selectedStudent.Id" [permission]="false"></meetings>
                 </div>
                 <div *ngIf="sectionStudent">
-                    <span [hidden]="sectionStudent.rate == 0">Ocena końcowa to: {{sectionStudent.rate}}</span>
+                    <span [hidden]="sectionStudent.Rate == 0">Ocena końcowa to: {{sectionStudent.Rate}}</span>
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@
 </div>
 <div class="modal fade" id="modalSelect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <section-project *ngIf="selectedSection" [section]="selectedSection.section"></section-project>
+        <section-project *ngIf="selectedSection" [section]="selectedSection.Section"></section-project>
     </div>
 </div>
 

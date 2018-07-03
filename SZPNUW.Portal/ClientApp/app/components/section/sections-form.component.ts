@@ -23,17 +23,22 @@ export class SectionsFormComponent implements OnChanges {
 
     ngOnChanges() {
         this.onClear();
-        this.sectionsCreator.semesterId = this.semesterId;
-        this.sectionsCreator.subjectId = this.subjectId;
+        this.sectionsCreator.SemesterId = this.semesterId;
+        this.sectionsCreator.SubjectId = this.subjectId;
     }
 
     onSubmit() {
         this.sectionService
             .addNewSections(this.sectionsCreator)
             .then(result => {
-                this.message = result
-                this.sectionsCreator.count = 1;
-                this.sectionsListComponent.onRefresh();
+                if (result != null)
+                    if (result.IsSucceeded) {
+                        this.message = result.PortalMessages;
+                        this.sectionsCreator.Count = 1;
+                        this.sectionsListComponent.onRefresh();
+                    }
+                    else
+                        this.error = result.ErrorMessages;
             }, error => this.error = error);
     }
 

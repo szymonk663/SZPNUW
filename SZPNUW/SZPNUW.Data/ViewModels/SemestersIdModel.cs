@@ -21,5 +21,11 @@ namespace SZPNUW.Data
             if (modelState != null)
                 modelState.ClearModelStateErrorLazy("NewSemesterId");
         }
+
+        public void SkipSemesterIdValidation(ModelStateDictionary modelState)
+        {
+            if (modelState != null)
+                modelState.ClearModelStateErrorLazy("SemesterId");
+        }
     }
 }

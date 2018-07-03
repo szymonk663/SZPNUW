@@ -51,27 +51,34 @@ export class SectionsListComponent implements OnChanges {
     getProject() {
         if (this.selectedSection !== null)
         this.projectService
-            .getProjectBySectionId(this.selectedSection.section.id)
+            .getProjectBySectionId(this.selectedSection.Section.Id)
             .then(project => this.project = project, error => this.error = error);
     }
 
     getSectionStudent() {
-        if (this.selectedStudent !== null && this.selectedSection !== null)
+        if (this.selectedStudent !== null && this.selectedSection !== null && this.selectedStudent.Id !== null)
             this.accountService
-                .getStudentSection(this.selectedStudent.Id, this.selectedSection.section.id)
+                .getStudentSection(this.selectedStudent.Id, this.selectedSection.Section.Id)
                 .then(result => this.sectionStudent = result, error => this.error = error);
     }
 
     goToReports() {
         if (this.selectedSection !== null)
-            this.router.navigate(['/report/section', this.selectedSection.section.id])
+            this.router.navigate(['/report/section', this.selectedSection.Section.Id])
     }
 
     onDelete() {
         if (this.selectedSection !== null)
             this.sectionService
-                .delete(this.selectedSection.section.id)
-                .then(() => this.onRefresh(), error => this.error = error);
+                .delete(this.selectedSection.Section.Id)
+                .then(result => {
+                    if (result !== null)
+                        if (result.IsSucceeded) {
+                            this.onRefresh();
+                        }
+                        else
+                            this.error = result.ErrorMessages;
+                }, error => this.error = error);
     }
 
     onRefresh() {

@@ -24,8 +24,8 @@ export class StudentProfileComponent implements OnInit {
         if (userId !== null)
         this.accountService.getStudent(userId).then(student => {
             this.student = student;
-            if (this.student.SemesterId !== null)
-                this.semesterService.getSemestersById(this.student.SemesterId).then(semester => this.semester = semester,
+            if (this.student.Semester !== null)
+                this.semesterService.getSemestersById(this.student.Semester.Id).then(semester => this.semester = semester,
                     reject => this.error = reject)
         },
             reject => this.error = reject

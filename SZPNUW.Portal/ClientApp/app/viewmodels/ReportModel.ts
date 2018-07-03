@@ -1,7 +1,7 @@
 ﻿export class ReportModel {
     constructor(
-        public id: number,
-        public name: string,
-        public sectionId: number
+        public Id: number,
+        public Name: string,
+        public SectionId: number
     ) { }
 }

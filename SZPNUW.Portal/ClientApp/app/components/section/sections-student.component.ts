@@ -25,10 +25,10 @@ export class SectionsStudentComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        const userId = this.accountService.getUserId();
-        if(userId !== null)
+        const pId = this.accountService.getPId();
+        if (pId !== null)
             this.semesterService
-                .getSemestersByStudentId(userId)
+                .getSemestersByStudentId(pId)
                 .then(semesters => this.semesters = semesters, error => this.error = error);
         const actualSectionsStu = localStorage.getItem('actualSectionsStu');
         if (actualSectionsStu !== null) {

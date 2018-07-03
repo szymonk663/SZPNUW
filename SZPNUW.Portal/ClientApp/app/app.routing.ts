@@ -30,6 +30,9 @@ import { ProjectsListInstructorComponent } from "./components/project/projects-l
 import { SectionsComponent } from "./components/section/sections.component";
 import { SectionsStudentComponent } from "./components/section/sections-student.component";
 import { ReportsComponent } from "./components/report/reports.component";
+import { StudentComponent } from "./components/account/student/student.component";
+import { StudentProfileDetailComponent } from "./components/account/student/student-profile-detail.component";
+import { StudentPasswordComponent } from "./components/account/student/student-password.component";
 
 const routes: Routes = [
     {
@@ -155,6 +158,21 @@ const routes: Routes = [
     {
         path: 'report/section/:id',
         component: ReportsComponent
+    },
+    {
+        path: 'student',
+        component: StudentComponent,
+        canActivate: [StudentGuard]
+    },
+    {
+        path: 'student/detail',
+        component: StudentProfileDetailComponent,
+        canActivate: [StudentGuard]
+    },
+    {
+        path: 'student/password',
+        component: StudentPasswordComponent,
+        canActivate: [StudentGuard]
     },
     {
         path: '**',

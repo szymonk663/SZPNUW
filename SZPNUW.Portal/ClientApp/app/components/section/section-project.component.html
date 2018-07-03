@@ -13,7 +13,7 @@
                         name="semester"
                         #semester="ngModel">
                     <option *ngFor="let project of projects" [ngValue]="project">
-                        {{project.project.topic}}
+                        {{project.Project.Topic}}
                     </option>
                 </select>
             </div>
@@ -22,11 +22,11 @@
             <tbody>
                 <tr>
                     <th>Temat</th>
-                    <td>{{selectedProject.project.topic}}</td>
+                    <td>{{selectedProject.Project.Topic}}</td>
                 </tr>
                 <tr>
                     <th>Opis</th>
-                    <td>{{selectedProject.project.description}}</td>
+                    <td>{{selectedProject.Project.Description}}</td>
                 </tr>
                 <tr>
                     <th>
@@ -35,11 +35,11 @@
                 </tr>
                 <tr>
                     <th>Imie</th>
-                    <td>{{selectedProject.instructor.firstName}}</td>
+                    <td>{{selectedProject.Instructor.FirstName}}</td>
                 </tr>
                 <tr>
                     <th>Nazwsiko</th>
-                    <td>{{selectedProject.instructor.lastName}}</td>
+                    <td>{{selectedProject.Instructor.LastName}}</td>
                 </tr>
             </tbody>
         </table>

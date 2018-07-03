@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AccountService } from "../../../services/account.service";
 import { StudentModel } from "../../../viewmodels/StudentModel";
@@ -17,24 +17,27 @@ export class StudentProfileDetailComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
         private location: Location,
-        private accountService: AccountService
+        private accountService: AccountService,
+        private router: Router
     ) { }
 
     ngOnInit() {
-        const userId = this.accountService.getUserId();
-        if(userId !== null)
-            this.accountService.getStudent(userId).then(student => this.student = student,
-                reject => this.error = reject);
+        this.accountService.getCurrentStudent().then(student => this.student = student,
+            reject => this.error = reject);
     }
 
     onSubmit(): void {
         this.accountService.updateStudent(this.student)
             .then(result => {
-                this.goBack();
+                if (result !== null)
+                    if (result.IsSucceeded)
+                        this.goBack();
+                    else
+                        this.error = result.ErrorMessages;
             }, error => this.error = error);
     }
 
     goBack(): void {
-        this.location.back();
+        this.router.navigateByUrl("/student");
     }
 }

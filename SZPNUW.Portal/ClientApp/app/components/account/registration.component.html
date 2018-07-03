@@ -103,7 +103,7 @@
                     <label for="album">Numer albumu:</label>
                     <input type="text" class="form-control" id="album"
                            required pattern="[0-9]{6}" maxlength="6" placeholder="123456"
-                           [(ngModel)]="user.Album"
+                           [(ngModel)]="user.AlbumNumber"
                            name="album"
                            #album="ngModel" />
                     <div [hidden]="album.valid || album.pristine"
@@ -115,7 +115,7 @@
                     <label for="semester">Semestr</label>
                     <select class="form-control" id="semester"
                             required
-                            [(ngModel)]="user.SemesterId"
+                            [(ngModel)]="user.Semester.Id"
                             name="semester"
                             #semester="ngModel">
                         <option *ngFor="let semester of semesters" [value]="semester.Id">{{semester.Department}} {{semester.Year}} {{semester.SemesterNumber}}</option>

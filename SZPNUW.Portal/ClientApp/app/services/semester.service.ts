@@ -35,7 +35,7 @@ export class SemesterService {
 
     getSemestersByStudentId(id: number): Promise<SemesterModel[]> {
 
-        return this.http.get(this.url + 'GetSemestersBySubjectId/' + id).toPromise().then(result => {
+        return this.http.get(this.url + 'GetSemestersByStudentId/' + id).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }

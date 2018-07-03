@@ -1,5 +1,5 @@
 ﻿
-<div *ngIf="semester" class="container">
+<div *ngIf="student" class="container">
     <div class="menu">
         <a [routerLink]="['/student/detail']">Edytuj</a>
         <a [routerLink]="['/student/password']">Zmień hasło</a>
@@ -28,25 +28,25 @@
             </tr>
             <tr>
                 <th>Adres</th>
-                <td>{{student.Addres}}</td>
+                <td>{{student.Address}}</td>
             </tr>
             <tr>
                 <th>Rok</th>
-                <td>{{semester.Year}}</td>
+                <td>{{student.Semester.Year}}</td>
             </tr>
             <tr>
                 <th>Numer semestru</th>
-                <td>{{semester.SemesterNumber}}</td>
+                <td>{{student.Semester.SemesterNumber}}</td>
             </tr>
             <tr>
                 <th>Kierunek</th>
-                <td>{{semester.Department}}</td>
+                <td>{{student.Semester.Department}}</td>
             </tr>
         </tbody>
     </table>
     <button class="btn btn-default" (click)="edit()">Edytuj</button>
 </div>
-<div *ngIf="!semester">
+<div *ngIf="!student">
     Poczekaj chwile...
 </div>
 <div *ngIf="error" class="alert alert-danger">{{error}}</div>

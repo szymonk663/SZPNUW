@@ -4,6 +4,7 @@ import {ReportService} from '../../services/report.service';
 import {SectionService} from '../../services/section.service';
 import {AccountService} from '../../services/account.service';
 import {ReportModel} from '../../viewmodels/ReportModel';
+import { AppComponent } from "../app/app.component";
 
 @Component({
     selector: "reports",
@@ -16,13 +17,14 @@ export class ReportsComponent implements OnInit {
     sectionId: number;
     reports: ReportModel[] | null;
     selectedReport: ReportModel;
-    permission: string;
+    permission: number;
     storred: boolean = false;
 
     constructor(private route: ActivatedRoute,
         private reportService: ReportService,
         private sectionService: SectionService,
         private accountService: AccountService,
+        private appComponent: AppComponent,
         private router: Router
     ) { }
 
@@ -32,8 +34,7 @@ export class ReportsComponent implements OnInit {
             if (this.sectionId)
                 this.onRefresh();
         });
-        this.getPermission();
-        if (this.permission == 'u')
+        if (this.appComponent.auth && this.appComponent.auth.UserType == 1)
             this.onCheck();
     }
 
@@ -53,14 +54,7 @@ export class ReportsComponent implements OnInit {
     }
 
     onDownload() {
-        this.reportService.downloadReport(this.selectedReport.id);
-    }
-
-    getPermission() {
-        const item = localStorage.getItem('currentUser')
-        if (item !== null) {
-            this.permission = JSON.parse(item).permissions;
-        }
+        this.reportService.downloadReport(this.selectedReport.Id);
     }
 
     onCheck() {
@@ -74,16 +68,16 @@ export class ReportsComponent implements OnInit {
     onDelete() {
         this.onClear();
         this.reportService
-            .deleteReport(this.selectedReport.id).then(response => {
+            .deleteReport(this.selectedReport.Id).then(response => {
                 this.message = 'Plik został usunięty';
                 this.onRefresh();
         }, error => this.error = error);
     }
 
     goBack() {
-        if (this.permission == 'a')
+        if (this.appComponent.auth && this.appComponent.auth.UserType == 2)
             this.router.navigate(['/sections']);
-        else if (this.permission == 'u')
+        else if (this.appComponent.auth && this.appComponent.auth.UserType == 1)
             this.router.navigate(['/student/sections']);
     }
 

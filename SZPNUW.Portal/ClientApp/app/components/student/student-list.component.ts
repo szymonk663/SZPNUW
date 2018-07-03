@@ -59,8 +59,15 @@ export class StudentListComponent implements OnInit {
         this.accountService
             .deleteStudentsSemester(this.semesterId)
             .then(result => {
-                this.message = 'Studenci zostali wypisani z tego semestru.';
-                this.onSend();
+                if (result !== null) {
+                    if (result.IsSucceeded) {
+                        this.message = 'Studenci zostali wypisani z tego semestru.';
+                        this.onSend();
+                    }
+                    else
+                        this.error = result.ErrorMessages;
+                }
+                
             },
                 error => this.error = error);
     }

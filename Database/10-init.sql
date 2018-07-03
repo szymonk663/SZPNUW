@@ -142,7 +142,7 @@ CREATE TABLE public.sections (
 	id SERIAL,
     sectionnumber INTEGER NOT NULL,
     subcjetsemesterid INTEGER NOT NULL,
-    projectid INTEGER NOT NULL,
+    projectid INTEGER,
     CONSTRAINT pk_sections PRIMARY KEY(id),
     CONSTRAINT ux_sections UNIQUE (subcjetsemesterid, projectid),
     CONSTRAINT fk_subjectssemesters FOREIGN KEY (subcjetsemesterid)

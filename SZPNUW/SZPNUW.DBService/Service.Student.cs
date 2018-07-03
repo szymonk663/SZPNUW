@@ -13,6 +13,11 @@ namespace SZPNUW.DBService
             return service.RegisterStudent(model, ref errorMessage);
         }
 
+        public StudentModel GetStudentByUserId(int userId)
+        {
+            return service.GetStudentByUserId(userId);
+        }
+
         public StudentModel GetStudentById(int id)
         {
             return service.GetStudentById(id);
@@ -35,7 +40,7 @@ namespace SZPNUW.DBService
 
         public bool UpdateStudent(StudentModel model, ref string errorMessage)
         {
-            return UpdateStudent(model, ref errorMessage);
+            return service.UpdateStudent(model, ref errorMessage);
         }
 
         public bool UpdateStudentSection(StudentSectionModel model, ref string errorMessage)

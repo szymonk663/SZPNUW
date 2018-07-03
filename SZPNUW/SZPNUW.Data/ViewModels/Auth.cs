@@ -7,6 +7,7 @@ namespace SZPNUW.Data
     public class Auth : Result
     {
         public UserTypes UserType { get; set; }
+        public int? PId { get; set; }
 
         public Auth()
         {

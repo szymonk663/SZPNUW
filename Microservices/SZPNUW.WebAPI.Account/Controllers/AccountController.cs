@@ -45,7 +45,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
                 if (!errorMessage.HasValue())
                 {
                     LoginUser(user);
-                    Auth auth = new Auth(true) { Id = user.UserId, UserType = user.UserType };
+                    Auth auth = new Auth(true) { Id = user.UserId, UserType = user.UserType, PId = user.PId };
                     return Json(auth);
                 }
                 return Json(new Auth(errorMessage));
@@ -79,7 +79,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
             if (ModelState.IsValid)
             {
                 string errorMessage = string.Empty;
-                if (service.ChangePassword(CurrentUserSessionData.UserId, model, ref errorMessage))
+                if (service.ChangePassword(CurrentUserSessionData.UserId.Value, model, ref errorMessage))
                 {
                     return Json(new Result(true));
                 }
@@ -110,8 +110,17 @@ namespace SZPNUW.WebAPI.Account.Controllers
         [HttpGet]
         public IActionResult GetAuth()
         {
-            UserModel user = HttpContext.Session.GetItem<UserModel>();
-            return Json(user);
+            if(CurrentUserSessionData != null)
+            {
+                Auth auth = new Auth
+                {
+                    Id = CurrentUserSessionData.UserId,
+                    PId = CurrentUserSessionData.PId,
+                    UserType = CurrentUserSessionData.UserType
+                };
+                return Json(auth);
+            }
+            return Json(null);
         }
 
         [HttpGet]
@@ -119,6 +128,13 @@ namespace SZPNUW.WebAPI.Account.Controllers
         {
             HttpContext.SignOutAsync(Consts.AuthenticateScheme);
             Session.Clear();
+        }
+
+        [HttpGet]
+        public IActionResult GetCurrentStudent()
+        {
+            StudentModel model = service.GetStudentByUserId(CurrentUserSessionData.UserId.Value);
+            return Json(model);
         }
 
         [HttpGet("{id}")]
@@ -153,6 +169,8 @@ namespace SZPNUW.WebAPI.Account.Controllers
         [HttpPut]
         public IActionResult UpdateStudent([FromBody]StudentModel model)
         {
+            model.SkipLoginValidation(ModelState);
+            model.SkipPasswordValidation(ModelState);
             if (ModelState.IsValid)
             {
                 string errorMessage = string.Empty;
@@ -211,10 +229,11 @@ namespace SZPNUW.WebAPI.Account.Controllers
         [HttpPost]
         public IActionResult RewriteStudentSemester([FromBody]SemestersIdModel model)
         {
+            model.SkipSemesterIdValidation(ModelState);
             if (ModelState.IsValid)
             {
                 string errorMessage = string.Empty;
-                service.RewriteStudentSemester(model.StudentId, model.SemesterId.Value, ref errorMessage);
+                service.RewriteStudentSemester(model.StudentId, model.NewSemesterId.Value, ref errorMessage);
                 if (errorMessage.HasValue())
                     return Json(new Result(errorMessage));
                 return Json(new Result(true));
@@ -237,7 +256,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteSemester(int id)
+        public IActionResult DeleteStudentsSemester(int id)
         {
             string errorMessage = string.Empty;
             service.DeleteStudentsSemester(id, ref errorMessage);
@@ -247,7 +266,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
         }
 
         [HttpDelete]
-        public IActionResult DeleteSemester([FromQuery] int studentId, int semesterId)
+        public IActionResult DeleteStudentSemester([FromQuery] int studentId, int semesterId)
         {
             string errorMessage = string.Empty;
             service.DeleteStudentSemester(studentId, semesterId, ref errorMessage);
@@ -291,9 +310,10 @@ namespace SZPNUW.WebAPI.Account.Controllers
         [HttpGet]
         public IActionResult GetCurrentInstructor()
         {
-            InstructorModel model = service.GetInstructorByUserId(CurrentUserSessionData.UserId);
+            InstructorModel model = service.GetInstructorByUserId(CurrentUserSessionData.UserId.Value);
             return Json(model);
         }
+
         [HttpPut]
         public IActionResult UpdateInstructor([FromBody]InstructorModel model)
         {

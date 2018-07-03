@@ -1,13 +1,13 @@
 ﻿<div class="container">
     <button type="button" *ngIf="permission" class="btn btn-link" (click)="goBack()">Sekcje</button>
-    <div *ngIf="permission == 'a' || (permission == 'u' && storred)">
+    <div *ngIf="appComponent.auth && (appComponent.auth.UserType == 2 || (appComponent.auth.UserType == 1 && storred))">
         <div class="panel panel-default">
             <div class="panel-heading">Sprawozdania</div>
             <ul class="list-group" *ngIf="reports">
                 <li class="list-group-item" *ngFor="let report of reports"
                     [class.selected]="report === selectedReport"
                     (click)="onSelect(report)">
-                {{report.name}}
+                {{report.Name}}
                 </li>
             </ul>
             <div class="panel-body">
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="panel-footer">
-                <button *ngIf="permission == 'u'" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalSend">Wyślij</button>
+                <button *ngIf="appComponent.auth && appComponent.auth.UserType == 1" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalSend">Wyślij</button>
                 <button type="button" class="btn btn-default" [disabled]="!selectedReport" (click)="onDownload()">Pobierz</button>
             </div>
         </div>

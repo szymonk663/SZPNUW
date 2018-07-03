@@ -9,7 +9,7 @@
                 <label for="count">Ile grup utworzyć?:</label>
                 <input type="number" class="form-control" id="count" min="1" max="20"
                        required
-                       [(ngModel)]="sectionsCreator.count"
+                       [(ngModel)]="sectionsCreator.Count"
                        name="count"
                        #count="ngModel" />
                 <div [hidden]="count.valid || count.pristine"

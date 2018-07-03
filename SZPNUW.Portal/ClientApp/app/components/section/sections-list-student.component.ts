@@ -36,7 +36,7 @@ export class SectionsListStudentComponent implements OnChanges, OnInit {
     ) { }
 
     ngOnInit() {
-        this.studentId = this.accountService.getUserId();
+        this.studentId = this.accountService.getPId();
     }
 
     ngOnChanges() {
@@ -58,33 +58,33 @@ export class SectionsListStudentComponent implements OnChanges, OnInit {
     getProject() {
         if (this.selectedSection !== null)
             this.projectService
-                .getProjectBySectionId(this.selectedSection.section.id)
+                .getProjectBySectionId(this.selectedSection.Section.Id)
                 .then(project => this.project = project, error => this.error = error);
     }
 
     getSectionStudent() {
-        if (this.selectedSection !== null && this.selectedStudent !== null)
+        if (this.selectedSection !== null && this.selectedStudent !== null && this.selectedStudent.Id !== null)
             this.accountService
-                .getStudentSection(this.selectedStudent.Id, this.selectedSection.section.id)
+                .getStudentSection(this.selectedStudent.Id, this.selectedSection.Section.Id)
                 .then(result => this.sectionStudent = result, error => this.error = error);
     }
 
     goToReports() {
         if (this.selectedSection !== null)
-            this.router.navigate(['/report/section', this.selectedSection.section.id])
+            this.router.navigate(['/report/section', this.selectedSection.Section.Id])
     }
 
     onDeleteProject() {
         if (this.selectedSection !== null) {
-            this.selectedSection.section.idProject = 0;
-            this.sectionService.update(this.selectedSection.section).then(response => this.getProject(), error => this.error = error);
+            this.selectedSection.Section.ProjectId = 0;
+            this.sectionService.update(this.selectedSection.Section).then(response => this.getProject(), error => this.error = error);
         }
     }
 
     onFind() {
-        if (this.selectedSection !== null && this.selectedSection.students.length == 0) {
+        if (this.selectedSection !== null && this.selectedSection.Students.length == 0) {
             this.storred = false;
-            this.selectedSection.students.forEach(student => {
+            this.selectedSection.Students.forEach(student => {
                 if (student.Id == this.studentId) {
                     this.storred = true;
                     return true;
@@ -110,7 +110,7 @@ export class SectionsListStudentComponent implements OnChanges, OnInit {
     onAdd() {
         this.clear();
         if (this.selectedSection !== null) {
-            this.studentSection.sectionId = this.selectedSection.section.id;
+            this.studentSection.sectionId = this.selectedSection.Section.Id;
             this.studentSection.studentId = this.studentId;
         }
         this.sectionService
@@ -122,7 +122,7 @@ export class SectionsListStudentComponent implements OnChanges, OnInit {
         if (this.studentId !== null && this.selectedSection !== null) {
             this.clear();
             this.sectionService
-                .deleteStudentFromSection(this.studentId, this.selectedSection.section.id)
+                .deleteStudentFromSection(this.studentId, this.selectedSection.Section.Id)
                 .then(result => this.onRefresh(), error => this.error = error);
         }
     }

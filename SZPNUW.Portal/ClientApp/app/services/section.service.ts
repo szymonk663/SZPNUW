@@ -6,6 +6,7 @@ import {SectionStudentsModel} from '../viewmodels/SectionStudentsModel';
 import {SectionsCreateModel} from '../viewmodels/SectionsCreateModel';
 import {StudentSectionModel} from '../viewmodels/StudentSectionModel';
 import {SectionModel} from '../viewmodels/SectionModel';
+import { Result } from '../viewmodels/Result';
 
 @Injectable()
 export class SectionService {
@@ -50,12 +51,12 @@ export class SectionService {
         }).catch(this.handleError);
     }
 
-    addNewSections(sectionsCreate: SectionsCreateModel): Promise<string> {
+    addNewSections(sectionsCreate: SectionsCreateModel): Promise<Result> {
         return this.http.post(this.url + 'AddSections', JSON.stringify(sectionsCreate), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return JSON.stringify(result.json());
+                if (result.status == 200)
+                    return result.json() as Result;
                 return null;
             }).catch(this.handleError);
     }
@@ -70,13 +71,13 @@ export class SectionService {
             }).catch(this.handleError);
     }
 
-    delete(id: number): Promise<boolean> {
+    delete(id: number): Promise<Result> {
         return this.http.delete(this.url + 'DeleteSection/' + id)
             .toPromise()
             .then(result => {
                 if (result.status == 200)
-                    return true;
-                return false;
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 

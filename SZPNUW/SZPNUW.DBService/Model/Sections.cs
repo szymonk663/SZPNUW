@@ -14,7 +14,7 @@ namespace SZPNUW.DBService.Model
         public int Id { get; set; }
         public int Sectionnumber { get; set; }
         public int Subcjetsemesterid { get; set; }
-        public int Projectid { get; set; }
+        public int? Projectid { get; set; }
 
         public Projects Project { get; set; }
         public Subjectssemesters Subcjetsemester { get; set; }

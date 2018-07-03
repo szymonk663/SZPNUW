@@ -41,24 +41,34 @@ export class StudentDetailComponent implements OnInit {
     }
 
     delete() {
-        this.clear();
-        this.accountService
-            .deleteStudentSemester(this.student.Id, this.selectedSemester.Id)
-            .then(result => {
-                this.message = 'Student został wypisany z tego semestru.';
-                this.refresh();
-            },
+        if (this.student !== null && this.student.Id != null) {
+            this.clear();
+            this.accountService
+                .deleteStudentSemester(this.student.Id, this.selectedSemester.Id)
+                .then(result => {
+                    if (result !== null) {
+                        if (result.IsSucceeded) {
+                            this.message = 'Student został wypisany z tego semestru.';
+                            this.refresh();
+                        }
+                        else
+                            this.error = result.ErrorMessages;
+                    }
+                },
                 error => this.error = error);
+        }
     }
 
     refresh() {
-        this.clear();
-        this.semesterService
-            .getSemestersByStudentId(this.student.Id)
-            .then(semesters => {
-            this.semesters = semesters; console.log(semesters);
-    },
-            error => this.error = error);
+        if (this.student !== null && this.student.Id != null) {
+            this.clear();
+            this.semesterService
+                .getSemestersByStudentId(this.student.Id)
+                .then(semesters => {
+                    this.semesters = semesters;
+                },
+                error => this.error = error);
+        }
     }
 
     onBack() {

@@ -46,11 +46,19 @@ export class StudentSemesterComponent implements OnInit {
     }
 
     add() {
+        this.clear();
         this.accountService
             .rewriteTheStudentForTheNewSemester(this.semestersId)
             .then(result => {
-                this.message = 'Student został dopisany do nowego semestru.'
-                this.studentDetailComponent.refresh();
+                if (result !== null) {
+                    if (result.IsSucceeded) {
+                        this.message = 'Student został dopisany do nowego semestru.'
+                        this.studentDetailComponent.refresh();
+                    }
+                    else
+                        this.error = result.ErrorMessages;
+                }
+                
             },
             error => this.error = error);
     }
@@ -61,8 +69,14 @@ export class StudentSemesterComponent implements OnInit {
             this.accountService
                 .updateTheStudentSemester(this.semestersId)
                 .then(result => {
-                    this.message = 'Student został przepisany z poprzedniego semestru na nowy.';
-                    this.studentDetailComponent.refresh();
+                    if (result !== null) {
+                        if (result.IsSucceeded) {
+                            this.message = 'Student został przepisany z poprzedniego semestru na nowy.';
+                            this.studentDetailComponent.refresh();
+                        }
+                        else
+                            this.error = result.ErrorMessages;
+                    }
                 },
                 error => this.error = error);
         }

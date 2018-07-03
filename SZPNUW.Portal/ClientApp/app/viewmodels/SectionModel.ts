@@ -1,8 +1,8 @@
 ﻿export class SectionModel {
     constructor(
-        public id: number,
-        public sectionNum: number,
-        public idSubSem: number,
-        public idProject: number
+        public Id: number,
+        public SectionNumber: number,
+        public SubjectSemesterId: number,
+        public ProjectId: number
     ) { }
 }

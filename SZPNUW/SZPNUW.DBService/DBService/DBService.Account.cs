@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,10 +16,15 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                Users user = context.Users.FirstOrDefault(x => x.Login == model.UserName && x.Password == SecurityService.GetSHA256Hash(model.Password));
+                Users user = context.Users.Include(x => x.Students).Include(x => x.Lecturers).FirstOrDefault(x => x.Login == model.UserName && x.Password == SecurityService.GetSHA256Hash(model.Password));
+                int? pId = null;
                 if (user != null)
                 {
-                    return new UserModel() { UserId = user.Id, Login = user.Login, FirstName = user.Firstname, LastName = user.Lastname, Address = user.Address, City = user.Address, DateOfBirth = user.Dateofbirth, PESEL = user.Pesel, UserType = (UserTypes)user.Usertype };
+                    if (user.Lecturers != null)
+                        pId = user.Lecturers.Id;
+                    else if (user.Students != null)
+                        pId = user.Students.Id;
+                    return new UserModel() { PId = pId, UserId = user.Id, Login = user.Login, FirstName = user.Firstname, LastName = user.Lastname, Address = user.Address, City = user.Address, DateOfBirth = user.Dateofbirth, PESEL = user.Pesel, UserType = (UserTypes)user.Usertype };
                 }
                 errorMessage = ValidationMessages.WrongUserNameOrPassword;
                 return null;

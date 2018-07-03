@@ -81,7 +81,7 @@ namespace SZPNUW.DBService
             using (SZPNUWContext context = new SZPNUWContext())
             {
                 int? subSemId, subjectId;
-                List<int> projectsIdExcluded;
+                List<int?> projectsIdExcluded;
                 List<Projects> projectList, projectsExclude;
                 List<ProjectInstructorModel> list = new List<ProjectInstructorModel>();
 

@@ -22,7 +22,7 @@ namespace SZPNUW.DBService
                     {
                         using (var transaction = context.Database.BeginTransaction())
                         {
-                            Users user = new Users { Login = model.Login, Password = SecurityService.GetSHA256Hash(model.Password), Firstname = model.Password, Lastname = model.LastName, Pesel = model.PESEL, City = model.City, Address = model.Address, Dateofbirth = model.DateOfBirth, Usertype = (int)UserTypes.Student };
+                            Users user = new Users { Login = model.Login, Password = SecurityService.GetSHA256Hash(model.Password), Firstname = model.FirstName, Lastname = model.LastName, Pesel = model.PESEL, City = model.City, Address = model.Address, Dateofbirth = model.DateOfBirth, Usertype = (int)UserTypes.Student };
                             Lecturers lecturer = new Lecturers { Code = model.Code };
                             user.Lecturers = lecturer;
                             try

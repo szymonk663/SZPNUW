@@ -27,7 +27,7 @@ export class SectionProjectComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.projectService.getProjectsBySectionId(this.section.id).then(projects => this.projects = projects, error => this.error = error);
+        this.projectService.getProjectsBySectionId(this.section.Id).then(projects => this.projects = projects, error => this.error = error);
     }
 
     onSelect(section: ProjectInstructorModel) {
@@ -36,7 +36,7 @@ export class SectionProjectComponent implements OnInit {
     }
 
     onSubmit() {
-        this.section.idProject = this.selectedProject.Project.Id;
+        this.section.ProjectId = this.selectedProject.Project.Id;
         this.sectionService
             .update(this.section)
             .then(result => {

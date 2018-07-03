@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
@@ -38,12 +38,31 @@ export class AccountService {
         return this.auth !== null ? this.auth.Id : null;
     }
 
-    registerStudent(model: RegistrationModel): Promise<Boolean> {
-        return this.sendPost(this.url + 'RegisterStudent', model);
+    getPId(): number | null {
+        if (this.auth === null) {
+            this.auth = this.getAuthProfile();
+        }
+        return this.auth !== null && this.auth.PId ? this.auth.PId : null;
     }
 
-    registerInstructor(model: RegistrationModel): Promise<Boolean> {
-        return this.sendPost(this.url + "RegisterInstructor", model);
+    registerStudent(model: StudentModel): Promise<Result> {
+        return this.http.post(this.url + 'RegisterUser', JSON.stringify(model), { headers: this.headers })
+            .toPromise()
+            .then(result => {
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
+            }).catch(this.handleError);
+    }
+
+    registerInstructor(model: InstructorModel): Promise<Result> {
+        return this.http.post(this.url + 'RegisterInstructor', JSON.stringify(model), { headers: this.headers })
+            .toPromise()
+            .then(result => {
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
+            }).catch(this.handleError);
     }
 
     login(user: LoginModel): Observable<Auth> {
@@ -94,9 +113,9 @@ export class AccountService {
     //end of authentication and authorization
 
     getStudent(id: number): Promise<StudentModel> {
-        return this.http.get(this.url + id).toPromise().then(result => {
+        return this.http.get(this.url + "GetStudentById/" + id).toPromise().then(result => {
             if (result.status == 200) {
-                return <StudentModel>result.json();
+                return result.json() as StudentModel;
             }
             return null;
         }).catch(this.handleError);
@@ -125,23 +144,23 @@ export class AccountService {
         }).catch(this.handleError);
     }
 
-    updateStudentSection(studSec: StudentSectionModel): Promise<boolean> {
+    updateStudentSection(studSec: StudentSectionModel): Promise<Result> {
         return this.http.put(this.url + 'UpdateStudentSection', JSON.stringify(studSec), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    updateStudent(student: AccountModule): Promise<boolean> {
+    updateStudent(student: StudentModel): Promise<Result> {
         return this.http.put(this.url + 'UpdateStudent', JSON.stringify(student), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
@@ -184,46 +203,47 @@ export class AccountService {
             }).catch(this.handleError);
     }
 
-    deleteStudentsSemester(semesterId: number): Promise<boolean> {
+    deleteStudentsSemester(semesterId: number): Promise<Result> {
         return this.http.delete(this.url + 'DeleteStudentsSemester/' + semesterId)
             .toPromise()
             .then(result => {
                 if (result.status == 200)
-                    return true;
-                return false;
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    rewriteTheStudentForTheNewSemester(semestersId: SemestersIdModel): Promise<boolean> {
+    rewriteTheStudentForTheNewSemester(semestersId: SemestersIdModel): Promise<Result> {
         return this.http.post(this.url + 'RewriteStudentSemester', JSON.stringify(semestersId), { headers: this.headers })
             .toPromise()
             .then(result => {
                 if (result.status == 200)
-                    return true;
-                return false;
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    updateTheStudentSemester(semestersId: SemestersIdModel): Promise<boolean> {
+    updateTheStudentSemester(semestersId: SemestersIdModel): Promise<Result> {
         return this.http.put(this.url + 'UpdateStudentSemester', JSON.stringify(semestersId), { headers: this.headers })
             .toPromise()
             .then(result => {
                 if (result.status == 200)
-                    return true;
-                return false;
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    deleteStudentSemester(studentId: number, semesterId: number): Promise<boolean> {
+    deleteStudentSemester(studentId: number, semesterId: number): Promise<Result> {
         let params: URLSearchParams = new URLSearchParams();
         params.set('studentId', studentId.toString());
         params.set('semesterId', semesterId.toString());
-        return this.http.delete(this.url + 'DeleteStudentSemester', { search: params })
+        console.log(params);
+        return this.http.delete(this.url + 'DeleteStudentSemester/', { search: params })
             .toPromise()
             .then(result => {
                 if (result.status == 200)
-                    return true;
-                return false;
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     } 
 
@@ -240,6 +260,15 @@ export class AccountService {
         return this.http.get(this.url + "GetCurrentInstructor").toPromise().then(result => {
             if (result.status == 200) {
                 return result.json() as InstructorModel;
+            }
+            return null;
+        }).catch(this.handleError);
+    }
+
+    getCurrentStudent(): Promise<StudentModel> {
+        return this.http.get(this.url + "GetCurrentStudent").toPromise().then(result => {
+            if (result.status == 200) {
+                return result.json() as StudentModel;
             }
             return null;
         }).catch(this.handleError);

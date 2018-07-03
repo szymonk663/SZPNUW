@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { AccountService } from '../../services/account.service';
-import { RegistrationModel } from '../../viewmodels/RegistrationModel';
+import { InstructorModel } from '../../viewmodels/InstructorModel';
 
 @Component({
     selector: 'instructor-registration',
@@ -11,10 +11,8 @@ import { RegistrationModel } from '../../viewmodels/RegistrationModel';
 })
 
 export class InstructorRegistrationComponent{
-
     error = '';
-
-    user: RegistrationModel = new RegistrationModel('', '', '', '', '', new Date(), '', '', '', 0);
+    user: InstructorModel = new InstructorModel( null, null, '', '', '', '', '', new Date(), '', '', '');
     constructor(private route: ActivatedRoute,
         private location: Location,
         private accountService: AccountService
@@ -22,8 +20,12 @@ export class InstructorRegistrationComponent{
 
     onSubmit() {
         this.accountService.registerInstructor(this.user).then(result => {
-            if (result == true)
-                this.goBack();
+            if (result !== null)
+                if (result.IsSucceeded) {
+                    this.goBack();
+                }
+                else
+                    this.error = result.ErrorMessages
         },
             reject => this.error = reject
         );

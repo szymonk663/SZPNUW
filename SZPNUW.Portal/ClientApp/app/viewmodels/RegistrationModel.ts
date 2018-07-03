@@ -1,14 +1,14 @@
 ﻿export class RegistrationModel {
     constructor(
-        public login: string,
-        public password: string,
-        public firstName: string,
-        public lastName: string,
-        public pesel: string,
-        public birthday: Date | null,
-        public city: string,
-        public addres: string,
-        public album: string,
-        public id_sem: number | null
+        public Login: string,
+        public Password: string,
+        public FirstName: string,
+        public LastName: string,
+        public PESEL: string,
+        public DateOfBirth: Date | null,
+        public City: string,
+        public Address: string,
+        public Album: string,
+        public SemesterId: number | null
     ) { }
 }

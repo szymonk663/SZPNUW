@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,12 @@ namespace SZPNUW.DBService
                     {
                         using (var transaction = context.Database.BeginTransaction())
                         {
-                            Users user = new Users { Login = model.Login, Password = model.Password, Firstname = model.Password, Lastname = model.LastName, Pesel = model.PESEL, City = model.City, Address = model.Address, Dateofbirth = model.DateOfBirth, Usertype = (int)UserTypes.Student };
+                            Users user = new Users { Login = model.Login, Password = SecurityService.GetSHA256Hash(model.Password), Firstname = model.FirstName, Lastname = model.LastName, Pesel = model.PESEL, City = model.City, Address = model.Address, Dateofbirth = model.DateOfBirth, Usertype = (int)UserTypes.Student };
                             Students student = new Students { Albumnumber = model.AlbumNumber, };
                             user.Students = student;
                             try
                             {
-                                Semesters semester = context.Semesters.First(x => x.Id == model.SemesterId);
+                                Semesters semester = context.Semesters.First(x => x.Id == model.Semester.Id);
                                 student.Studentsemester.Add(new Studentsemester { Semester = semester });
                                 context.Add(user);
                                 context.SaveChanges();
@@ -46,14 +47,14 @@ namespace SZPNUW.DBService
                 return false;
             }
         }
-        public StudentModel GetStudentById(int id)
+        public StudentModel GetStudentByUserId(int id)
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                Students student = context.Students.Where(s => s.Id == id).FirstOrDefault();
+                Students student = context.Students.Include(x => x.User).FirstOrDefault(s => s.User.Id == id);
                 if (student == null)
                     return null;
-                int semesterId = student.Studentsemester.OrderBy(x => x.Semester.Semesternumber).Last().Semesterid;
+                Semesters semester = context.Studentsemester.Include(x => x.Semester).Where(x => x.Studentid == student.Id).OrderBy(x => x.Semester.Semesternumber).Last().Semester;
                 StudentModel model = new StudentModel
                 {
                     Id = student.Id,
@@ -67,7 +68,33 @@ namespace SZPNUW.DBService
                     DateOfBirth = student.User.Dateofbirth,
                     UserId = student.Userid,
                     UserType = (UserTypes)student.User.Usertype,
-                    SemesterId = semesterId
+                    Semester = new SemesterModel { Id = semester.Id, Department = semester.Fieldofstudy, SemesterNumber = semester.Semesternumber, Year = semester.Academicyear }
+                };
+                return model;
+            }
+        }
+        public StudentModel GetStudentById(int id)
+        {
+            using (SZPNUWContext context = new SZPNUWContext())
+            {
+                Students student = context.Students.Include(x => x.User).FirstOrDefault(s => s.Id == id);
+                if (student == null)
+                    return null;
+                Semesters semester = context.Studentsemester.Include(x => x.Semester).Where(x => x.Studentid == id).OrderBy(x => x.Semester.Semesternumber).Last().Semester;
+                StudentModel model = new StudentModel
+                {
+                    Id = student.Id,
+                    Login = student.User.Login,
+                    FirstName = student.User.Firstname,
+                    LastName = student.User.Lastname,
+                    PESEL = student.User.Pesel,
+                    Address = student.User.Address,
+                    City = student.User.City,
+                    AlbumNumber = student.Albumnumber,
+                    DateOfBirth = student.User.Dateofbirth,
+                    UserId = student.Userid,
+                    UserType = (UserTypes)student.User.Usertype,
+                    Semester = new SemesterModel { Id = semester.Id, Department = semester.Fieldofstudy, SemesterNumber = semester.Semesternumber, Year = semester.Academicyear }
                 };
                 return model;
             }
@@ -120,7 +147,8 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                List<Students> students = context.Studentsemester.Where(x => x.Semesterid == semesterId).Select(x => x.Student).ToList();
+                List<Students> students = context.Studentsemester.Where(x => x.Semesterid == semesterId).Select(x => x.Student).Include(x => x.User).ToList();
+                Semesters semester = context.Semesters.FirstOrDefault(x => x.Id == semesterId);
                 List<StudentModel> model = new List<StudentModel>();
                 students.ForEach(x => model.Add(new StudentModel
                 {
@@ -135,7 +163,7 @@ namespace SZPNUW.DBService
                     DateOfBirth = x.User.Dateofbirth,
                     UserId = x.Userid,
                     UserType = (UserTypes)x.User.Usertype,
-                    SemesterId = semesterId
+                    Semester = new SemesterModel { Id = semester.Id, Department = semester.Fieldofstudy, SemesterNumber = semester.Semesternumber, Year = semester.Academicyear }
                 }));
                 return model;
             }
@@ -145,10 +173,9 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                Students student = context.Students.FirstOrDefault(s => s.Id == model.Id);
+                Students student = context.Students.Include(x => x.User).FirstOrDefault(s => s.Id == model.Id);
                 if(student != null)
                 {
-                    student.User.Login = model.Login;
                     student.User.Firstname = model.FirstName;
                     student.User.Lastname = model.LastName;
                     student.User.Pesel = model.PESEL;
@@ -266,9 +293,11 @@ namespace SZPNUW.DBService
             if(CheckStudSem(context, studentId, newSemesterId, ref errorMessage))
             {
                 Studentsemester studSem = context.Studentsemester.Where(x => x.Studentid == studentId && x.Semesterid == oldSemesterId).FirstOrDefault();
-                if(studSem != null)
+                Studentsemester newStudSem = new Studentsemester { Semesterid = newSemesterId, Studentid = studentId };
+                if (studSem != null && newStudSem != null)
                 {
-                    studSem.Semesterid = newSemesterId;
+                    context.Studentsemester.Add(newStudSem);
+                    context.Studentsemester.Remove(studSem);
                     context.SaveChanges();
                 }
                 else
@@ -286,7 +315,7 @@ namespace SZPNUW.DBService
         {
             if (context.Studentsemester.Where(x => x.Studentid == studentId && x.Semesterid == semesterId).Any())
             {
-                Students student = context.Students.Where(s => s.Id == studentId).FirstOrDefault();
+                Students student = context.Students.Include(x => x.User).FirstOrDefault(x => x.Id == studentId);
                 if(student != null)
                 {
                     errorMessage += PortalMessages.StudentSemesterExist.WithFormatExtesion( new string[] { student.User.Firstname, student.User.Lastname });
@@ -330,7 +359,7 @@ namespace SZPNUW.DBService
 
         private bool DeleteStudentSemester(SZPNUWContext context, int studentId, int semesterId, ref string errorMessage)
         {
-            Students student = context.Students.Where(s => s.Id == studentId).FirstOrDefault();
+            Students student = context.Students.Include(x => x.Studentsemester).Where(s => s.Id == studentId).FirstOrDefault();
             if(student != null)
             {
                 if (student.Studentsemester.Count <= 1)

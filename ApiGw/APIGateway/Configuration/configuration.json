@@ -13,6 +13,18 @@
       "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ]
     },
     {
+      "DownstreamPathTemplate": "/dist/__webpack_hmr",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "szpnuw.portal",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/dist/__webpack_hmr",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ]
+    },
+    {
       "DownstreamPathTemplate": "/Account/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
