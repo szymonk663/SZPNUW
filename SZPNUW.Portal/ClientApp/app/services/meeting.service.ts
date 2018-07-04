@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 
 import {MeetingModel} from '../viewmodels/MeetingModel';
+import { Result } from '../viewmodels/Result';
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class MeetingService {
         let params: URLSearchParams = new URLSearchParams();
         params.set('sectionId', sectionId.toString());
         params.set('studentId', studentId.toString());
-        return this.http.get(this.url, { search: params }).toPromise().then(result => {
+        return this.http.get(this.url + "GetMeetingsBySectionStudent", { search: params }).toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }
@@ -25,33 +26,33 @@ export class MeetingService {
         }).catch(this.handleError);
     }
 
-    update(meeting: MeetingModel): Promise<boolean> {
+    update(meeting: MeetingModel): Promise<Result> {
         return this.http.put(this.url + 'UpdateMeeting', JSON.stringify(meeting), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    AddMeeting(meeting: MeetingModel): Promise<boolean> {
+    AddMeeting(meeting: MeetingModel): Promise<Result> {
         return this.http.post(this.url + 'AddMeeting', JSON.stringify(meeting), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    delete(id: number): Promise<boolean> {
+    delete(id: number): Promise<Result> {
         return this.http.delete(this.url + 'DeleteMeeting/' + id)
             .toPromise()
             .then(result => {
                 if (result.status == 200)
-                    return true;
-                return false;
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 

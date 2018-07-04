@@ -81,15 +81,13 @@ namespace SZPNUW.DBService
             using (SZPNUWContext context = new SZPNUWContext())
             {
                 int? subSemId, subjectId;
-                List<int?> projectsIdExcluded;
                 List<Projects> projectList, projectsExclude;
                 List<ProjectInstructorModel> list = new List<ProjectInstructorModel>();
 
                 subSemId = context.Sections.Where(x => x.Id == sectionId).Select(x => x.Subcjetsemesterid).FirstOrDefault();
                 subjectId = context.Subjectssemesters.Where(x => x.Id == subSemId).Select(x => x.Subjectid).FirstOrDefault();
-                projectsIdExcluded = context.Sections.Where(s => s.Subcjetsemesterid == subSemId).Select(s => s.Projectid).ToList();
-                projectsExclude = context.Projects.Where(p => projectsIdExcluded.Contains(p.Id)).ToList();
-                projectList = context.Projects.Include(x => x.Subject).Where(p => p.Subjectid == subjectId && p.Active).ToList();
+                projectsExclude = context.Sections.Include(x => x.Project).Where(s => s.Subcjetsemesterid == subSemId).Select(s => s.Project).ToList();
+                projectList = context.Projects.Include(x => x.Lecturer).Include(x => x.Lecturer.User).Where(p => p.Subjectid == subjectId && p.Active).ToList();
                 projectsExclude.ForEach(x => projectList.Remove(x));
                 projectList.ForEach(x =>
                 {
@@ -102,13 +100,21 @@ namespace SZPNUW.DBService
                         UserId = x.Lecturerid,
                         SubjectId = x.Subjectid
                     };
-                    SubjectModel subject = new SubjectModel()
+                    InstructorModel instructor = new InstructorModel()
                     {
-                        Id = x.Subject.Id,
-                        Description = x.Subject.Description,
-                        LeaderId = x.Subject.Leaderid,
-                        Name = x.Subject.Name
+                        Id = x.Lecturer.Id,
+                        Login = x.Lecturer.User.Login,
+                        FirstName = x.Lecturer.User.Firstname,
+                        LastName = x.Lecturer.User.Lastname,
+                        PESEL = x.Lecturer.User.Pesel,
+                        Address = x.Lecturer.User.Address,
+                        City = x.Lecturer.User.City,
+                        Code = x.Lecturer.Code,
+                        DateOfBirth = x.Lecturer.User.Dateofbirth,
+                        UserId = x.Lecturer.Userid,
+                        UserType = (UserTypes)x.Lecturer.User.Usertype,
                     };
+                    list.Add(new ProjectInstructorModel(project, instructor));
                 });
                 return list;
             }

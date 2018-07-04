@@ -13,7 +13,7 @@
                 *ngFor="let meeting of meetings"
                 [class.selected]="meeting === selectedMeeting"
                 (click)="onSelect(meeting)">
-                {{meeting.date | date:'y-MM-dd'}} Ocena: {{meeting.rate}}
+                {{meeting.Date | date:'y-MM-dd'}} Ocena: {{meeting.Rate}}
             </li>
         </ul>
     </div>

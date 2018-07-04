@@ -8,7 +8,7 @@ namespace SZPNUW.Data
     {
         public int Id { get; set; }
         public int SectionId { get; set; }
-        public int StudentId { get; set; }
+        public int? StudentId { get; set; }
         public float? Rate { get; set; }
         public DateTime? Date { get; set; }
     }

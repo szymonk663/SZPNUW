@@ -76,14 +76,22 @@ export class SectionsListStudentComponent implements OnChanges, OnInit {
 
     onDeleteProject() {
         if (this.selectedSection !== null) {
-            this.selectedSection.Section.ProjectId = 0;
-            this.sectionService.update(this.selectedSection.Section).then(response => this.getProject(), error => this.error = error);
+            this.selectedSection.Section.ProjectId = null;
+            this.sectionService.update(this.selectedSection.Section).then(result => {
+                if (result !== null) {
+                    if (result.IsSucceeded) {
+                        this.getProject();
+                    }
+                    else
+                        this.error = result.ErrorMessages;
+                }
+            }, error => this.error = error);
         }
     }
 
     onFind() {
-        if (this.selectedSection !== null && this.selectedSection.Students.length == 0) {
-            this.storred = false;
+        this.storred = false;
+        if (this.selectedSection !== null && this.selectedSection.Students.length > 0) {
             this.selectedSection.Students.forEach(student => {
                 if (student.Id == this.studentId) {
                     this.storred = true;
@@ -110,12 +118,20 @@ export class SectionsListStudentComponent implements OnChanges, OnInit {
     onAdd() {
         this.clear();
         if (this.selectedSection !== null) {
-            this.studentSection.sectionId = this.selectedSection.Section.Id;
-            this.studentSection.studentId = this.studentId;
+            this.studentSection.SectionId = this.selectedSection.Section.Id;
+            this.studentSection.StudentId = this.studentId;
         }
         this.sectionService
             .addStudentToSection(this.studentSection)
-            .then(result => this.onRefresh(), error => this.error = error);
+            .then(result => {
+                if (result !== null) {
+                    if (result.IsSucceeded) {
+                        this.onRefresh();
+                    }
+                    else
+                        this.error = result.ErrorMessages;
+                }
+            }, error => this.error = error);
     }
 
     onDelete() {
@@ -123,7 +139,15 @@ export class SectionsListStudentComponent implements OnChanges, OnInit {
             this.clear();
             this.sectionService
                 .deleteStudentFromSection(this.studentId, this.selectedSection.Section.Id)
-                .then(result => this.onRefresh(), error => this.error = error);
+                .then(result => {
+                    if (result !== null) {
+                        if (result.IsSucceeded) {
+                            this.onRefresh();
+                        }
+                        else
+                            this.error = result.ErrorMessages;
+                    }
+                }, error => this.error = error);
         }
     }
 

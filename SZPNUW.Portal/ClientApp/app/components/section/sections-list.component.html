@@ -33,7 +33,7 @@
                         </div>
                         <ul class="list-group">
                             <li class="list-group-item"
-                                *ngFor="let student of selectedSection.students"
+                                *ngFor="let student of selectedSection.Students"
                                 [class.selected]="student === selectedStudent"
                                 (click)="onSelectStudent(student)">
                                 {{student.FirstName}} {{student.LastName}} {{student.AlbumNumber}}

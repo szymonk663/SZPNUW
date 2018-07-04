@@ -34,7 +34,7 @@ export class MeetingFormComponent implements OnChanges {
             this.edit = false;
             this.sectionService
                 .getSectionStudentId(this.sectionId, this.studentId)
-                .then(result => this.meeting = new MeetingModel(0, result, null, null), error => this.error = error);  
+                .then(result => this.meeting = new MeetingModel(0, result, new Date(), null), error => this.error = error);  
         }
     }
 
@@ -43,8 +43,15 @@ export class MeetingFormComponent implements OnChanges {
         this.meetingService
             .AddMeeting(this.meeting)
             .then(result => {
-                this.message = 'Spotkanie zostało dodane.';
-                this.meetingsComponent.onRefresh();
+                if (result != null) {
+                    if (result.IsSucceeded) {
+                        this.message = 'Spotkanie zostało dodane.';
+                        this.meetingsComponent.onRefresh();
+                    }
+                    else
+                        this.error = result.ErrorMessages;
+                }
+                
             }, error => this.error = error);
     }
 
@@ -53,8 +60,14 @@ export class MeetingFormComponent implements OnChanges {
         this.meetingService
             .update(this.meeting)
             .then(result => {
-                this.message = 'Spotkanie zostało zaktualizowane.';
-                this.meetingsComponent.onRefresh();
+                if (result != null) {
+                    if (result.IsSucceeded) {
+                        this.message = 'Spotkanie zostało zaktualizowane.';
+                        this.meetingsComponent.onRefresh();
+                    }
+                    else
+                        this.error = result.ErrorMessages;
+                }
             }, error => this.error = error);
     }
 

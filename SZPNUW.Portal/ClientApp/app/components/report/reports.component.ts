@@ -29,6 +29,7 @@ export class ReportsComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        console.log(this.appComponent.auth);
         this.route.params.forEach((params: Params) => {
             this.sectionId = +params['id'];
             if (this.sectionId)
@@ -58,7 +59,7 @@ export class ReportsComponent implements OnInit {
     }
 
     onCheck() {
-        const item = this.accountService.getUserId();
+        const item = this.accountService.getPId();
         if(item !== null)
         this.sectionService
             .studentInSection(this.sectionId, item)

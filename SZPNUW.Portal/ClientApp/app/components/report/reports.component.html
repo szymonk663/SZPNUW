@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <button type="button" *ngIf="permission" class="btn btn-link" (click)="goBack()">Sekcje</button>
+    <button type="button" *ngIf="appComponent.auth" class="btn btn-link" (click)="goBack()">Sekcje</button>
     <div *ngIf="appComponent.auth && (appComponent.auth.UserType == 2 || (appComponent.auth.UserType == 1 && storred))">
         <div class="panel panel-default">
             <div class="panel-heading">Sprawozdania</div>

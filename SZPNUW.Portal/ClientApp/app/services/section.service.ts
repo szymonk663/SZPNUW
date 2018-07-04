@@ -61,13 +61,13 @@ export class SectionService {
             }).catch(this.handleError);
     }
 
-    update(section: SectionModel): Promise<boolean> {
+    update(section: SectionModel): Promise<Result> {
         return this.http.put(this.url + 'UpdateSection', JSON.stringify(section), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
@@ -81,17 +81,17 @@ export class SectionService {
             }).catch(this.handleError);
     }
 
-    addStudentToSection(studentSection: StudentSectionModel): Promise<boolean> {
+    addStudentToSection(studentSection: StudentSectionModel): Promise<Result> {
         return this.http.post(this.url + 'AddStudentToSection', JSON.stringify(studentSection), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 201)
-                    return true;
-                return false;
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 
-    deleteStudentFromSection(studentId: number, sectionId: number): Promise<boolean> {
+    deleteStudentFromSection(studentId: number, sectionId: number): Promise<Result> {
         let params: URLSearchParams = new URLSearchParams();
         params.set('studentId', studentId.toString());
         params.set('sectionId', sectionId.toString());
@@ -99,8 +99,8 @@ export class SectionService {
             .toPromise()
             .then(result => {
                 if (result.status == 200)
-                    return true;
-                return false;
+                    return result.json() as Result;
+                return null;
             }).catch(this.handleError);
     }
 

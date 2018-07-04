@@ -79,6 +79,15 @@ namespace SZPNUW.Base.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie można wypisać studenta z sekcji..
+        /// </summary>
+        public static string CanNotRemoveStudentFromSection {
+            get {
+                return ResourceManager.GetString("CanNotRemoveStudentFromSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zostało utworzonych {0} sekcji..
         /// </summary>
         public static string CreatedSectionsSuccesfull {

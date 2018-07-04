@@ -1,8 +1,8 @@
 ﻿export class MeetingModel {
     constructor(
-        public id: number,
-        public sectionStudentId: number,
-        public date: Date | null,
-        public rate?: number | null
+        public Id: number,
+        public SectionStudentId: number,
+        public Date: Date,
+        public Rate?: number | null
     ) { }
 }

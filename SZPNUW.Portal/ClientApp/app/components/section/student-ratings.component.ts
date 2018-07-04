@@ -23,21 +23,28 @@ export class StudentRatingsComponent implements OnChanges {
 
     ngOnChanges() {
         this.studSec = new StudentSectionModel(
-            this.sectionStudent.id,
-            this.sectionStudent.sectionId,
-            this.sectionStudent.studentId,
-            this.sectionStudent.rate,
-            this.sectionStudent.date);
-        if (this.sectionStudent !== null && this.sectionStudent.studentId !== null)
+            this.sectionStudent.Id,
+            this.sectionStudent.SectionId,
+            this.sectionStudent.StudentId,
+            this.sectionStudent.Rate,
+            this.sectionStudent.Date);
+        if (this.sectionStudent !== null && this.sectionStudent.StudentId !== null)
             this.accountService
-                .getStudentAverageRating(this.sectionStudent.studentId, this.sectionStudent.sectionId)
+                .getStudentAverageRating(this.sectionStudent.StudentId, this.sectionStudent.SectionId)
                 .then(average => this.average = average, error => this.error = error);
     }
 
     onSubmit() {
         this.accountService.updateStudentSection(this.studSec).then(result => {
-            this.message = 'Ocena została wpisana.';
-            this.sectionsListComponent.getSectionStudent();
+            if (result != null) {
+                if (result.IsSucceeded) {
+                    this.message = 'Ocena została wpisana.';
+                    this.sectionsListComponent.getSectionStudent();
+                }
+                else
+                    this.error = result.ErrorMessages;
+            }
+            
         }, error => this.error = error);
     }
 

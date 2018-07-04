@@ -107,9 +107,8 @@ namespace SZPNUW.DBService
                 if(section != null)
                 {
                     section.Projectid = model.ProjectId;
-                    section.Sectionnumber = model.SectionNumber;
-                    section.Subcjetsemesterid = model.SubjectSemesterId;
                     context.SaveChanges();
+                    return true;
                 }
                 errorMessage = PortalMessages.NoSuchElement;
                 return false;
@@ -147,12 +146,12 @@ namespace SZPNUW.DBService
                                   join s in context.Sections on ss.Sectionid equals s.Id
                                   where s.Subcjetsemesterid == section.Subcjetsemesterid && ss.Studentid == model.StudentId
                                   select ss).Any();
-                    if(result)
+                    if(!result)
                     {
                         Studentssections studSec = new Studentssections()
                         {
                             Sectionid = model.SectionId,
-                            Studentid = model.StudentId
+                            Studentid = model.StudentId.Value
                         };
                         context.Studentssections.Add(studSec);
                         context.SaveChanges();
@@ -168,19 +167,24 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                Studentssections section = new Studentssections { Sectionid = sectionId, Studentid = studentId };
-                try
+                Studentssections section = context.Studentssections.FirstOrDefault(x => x.Sectionid == sectionId && x.Studentid == studentId);
+                if(section != null)
                 {
-                    context.Studentssections.Attach(section);
-                    context.Studentssections.Remove(section);
-                    context.SaveChanges();
-                    return true;
+                    try
+                    {
+                        //context.Studentssections.Attach(section);
+                        context.Studentssections.Remove(section);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        errorMessage = PortalMessages.CanNotDeleteStudentFromSection;
+                        return false;
+                    }
                 }
-                catch (Exception)
-                {
-                    errorMessage = PortalMessages.SectionWithStudents;
-                    return false;
-                }
+                errorMessage = PortalMessages.CanNotDeleteStudentFromSection;
+                return false;
             }
         }
     }

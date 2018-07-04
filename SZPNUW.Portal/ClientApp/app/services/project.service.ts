@@ -44,7 +44,7 @@ export class ProjectService {
     getProjectBySectionId(sectionId: number): Promise<ProjectModel> {
         return this.http.get(this.url + 'GetProjectBySectionId/' + sectionId).toPromise().then(result => {
             if (result.status == 200) {
-                return <ProjectModel>result.json();
+                return result.json() as ProjectModel;
             }
             return null;
         }).catch(this.handleError);

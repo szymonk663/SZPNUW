@@ -123,6 +123,9 @@
   <data name="CanNotDeleteStudentFromSection" xml:space="preserve">
     <value>Nie można cię wypisać. Są z toba powiązane pewne spotkania.</value>
   </data>
+  <data name="CanNotRemoveStudentFromSection" xml:space="preserve">
+    <value>Nie można wypisać studenta z sekcji.</value>
+  </data>
   <data name="CreatedSectionsSuccesfull" xml:space="preserve">
     <value>Zostało utworzonych {0} sekcji.</value>
   </data>

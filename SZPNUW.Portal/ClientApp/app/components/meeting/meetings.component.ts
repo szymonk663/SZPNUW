@@ -34,8 +34,16 @@ export class MeetingsComponent implements OnChanges {
 
     onDelete() {
         this.meetingService
-            .delete(this.selectedMeeting.id)
-            .then(() => this.onRefresh(), error => this.error = error);
+            .delete(this.selectedMeeting.Id)
+            .then(result => {
+                if (result !== null) {
+                    if (result.IsSucceeded) {
+                        this.onRefresh();
+                    }
+                    else
+                        this.error = result.ErrorMessages;
+                }
+            } , error => this.error = error);
     }
 
     onRefresh() {

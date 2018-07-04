@@ -1,9 +1,9 @@
 ﻿export class StudentSectionModel {
     constructor(
-        public id: number,
-        public sectionId: number,
-        public studentId: number | null,
-        public rate?: number | null,
-        public date?: Date | null
+        public Id: number,
+        public SectionId: number,
+        public StudentId: number | null,
+        public Rate?: number | null,
+        public Date?: Date | null
     ) { }
 }

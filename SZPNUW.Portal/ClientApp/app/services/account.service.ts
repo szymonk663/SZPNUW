@@ -127,7 +127,7 @@ export class AccountService {
         params.set('sectionId', sectionId.toString());
         return this.http.get(this.url + 'GetStudentAverageRating', { search: params }).toPromise().then(result => {
             if (result.status == 200) {
-                return <number>result.json();
+                return result.json() as number;
             }
             return null;
         }).catch(this.handleError);
@@ -136,9 +136,9 @@ export class AccountService {
         let params: URLSearchParams = new URLSearchParams();
         params.set('studentId', studentId.toString());
         params.set('sectionId', sectionId.toString());
-        return this.http.get(this.url + 'GetStudentSection', { search: params }).toPromise().then(result => {
+        return this.http.get(this.url + 'GetSectionStudent', { search: params }).toPromise().then(result => {
             if (result.status == 200) {
-                return <StudentSectionModel>result.json();
+                return result.json() as StudentSectionModel;
             }
             return null;
         }).catch(this.handleError);
@@ -250,7 +250,7 @@ export class AccountService {
     getInstructor(id: number): Promise<InstructorModel> {
         return this.http.get(this.url + "GetInstructor/" + id).toPromise().then(result => {
             if (result.status == 200) {
-                return <InstructorModel>result.json();
+                return result.json() as InstructorModel;
             }
             return null;
         }).catch(this.handleError);
