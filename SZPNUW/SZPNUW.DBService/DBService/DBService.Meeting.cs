@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace SZPNUW.DBService
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
-                List<Meetings> meetings = context.Studentssections
+                List<Meetings> meetings = context.Studentssections.Include(x => x.Meetings)
                     .FirstOrDefault(x => x.Sectionid == sectionId && x.Studentid == studentId)?.Meetings.ToList();
                 if (meetings.AnyLazy())
                 {

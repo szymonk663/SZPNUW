@@ -30,8 +30,10 @@ export class MeetingService {
         return this.http.put(this.url + 'UpdateMeeting', JSON.stringify(meeting), { headers: this.headers })
             .toPromise()
             .then(result => {
-                if (result.status == 200)
+                if (result.status == 200) {
+                    console.log(result.json());
                     return result.json() as Result;
+                }
                 return null;
             }).catch(this.handleError);
     }

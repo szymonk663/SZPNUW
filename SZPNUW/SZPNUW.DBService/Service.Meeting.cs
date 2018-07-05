@@ -13,7 +13,7 @@ namespace SZPNUW.DBService
         }
         public bool UpdateMeeting(MeetingModel model, ref string errorMessage)
         {
-            return UpdateMeeting(model, ref errorMessage);
+            return service.UpdateMeeting(model, ref errorMessage);
         }
         public void AddMeeting(MeetingModel model)
         {
