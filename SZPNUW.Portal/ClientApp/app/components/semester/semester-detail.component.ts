@@ -26,7 +26,7 @@ export class SemesterDetailComponent implements OnInit {
                 this.semesterService.getSemester(this.id).then(semester => this.semester = semester,
                     reject => this.error = reject);
             else
-                this.semester = new SemesterModel(0, '', null, '');
+                this.semester = new SemesterModel(0, '', 0, '');
         });
         this.semesterService.getSemesters().then(semesters => this.semesters = semesters);
     }

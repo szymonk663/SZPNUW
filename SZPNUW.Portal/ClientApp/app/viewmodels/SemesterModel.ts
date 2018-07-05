@@ -2,7 +2,7 @@
     constructor(
         public Id: number,
         public Year: string,
-        public SemesterNumber: number | null,
+        public SemesterNumber: number,
         public Department: string
     ) { }
 }

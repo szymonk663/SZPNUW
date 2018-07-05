@@ -101,6 +101,18 @@ export class AccountService {
         return this.auth;
     }
 
+    getAuthProfilePromise(): Promise<Auth> {
+        return this.http.get(this.url + "GetAuth").toPromise().then(result => {
+            if (result.status == 200) {
+                this.auth = result.json() as Auth;
+                if (this.auth)
+                    this.loggedIn = true;
+                return this.auth;
+            }
+            return null;
+        }).catch(this.handleError);
+    }
+
     private sendPost(url: string, user: RegistrationModel): Promise<Boolean> {
         return this.http.post(url, JSON.stringify(user), { headers: this.headers }).toPromise().then(response => {
             if (response.ok) {

@@ -16,7 +16,7 @@ export class RegistrationComponent implements OnInit {
     semesters: SemesterModel[];
     error = '';
 
-    user: StudentModel = new StudentModel(null, null, '', '', '', '', '', null, '', '', '', new SemesterModel(0, '', null, ''));
+    user: StudentModel = new StudentModel(null, null, '', '', '', '', '', null, '', '', '', new SemesterModel(0, '', 0, ''));
     constructor(private router: Router, private accountService: AccountService, private semesterService: SemesterService) {
     }
 
