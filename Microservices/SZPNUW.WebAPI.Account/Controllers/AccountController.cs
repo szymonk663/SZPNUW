@@ -337,6 +337,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
         #endregion
 
         #region Admins
+
         [HttpPost]
         public IActionResult RegisterAdmin([FromBody]UserModel model)
         {
@@ -357,6 +358,29 @@ namespace SZPNUW.WebAPI.Account.Controllers
         {
             List<UserModel> admins = service.GetAdmins();
             return Json(admins);
+        }
+
+        [HttpPut]
+        public IActionResult UpdateAdmin([FromBody]UserModel model)
+        {
+            model.SkipPasswordValidation(ModelState);
+            if (ModelState.IsValid)
+            {
+                string errorMessage = string.Empty;
+                if (service.UpdateAdmin(model, ref errorMessage))
+                {
+                    return Json(new Result(true));
+                }
+                return Json(new Result(errorMessage));
+            }
+            return Json(new Result(ModelState.GetFirstError()));
+        }
+
+        [HttpGet]
+        public IActionResult GetCurrentAdmin()
+        {
+            UserModel model = service.GetUserByUserId(CurrentUserSessionData.UserId.Value);
+            return Json(model);
         }
         #endregion
     }

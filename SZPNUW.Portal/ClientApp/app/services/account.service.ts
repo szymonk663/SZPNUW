@@ -324,4 +324,23 @@ export class AccountService {
                 return null;
             }).catch(this.handleError);
     }
+
+    getCurrentAdmin(): Promise<UserModel> {
+        return this.http.get(this.url + "GetCurrentAdmin").toPromise().then(result => {
+            if (result.status == 200) {
+                return result.json() as UserModel;
+            }
+            return null;
+        }).catch(this.handleError);
+    }
+
+    updateAdmin(user: UserModel): Promise<Result> {
+        return this.http.put(this.url + 'UpdateAdmin', JSON.stringify(user), { headers: this.headers })
+            .toPromise()
+            .then(result => {
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
+            }).catch(this.handleError);
+    }
 }

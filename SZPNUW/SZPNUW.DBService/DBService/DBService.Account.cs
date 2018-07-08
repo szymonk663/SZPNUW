@@ -122,5 +122,48 @@ namespace SZPNUW.DBService
             }
         }
 
+        public bool UpdateAdmin(UserModel model, ref string errorMessage)
+        {
+            using (SZPNUWContext context = new SZPNUWContext())
+            {
+                Users user = context.Users.FirstOrDefault(p => p.Id == model.UserId);
+                if (user != null)
+                {
+                    user.Firstname = model.FirstName;
+                    user.Lastname = model.LastName;
+                    user.Pesel = model.PESEL;
+                    user.Address = model.Address;
+                    user.City = model.City;
+                    user.Dateofbirth = model.DateOfBirth;
+                    context.SaveChanges();
+                    return true;
+                }
+                errorMessage = PortalMessages.NoSuchElement;
+                return false;
+            }
+        }
+
+        public UserModel GetUserByUserId(int id)
+        {
+            using (SZPNUWContext context = new SZPNUWContext())
+            {
+                Users user = context.Users.FirstOrDefault(s => s.Id == id);
+                if (user == null)
+                    return null;
+                UserModel model = new UserModel
+                {
+                    UserId = user.Id,
+                    Login = user.Login,
+                    FirstName = user.Firstname,
+                    LastName = user.Lastname,
+                    PESEL = user.Pesel,
+                    Address = user.Address,
+                    City = user.City,
+                    DateOfBirth = user.Dateofbirth,
+                    UserType = (UserTypes)user.Usertype,
+                };
+                return model;
+            }
+        }
     }
 }

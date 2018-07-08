@@ -31,5 +31,15 @@ namespace SZPNUW.DBService
         {
             return service.GetAdmins();
         }
+
+        public bool UpdateAdmin(UserModel model, ref string errorMessage)
+        {
+            return service.UpdateAdmin(model, ref errorMessage);
+        }
+
+        public UserModel GetUserByUserId(int userId)
+        {
+            return service.GetUserByUserId(userId);
+        }
     }
 }

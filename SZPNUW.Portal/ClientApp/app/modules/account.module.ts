@@ -23,6 +23,9 @@ import { InstructorPasswordComponent } from '../components/instructor/instructor
 import { AdminListComponent } from '../components/account/admin/admin-list.component';
 import { AdminRegistrationComponent } from '../components/account/admin/admin-registration.component';
 import { AdminDetailComponent } from '../components/account/admin/admin-detail.component';
+import { AdminComponent } from '../components/account/admin/admin.component';
+import { AdminFormComponent } from '../components/account/admin/admin-form.component';
+import { AdminPasswordComponent } from '../components/account/admin/admin-password.component';
 //Modules
 import { SemesterModule } from './semester.module';
 //Pipes
@@ -57,6 +60,9 @@ import { AdminGuard } from '../guards/admin.guard';
         AdminListComponent,
         AdminRegistrationComponent,
         AdminDetailComponent,
+        AdminComponent,
+        AdminFormComponent,
+        AdminPasswordComponent,
         LastNameFilterPipe
     ],
     // providers

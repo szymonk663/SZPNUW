@@ -35,6 +35,9 @@ import { StudentProfileDetailComponent } from "./components/account/student/stud
 import { StudentPasswordComponent } from "./components/account/student/student-password.component";
 import { AdminListComponent } from "./components/account/admin/admin-list.component";
 import { AdminRegistrationComponent } from "./components/account/admin/admin-registration.component";
+import { AdminComponent } from './components/account/admin/admin.component';
+import { AdminFormComponent } from './components/account/admin/admin-form.component';
+import { AdminPasswordComponent } from './components/account/admin/admin-password.component';
 
 const routes: Routes = [
     {
@@ -184,6 +187,21 @@ const routes: Routes = [
     {
         path: 'admins',
         component: AdminListComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'admin',
+        component: AdminComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'admin/edit',
+        component: AdminFormComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'admin/password',
+        component: AdminPasswordComponent,
         canActivate: [AdminGuard]
     },
     {

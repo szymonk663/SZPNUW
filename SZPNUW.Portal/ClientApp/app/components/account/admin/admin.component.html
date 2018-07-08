@@ -1,0 +1,38 @@
+﻿<div *ngIf="user" class="container">
+    <div class="menu">
+        <a [routerLink]="['/admin/edit']">Edytuj</a>
+        <a [routerLink]="['/admin/password']">Zmień hasło</a>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Imię</th>
+                <td>{{user.FirstName}}</td>
+            </tr>
+            <tr>
+                <th>Nazwisko</th>
+                <td>{{user.LastName}}</td>
+            </tr>
+            <tr>
+                <th>Pesel</th>
+                <td>{{user.PESEL}}</td>
+            </tr>
+            <tr>
+                <th>Data urodzenia</th>
+                <td>{{user.DateOfBirth | date:'y-MM-dd'}}</td>
+            </tr>
+            <tr>
+                <th>Miasto</th>
+                <td>{{user.City}}</td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td>{{user.Address}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="!user">
+    Proszę poczekać...
+</div>
+<span *ngIf="error" class="alert alert-danger">{{error}}</span>
