@@ -75,5 +75,52 @@ namespace SZPNUW.DBService
             }
         }
 
+        public List<UserModel> GetAdmins()
+        {
+            using (SZPNUWContext context = new SZPNUWContext())
+            {
+                return context.Users.OrderBy(p => p.Lastname).Where(x => x.Usertype == (int)UserTypes.Admin).Select(x => new UserModel
+                {
+                    UserId = x.Id,
+                    Login = x.Login,
+                    FirstName = x.Firstname,
+                    LastName = x.Lastname,
+                    PESEL = x.Pesel,
+                    Address = x.Address,
+                    City = x.City,
+                    DateOfBirth = x.Dateofbirth,
+                    UserType = (UserTypes)x.Usertype
+                }).ToList();
+            }
+        }
+
+        public bool RegisterAdmin(UserModel model, ref string errorMessage)
+        {
+            using (SZPNUWContext context = new SZPNUWContext())
+            {
+                if (!context.Users.Where(x => x.Login == model.Login).Any())
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        Users user = new Users { Login = model.Login, Password = SecurityService.GetSHA256Hash(model.Password), Firstname = model.FirstName, Lastname = model.LastName, Pesel = model.PESEL, City = model.City, Address = model.Address, Dateofbirth = model.DateOfBirth, Usertype = (int)UserTypes.Admin };
+                        try
+                        {
+                            context.Add(user);
+                            context.SaveChanges();
+                            transaction.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            errorMessage = PortalMessages.InsertDBError;
+                        }
+                    }
+                    return true;
+                }
+                errorMessage = ValidationMessages.UsedLogin;
+                return false;
+            }
+        }
+
     }
 }

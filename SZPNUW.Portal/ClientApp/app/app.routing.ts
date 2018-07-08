@@ -33,6 +33,8 @@ import { ReportsComponent } from "./components/report/reports.component";
 import { StudentComponent } from "./components/account/student/student.component";
 import { StudentProfileDetailComponent } from "./components/account/student/student-profile-detail.component";
 import { StudentPasswordComponent } from "./components/account/student/student-password.component";
+import { AdminListComponent } from "./components/account/admin/admin-list.component";
+import { AdminRegistrationComponent } from "./components/account/admin/admin-registration.component";
 
 const routes: Routes = [
     {
@@ -173,6 +175,16 @@ const routes: Routes = [
         path: 'student/password',
         component: StudentPasswordComponent,
         canActivate: [StudentGuard]
+    }, 
+    {
+        path: 'admins/registration',
+        component: AdminRegistrationComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'admins',
+        component: AdminListComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: '**',

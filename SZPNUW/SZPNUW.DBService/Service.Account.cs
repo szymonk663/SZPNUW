@@ -21,5 +21,15 @@ namespace SZPNUW.DBService
         {
             return service.GetUser(userId);
         }
+
+        public bool RegisterAdmin(UserModel model, ref string errorMessage)
+        {
+            return service.RegisterAdmin(model, ref errorMessage);
+        }
+
+        public List<UserModel> GetAdmins()
+        {
+            return service.GetAdmins();
+        }
     }
 }

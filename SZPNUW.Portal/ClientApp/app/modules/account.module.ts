@@ -20,6 +20,9 @@ import { InstructorDetailComponent } from '../components/instructor/instructor-d
 import { InstructorComponent } from '../components/instructor/instructor.component';
 import { InstructorFormComponent } from '../components/instructor/instructor-form.component';
 import { InstructorPasswordComponent } from '../components/instructor/instructor-password.component';
+import { AdminListComponent } from '../components/account/admin/admin-list.component';
+import { AdminRegistrationComponent } from '../components/account/admin/admin-registration.component';
+import { AdminDetailComponent } from '../components/account/admin/admin-detail.component';
 //Modules
 import { SemesterModule } from './semester.module';
 //Pipes
@@ -51,6 +54,9 @@ import { AdminGuard } from '../guards/admin.guard';
         InstructorComponent,
         InstructorFormComponent,
         InstructorPasswordComponent,
+        AdminListComponent,
+        AdminRegistrationComponent,
+        AdminDetailComponent,
         LastNameFilterPipe
     ],
     // providers

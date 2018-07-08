@@ -15,6 +15,7 @@ import { LoginModel } from '../viewmodels/LoginModel'
 
 import { AccountModule } from '../modules/account.module';
 import { Result } from '../viewmodels/Result';
+import { UserModel } from '../viewmodels/UserModel';
 
 @Injectable()
 export class AccountService {
@@ -47,6 +48,16 @@ export class AccountService {
 
     registerStudent(model: StudentModel): Promise<Result> {
         return this.http.post(this.url + 'RegisterUser', JSON.stringify(model), { headers: this.headers })
+            .toPromise()
+            .then(result => {
+                if (result.status == 200)
+                    return result.json() as Result;
+                return null;
+            }).catch(this.handleError);
+    }
+
+    registerAdmin(model: UserModel): Promise<Result> {
+        return this.http.post(this.url + 'RegisterAdmin', JSON.stringify(model), { headers: this.headers })
             .toPromise()
             .then(result => {
                 if (result.status == 200)
@@ -288,6 +299,15 @@ export class AccountService {
 
     getInstructors(): Promise<InstructorModel[]> {
         return this.http.get(this.url + "GetInstructors").toPromise().then(result => {
+            if (result.status == 200) {
+                return result.json();
+            }
+            return null;
+        }).catch(this.handleError);
+    }
+
+    getAdmins(): Promise<UserModel[]> {
+        return this.http.get(this.url + "GetAdmins").toPromise().then(result => {
             if (result.status == 200) {
                 return result.json();
             }

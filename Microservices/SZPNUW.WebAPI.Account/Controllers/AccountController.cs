@@ -335,5 +335,29 @@ namespace SZPNUW.WebAPI.Account.Controllers
             return Json(SecurityService.GetSHA256Hash("qwerty"));
         }
         #endregion
+
+        #region Admins
+        [HttpPost]
+        public IActionResult RegisterAdmin([FromBody]UserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string errorMessage = string.Empty;
+                if (service.RegisterAdmin(model, ref errorMessage))
+                {
+                    return Json(new Result(true));
+                }
+                return Json(new Result(errorMessage));
+            }
+            return Json(new Result(ModelState.GetFirstError()));
+        }
+
+        [HttpGet]
+        public IActionResult GetAdmins()
+        {
+            List<UserModel> admins = service.GetAdmins();
+            return Json(admins);
+        }
+        #endregion
     }
 }

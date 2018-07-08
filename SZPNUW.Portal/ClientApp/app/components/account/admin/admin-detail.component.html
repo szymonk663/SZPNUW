@@ -1,0 +1,29 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading"><h3>Prowadzący:</h3></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-7">Imię:</div>
+            <div class="col-xs-5  pull-left">{{ user.FirstName }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-7">Nazwisko:</div>
+            <div class="col-xs-5 pull-left">{{ user.LastName }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-7">Pesel</div>
+            <div class="col-xs-5 pull-left">{{ user.PESEL }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-7">Data urodzenia:</div>
+            <div class="col-xs-5  pull-left">{{ user.DateOfBirth | date:'y-MM-dd'}}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-7">Miasto zamieszkania:</div>
+            <div class="col-xs-5 pull-left">{{ user.City }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-7">Adres:</div>
+            <div class="col-xs-5 pull-left">{{ user.Address }}</div>
+        </div>
+    </div>
+</div>
