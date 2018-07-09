@@ -332,6 +332,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
         [HttpGet]
         public IActionResult Test()
         {
+            service.InsertSysLog(new SysLogModel { Name = "asd", Date = DateTime.Now });
             return Json(SecurityService.GetSHA256Hash("qwerty"));
         }
         #endregion

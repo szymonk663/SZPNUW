@@ -202,3 +202,11 @@ CREATE TABLE public.meetings (
     ON UPDATE NO ACTION
     NOT DEFERRABLE
 );
+
+CREATE TABLE public.syslog (
+	id SERIAL,
+    name "varchar"(64) NOT NULL,
+    details text,
+    date TIMESTAMP NOT NULL,
+    CONSTRAINT pk_syslog PRIMARY KEY(id)
+);

@@ -58,6 +58,7 @@
     <None Remove="ClientApp\app\viewmodels\StudentSectionModel.ts" />
     <None Remove="ClientApp\app\viewmodels\SubjectModel.ts" />
     <None Remove="ClientApp\app\viewmodels\SubjectSemesterModel.ts" />
+    <None Remove="ClientApp\app\viewmodels\SysLogModel.ts" />
     <None Remove="ClientApp\app\viewmodels\UserModel.ts" />
   </ItemGroup>
 
@@ -78,6 +79,7 @@
     <TypeScriptCompile Include="ClientApp\app\services\account.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\semester.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewmodels\Auth.ts" />
+    <TypeScriptCompile Include="ClientApp\app\viewmodels\SysLogModel.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewmodels\Result.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewmodels\ChangePasswordModel.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewmodels\InstructorModel.ts" />

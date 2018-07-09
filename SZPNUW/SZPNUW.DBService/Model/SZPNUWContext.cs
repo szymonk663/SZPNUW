@@ -18,6 +18,7 @@ namespace SZPNUW.DBService.Model
         public virtual DbSet<Subjects> Subjects { get; set; }
         public virtual DbSet<Subjectssemesters> Subjectssemesters { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Syslog> Syslogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -330,6 +331,20 @@ namespace SZPNUW.DBService.Model
             });
 
             modelBuilder.HasSequence("raports_id_seq");
+
+            modelBuilder.Entity<Syslog>(entity =>
+            {
+                entity.ToTable("syslog");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Details).HasColumnName("details");
+
+                entity.Property(e => e.Name).IsRequired().HasColumnName("name");
+
+                entity.Property(e => e.Date).IsRequired().HasColumnName("date");
+
+            });
         }
     }
 }
