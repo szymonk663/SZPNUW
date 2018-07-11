@@ -11,5 +11,10 @@ namespace SZPNUW.DBService
         {
             return builder.UseMiddleware<RefreshSessionMiddleware>();
         }
+
+        public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<ExceptionHandlingMiddleware>();
+        }
     }
 }

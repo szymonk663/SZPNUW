@@ -14,4 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SZPNUW.Data\SZPNUW.Data.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Middlewares\" />
+  </ItemGroup>
 </Project>

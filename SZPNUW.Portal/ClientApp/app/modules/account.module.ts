@@ -26,6 +26,7 @@ import { AdminDetailComponent } from '../components/account/admin/admin-detail.c
 import { AdminComponent } from '../components/account/admin/admin.component';
 import { AdminFormComponent } from '../components/account/admin/admin-form.component';
 import { AdminPasswordComponent } from '../components/account/admin/admin-password.component';
+import { SysLogComponent } from '../components/syslog/syslogs.component';
 //Modules
 import { SemesterModule } from './semester.module';
 //Pipes
@@ -34,6 +35,7 @@ import { LastNameFilterPipe } from '../pipes/instructor.pipe';
 //Routings
 import { AppRouting } from '../app.routing';
 import { AccountService } from '../services/account.service';
+import { SysLogService } from '../services/syslog.service';
 //Guards
 import { StudentGuard } from '../guards/student.guard'
 import { LecturerGuard } from '../guards/lecturer.guard';
@@ -63,11 +65,13 @@ import { AdminGuard } from '../guards/admin.guard';
         AdminComponent,
         AdminFormComponent,
         AdminPasswordComponent,
+        SysLogComponent,
         LastNameFilterPipe
     ],
     // providers
     providers: [
         AccountService,
+        SysLogService,
         StudentGuard,
         AdminGuard,
         LecturerGuard

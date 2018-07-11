@@ -106,6 +106,15 @@ namespace SZPNUW.Base.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wystapił problem. Jeżeli będzie się powtarzać skontaktuj się z administratorem..
+        /// </summary>
+        public static string InternalError {
+            get {
+                return ResourceManager.GetString("InternalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieprawidłowe dane..
         /// </summary>
         public static string InvalidData {

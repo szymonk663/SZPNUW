@@ -1,15 +1,13 @@
 ﻿<div class="container">
     <div class="row">
-        <div class="col-md-3 col-md-offset-1">
-            <nav>
-                <button type="button" [disabled]="!selectedProject" class="btn btn-link" data-toggle="modal" data-target="#modalEdit">Edytuj</button>
-                <button type="button" [disabled]="!selectedProject" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Usuń</button>
-            </nav>
-            <div class="panel panel-info" style="min-width: 300px">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-xs-12">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     Tematy projektów
+                    <button type="button" [disabled]="!selectedProject" class="btn btn-link" data-toggle="modal" data-target="#modalEdit">Edytuj</button>
+                    <button type="button" [disabled]="!selectedProject" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Usuń</button>
                 </div>
-                <div *ngIf="projectsSubjects">
+                <div *ngIf="projectsSubjects" class="col-xl-6 col-lg-6 col-md-6 col-xs-6">
                     <ul class="list-group">
                         <li class="list-group-item"
                             *ngFor="let projectSubject of projectsSubjects"
@@ -19,42 +17,41 @@
                         </li>
                     </ul>
                 </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-xs-6">
+                        <div *ngIf="selectedProject">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">Informacje o temacie</div>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Temat</th>
+                                            <td>{{selectedProject.Project.Topic}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Opis</th>
+                                            <td>{{selectedProject.Project.Description}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Aktywny</th>
+                                            <td *ngIf="selectedProject.Project.Active">Tak</td>
+                                            <td *ngIf="!selectedProject.Project.Active">Nie</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Przedmiot:</th>
+                                            <td>{{selectedProject.Subject.Name}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
                 <div class="panel-body">
                     <span *ngIf="message" class="alert alert-info" role="alert">{{message}}</span>
                     <span *ngIf="error" class="alert alert-danger" role="alert">{{error}}</span>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-md-offset-1">
-            <div class="affix" style="min-width: 400px">
-                <div *ngIf="selectedProject">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">Informacje o temacie</div>
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <th>Temat</th>
-                                    <td>{{selectedProject.Project.Topic}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Opis</th>
-                                    <td>{{selectedProject.Project.Description}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Aktywny</th>
-                                    <td *ngIf="selectedProject.Project.Active">Tak</td>
-                                    <td *ngIf="!selectedProject.Project.Active">Nie</td>
-                                </tr>
-                                <tr>
-                                    <th>Przedmiot:</th>
-                                    <td>{{selectedProject.Subject.Name}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div *ngIf="selectedProject">

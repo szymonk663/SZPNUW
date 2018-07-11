@@ -106,6 +106,6 @@ export class SubjectService {
     }
 
     private handleError(error: Response): Promise<any> {
-        return Promise.reject(error.json());
+        return Promise.reject(error.text());
     }
 }

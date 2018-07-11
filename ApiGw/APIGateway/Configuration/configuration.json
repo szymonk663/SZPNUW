@@ -37,6 +37,18 @@
       "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ]
     },
     {
+      "DownstreamPathTemplate": "/SysLog/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "szpnuw.webapi.account",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/SysLog/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE" ]
+    },
+    {
       "DownstreamPathTemplate": "/Project/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

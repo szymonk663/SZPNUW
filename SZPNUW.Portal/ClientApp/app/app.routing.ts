@@ -38,6 +38,7 @@ import { AdminRegistrationComponent } from "./components/account/admin/admin-reg
 import { AdminComponent } from './components/account/admin/admin.component';
 import { AdminFormComponent } from './components/account/admin/admin-form.component';
 import { AdminPasswordComponent } from './components/account/admin/admin-password.component';
+import { SysLogComponent } from './components/syslog/syslogs.component';
 
 const routes: Routes = [
     {
@@ -202,6 +203,11 @@ const routes: Routes = [
     {
         path: 'admin/password',
         component: AdminPasswordComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'syslogs',
+        component: SysLogComponent,
         canActivate: [AdminGuard]
     },
     {

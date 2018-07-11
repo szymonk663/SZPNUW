@@ -140,8 +140,8 @@ namespace SZPNUW.WebAPI.Account.Controllers
         [HttpGet("{id}")]
         public IActionResult GetStudentsBySemesterId(int id)
         {
-                List<StudentModel> list = service.GetStudentBySemesterId(id);
-                return Json(list);
+            List<StudentModel> list = service.GetStudentBySemesterId(id);
+            return Json(list);
         }
 
         [HttpGet]

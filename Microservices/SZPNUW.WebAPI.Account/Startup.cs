@@ -65,9 +65,9 @@ namespace SZPNUW.WebAPI.Account
             app.UseExceptionHandling();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+               // app.UseDeveloperExceptionPage();
             }
-            app.UseExceptionHandler();
+            //app.UseExceptionHandler();
             app.UseSession();
             app.UseSessionRefresh();
             app.UseSwagger();

@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using SZPNUW.Base;
 
 namespace APIGateway
 {
@@ -36,7 +35,6 @@ namespace APIGateway
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseExceptionHandling();
             var pathBase = Configuration["PATH_BASE"];
             if (!string.IsNullOrEmpty(pathBase))
             {

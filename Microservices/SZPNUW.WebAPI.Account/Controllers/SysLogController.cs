@@ -24,5 +24,12 @@ namespace SZPNUW.WebAPI.Account.Controllers
             List<SysLogModel> sysLogs = service.GetSysLogs();
             return Json(sysLogs);
         }
+
+        [HttpGet]
+        public IActionResult Test()
+        {
+            throw new Exception("cos");
+            return Json("");
+        }
     }
 }

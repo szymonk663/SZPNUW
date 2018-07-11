@@ -12,9 +12,9 @@ namespace SZPNUW.DBService
             return service.GetSysLogs();
         }
 
-        public bool InsertSysLog(SysLogModel model)
+        public void InsertSysLog(SysLogModel model)
         {
-            return service.InsertSysLog(model);
+            service.InsertSysLog(model);
         }
 
     }

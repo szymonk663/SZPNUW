@@ -17,7 +17,7 @@ namespace SZPNUW.DBService
             }
         }
 
-        public bool InsertSysLog(SysLogModel model)
+        public void InsertSysLog(SysLogModel model)
         {
             using (SZPNUWContext context = new SZPNUWContext())
             {
@@ -26,11 +26,9 @@ namespace SZPNUW.DBService
                 {
                     context.Syslogs.Add(sysLog);
                     context.SaveChanges();
-                    return true;
                 }
                 catch
                 {
-                    return false;
                 }
             }
         }

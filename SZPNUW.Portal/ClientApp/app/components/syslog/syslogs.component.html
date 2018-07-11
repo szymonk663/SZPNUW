@@ -1,0 +1,36 @@
+﻿<div class="row">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="panel panel-default">
+            <div *ngIf="sysLogs">
+                <table class="table table-condensed">
+                    <tr>
+                        <td>Id</td>
+                        <td>Typ</td>
+                        <td>Data</td>
+                    </tr>
+                    <tr *ngFor="let sysLog of sysLogs"
+                        [class.selected]="sysLog === selectedSysLog"
+                        (click)="onSelect(sysLog)">
+                        <td>{{sysLog.Id}}</td>
+                        <td>{{sysLog.Name}}</td>
+                        <td>{{sysLog.Date | date:'y-MM-dd h:mm'}}</td>
+                    </tr>
+                </table>
+            </div>
+            <span *ngIf="!sysLogs">Proszę poczekać...</span>
+            <span *ngIf="!error">{{error}}</span>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+        <div *ngIf="selectedSysLog && selectedSysLog.Details">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h3>Szczegóły:</h3></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">{{ selectedSysLog.Details }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

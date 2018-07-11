@@ -38,6 +38,7 @@
     <None Remove="ClientApp\app\pipes\semester.pipe.ts" />
     <None Remove="ClientApp\app\services\account.service.ts" />
     <None Remove="ClientApp\app\services\semester.service.ts" />
+    <None Remove="ClientApp\app\services\syslog.service.ts" />
     <None Remove="ClientApp\app\viewmodels\Auth.ts" />
     <None Remove="ClientApp\app\viewmodels\ChangePasswordModel.ts" />
     <None Remove="ClientApp\app\viewmodels\InstructorModel.ts" />
@@ -76,6 +77,7 @@
     <TypeScriptCompile Include="ClientApp\app\modules\account.module.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\semester.module.ts" />
     <TypeScriptCompile Include="ClientApp\app\pipes\semester.pipe.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\syslog.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\account.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\semester.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewmodels\Auth.ts" />

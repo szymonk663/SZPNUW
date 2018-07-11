@@ -27,7 +27,7 @@ export class AccountService {
     private loggedIn: boolean;
 
     private handleError(error: Response): Promise<any> {
-        return Promise.reject(error.json());
+        return Promise.reject(error.text());
     }
 
     //Authentication and authorizatrion

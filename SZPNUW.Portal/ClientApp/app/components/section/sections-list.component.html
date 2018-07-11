@@ -1,57 +1,52 @@
 ﻿<div class="row">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-3">
-                <button type="button" *ngIf="subjectId" class="btn btn-link" data-toggle="modal" data-target="#modalAdd">Dodaj grupy</button>
-                <button type="button" [disabled]="!selectedSection" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Usuń</button>
-                <div class="panel panel-info" style="min-width: 300px">
+            <div class="col-xl-12 col-lg-12 col-md-10 col-xs-12">
+                <div class="panel panel-info">
                     <div class="panel-heading">
                         Tematy projektów
                     </div>
-                    <div *ngIf="sections">
-                        <ul class="list-group">
-                            <li class="list-group-item"
-                                *ngFor="let section of sections"
-                                [class.selected]="section === selectedSection"
-                                (click)="onSelect(section)">
-                                Sekcja: {{section.Section.SectionNumber}}
-                            </li>
-                        </ul>
+                    <div class="row">
+                        <div *ngIf="sections" class="col-xl-4 col-lg-4 col-md-4 col-xs-12">
+                            <button type="button" *ngIf="subjectId" class="btn btn-link" data-toggle="modal" data-target="#modalAdd">Dodaj grupy</button>
+                            <button type="button" [disabled]="!selectedSection" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Usuń</button>
+                            <ul class="list-group">
+                                <li class="list-group-item"
+                                    *ngFor="let section of sections"
+                                    [class.selected]="section === selectedSection"
+                                    (click)="onSelect(section)">
+                                    Sekcja: {{section.Section.SectionNumber}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div *ngIf="selectedSection" class="col-xl-4 col-lg-4 col-md-4 col-xs-12">
+                            <button type="button" *ngIf="selectedSection" [disabled]="!selectedStudent" class="btn btn-link" data-toggle="modal" data-target="#modalRatingsStudent">Wystaw ocene</button>
+                            <button type="button" [disabled]="selectedSection" class="btn btn-link" (click)="goToReports()">Sprawozdania</button>
+                            <div *ngIf="selectedSection.Students.length == 0" class="panel-body">
+                                Nikt się jeszcze nie wpisał.
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item"
+                                    *ngFor="let student of selectedSection.Students"
+                                    [class.selected]="student === selectedStudent"
+                                    (click)="onSelectStudent(student)">
+                                    {{student.FirstName}} {{student.LastName}} {{student.AlbumNumber}}
+                                </li>
+                            </ul>
+                            <div *ngIf="project" class="panel-body">
+                                {{project.Topic}}<br />
+                                {{project.Description}}
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-xs-12">
+                            <div *ngIf="selectedSection && selectedStudent">
+                                <meetings [sectionId]="selectedSection.Section.Id" [studentId]="selectedStudent.Id" [permission]="true"></meetings>
+                            </div>
+                            <div *ngIf="sectionStudent">
+                                <span [hidden]="sectionStudent.Rate == 0">Ocena końcowa to: {{sectionStudent.Rate}}</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-md-offset-1">
-                <button type="button" *ngIf="selectedSection" [disabled]="!selectedStudent" class="btn btn-link" data-toggle="modal" data-target="#modalRatingsStudent">Wystaw ocene</button>
-                <button type="button" *ngIf="selectedSection" class="btn btn-link" (click)="goToReports()">Sprawozdania</button>
-                <div *ngIf="selectedSection">
-                    <div class="panel panel-info" style="min-width: 300px">
-                        <div class="panel-heading">
-                            Studenci z sekcji
-                        </div>
-                        <div *ngIf="selectedSection.Students.length == 0" class="panel-body">
-                            Nikt się jeszcze nie wpisał.
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item"
-                                *ngFor="let student of selectedSection.Students"
-                                [class.selected]="student === selectedStudent"
-                                (click)="onSelectStudent(student)">
-                                {{student.FirstName}} {{student.LastName}} {{student.AlbumNumber}}
-                            </li>
-                        </ul>
-                        <div *ngIf="project" class="panel-body">
-                            {{project.Topic}}<br />
-                            {{project.Description}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-md-offset-1">
-                <div *ngIf="selectedSection && selectedStudent">
-                    <meetings [sectionId]="selectedSection.Section.Id" [studentId]="selectedStudent.Id" [permission]="true"></meetings>
-                </div>
-                <div *ngIf="sectionStudent">
-                    <span [hidden]="sectionStudent.Rate == 0">Ocena końcowa to: {{sectionStudent.Rate}}</span>
                 </div>
             </div>
         </div>

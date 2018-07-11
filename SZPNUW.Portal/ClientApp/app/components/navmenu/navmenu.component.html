@@ -91,6 +91,11 @@
                         <span class='glyphicon glyphicon-time'></span>Semestry
                     </a>
                 </li>
+                <li>
+                    <a [routerLink]="['/syslogs']">
+                        <span class='glyphicon glyphicon-warning-sign'></span>Dziennik systemowy
+                    </a>
+                </li>
             </ul>
             <ul class='nav navbar-nav' *ngIf="appComponent.loggedIn">
                 <li [routerLinkActive]="['link-active']">

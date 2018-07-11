@@ -1,62 +1,56 @@
 ﻿<div class="row">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-3">
-                <button type="button" [disabled]="!selectedSection || storred" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Zapisz mnie</button>
-                <button type="button" [disabled]="!selectedSection || !storred" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Wypisz mnie</button>
-                <div class="panel panel-info" style="min-width: 300px">
+            <div class="col-xl-12 col-lg-12 col-md-10 col-xs-12">
+                <div class="panel panel-info">
                     <div class="panel-heading">
                         Sekcje
                     </div>
-                    <div *ngIf="sections">
-                        <ul class="list-group">
-                            <li class="list-group-item"
-                                *ngFor="let section of sections"
-                                [class.selected]="section === selectedSection"
-                                (click)="onSelect(section)">
-                                Sekcja: {{section.Section.SectionNumber}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-md-offset-1">
-                <div *ngIf="selectedSection">
-                    <button type="button" *ngIf="selectedSection && storred" class="btn btn-link" (click)="goToReports()">Sprawozdania</button>
-                    <span *ngIf="selectedSection && !storred"><br /></span>
-                    <div class="panel panel-info" style="min-width: 300px">
-                        <div class="panel-heading">
-                            Studenci z sekcji
+                    <div class="row">
+                        <div *ngIf="sections" class="col-xl-4 col-lg-4 col-md-4 col-xs-12">
+                            <button type="button" [disabled]="!selectedSection || storred" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Zapisz mnie</button>
+                            <button type="button" [disabled]="!selectedSection || !storred" class="btn btn-link" data-toggle="modal" data-target="#checkBox">Wypisz mnie</button>
+                            <ul class="list-group">
+                                <li class="list-group-item"
+                                    *ngFor="let section of sections"
+                                    [class.selected]="section === selectedSection"
+                                    (click)="onSelect(section)">
+                                    Sekcja: {{section.Section.SectionNumber}}
+                                </li>
+                            </ul>
                         </div>
-                        <div *ngIf="selectedSection.Students.length == 0" class="panel-body">
-                            Nikt się jeszcze nie wpisał.
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item"
-                                *ngFor="let student of selectedSection.Students"
-                                [class.selected]="student === selectedStudent"
-                                (click)="onSelectStudent(student)">
-                                {{student.FirstName}} {{student.LastName}}
-                            </li>
-                        </ul>
-                        <div class="panel-body" *ngIf="project">
-                            {{project.Topic}}<br />
-                            {{project.Description}}
-                        </div>
-                        <div class="panel-footer">
+                        <div *ngIf="selectedSection" class="col-xl-4 col-lg-4 col-md-4 col-xs-12">
+                            <button type="button" [disabled]="selectedSection && storred" class="btn btn-link" (click)="goToReports()">Sprawozdania</button>
                             <button type="button" [disabled]="!selectedSection || !storred" class="btn btn-link" data-toggle="modal" data-target="#modalSelect">Wybierz projekt</button>
-                            <button type="button" *ngIf="selectedSection && project && storred" class="btn btn-link" data-toggle="modal" data-target="#checkBoxDelete">Usuń</button>
+                            <button type="button" [disabled]="selectedSection && project && storred" class="btn btn-link" data-toggle="modal" data-target="#checkBoxDelete">Usuń</button>
+                            <span *ngIf="selectedSection && !storred"><br /></span>
+                            <div *ngIf="selectedSection.Students.length == 0" class="panel-body">
+                                Nikt się jeszcze nie wpisał.
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item"
+                                    *ngFor="let student of selectedSection.Students"
+                                    [class.selected]="student === selectedStudent"
+                                    (click)="onSelectStudent(student)">
+                                    {{student.FirstName}} {{student.LastName}}
+                                </li>
+                            </ul>
+                            <div class="panel-body" *ngIf="project">
+                                {{project.Topic}}<br />
+                                {{project.Description}}
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-xs-12">
+                            <div *ngIf="selectedStudent">
+                                <meetings *ngIf="selectedStudent.Id == studentId" [sectionId]="selectedSection.Section.Id" [studentId]="selectedStudent.Id" [permission]="false"></meetings>
+                            </div>
+                            <div *ngIf="sectionStudent">
+                                <span [hidden]="sectionStudent.Rate == 0">Ocena końcowa to: {{sectionStudent.Rate}}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-md-offset-1">
-                <br /><br />
-                <div *ngIf="selectedStudent">
-                    <meetings *ngIf="selectedStudent.Id == studentId" [sectionId]="selectedSection.Section.Id" [studentId]="selectedStudent.Id" [permission]="false"></meetings>
-                </div>
-                <div *ngIf="sectionStudent">
-                    <span [hidden]="sectionStudent.Rate == 0">Ocena końcowa to: {{sectionStudent.Rate}}</span>
+                    <div class="panel-footer">
+                    </div>
                 </div>
             </div>
         </div>
