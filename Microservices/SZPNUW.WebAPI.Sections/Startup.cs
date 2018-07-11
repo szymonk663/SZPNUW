@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using SZPNUW.Base.Consts;
+using SZPNUW.DBService;
 
 namespace SZPNUW.WebAPI.Sections
 {
@@ -59,10 +60,12 @@ namespace SZPNUW.WebAPI.Sections
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseExceptionHandling();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                // app.UseDeveloperExceptionPage();
             }
+            //app.UseExceptionHandler();
             app.UseSession();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
