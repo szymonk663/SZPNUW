@@ -210,3 +210,53 @@ CREATE TABLE public.syslog (
     date TIMESTAMP NOT NULL,
     CONSTRAINT pk_syslog PRIMARY KEY(id)
 );
+
+INSERT INTO 
+  public.users
+(
+  login,
+  password,
+  usertype,
+  firstname,
+  lastname,
+  pesel,
+  dateofbirth,
+  city,
+  address
+)
+VALUES (
+  'admin',
+  '65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5',
+  3,
+  'admin',
+  'admin',
+  '11111111111',
+  CURRENT_DATE,
+  'miejsce',
+  'miejsce'
+);
+
+INSERT INTO 
+  public.users
+(
+  login,
+  password,
+  usertype,
+  firstname,
+  lastname,
+  pesel,
+  dateofbirth,
+  city,
+  address
+)
+VALUES (
+  'lecturer',
+  '65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5',
+  2,
+  'asd',
+  'asd',
+  '22222222222',
+  CURRENT_DATE,
+  'asd',
+  'asd'
+);
