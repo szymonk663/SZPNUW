@@ -23,7 +23,7 @@ export class AccountService {
 
     private url = 'Account/';
     private headers = new Headers({ 'Content-Type': 'application/json' });
-    private auth: Auth | null = null;
+    private auth: Auth = new Auth(null, null, 0, false, '', '');
     private loggedIn: boolean;
 
     private handleError(error: Response): Promise<any> {
@@ -92,7 +92,7 @@ export class AccountService {
         localStorage.removeItem('currentUser');
         this.http.get(this.url + "LogOut").toPromise();
         this.loggedIn = false;
-        this.auth = null;
+        this.auth = new Auth(null, null, 0, false, '', '');
     }
 
     isLoggedIn(): boolean {
@@ -101,7 +101,7 @@ export class AccountService {
     setLoggedIn(): void {
         this.loggedIn = true;
     }
-    getAuthProfile(): Auth | null {
+    getAuthProfile(): Auth {
         if (this.auth === null) {
             this.http.get(this.url + "GetAuth").toPromise().then(result => {
                 if (result.status == 200) {

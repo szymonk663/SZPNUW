@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
     public loggedIn: boolean;
-    public auth: Auth | null;
+    public auth: Auth;
     constructor(private accountService: AccountService, private router: Router) {
         this.loggedIn = this.accountService.isLoggedIn();
         this.auth = this.accountService.getAuthProfile();
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     }
     Logout(): void {
         this.loggedIn = false;
-        this.auth = null;
+        this.auth = new Auth(null, null, 0, false, '', '');
         this.accountService.logout();
         this.router.navigate(['/']);
     }

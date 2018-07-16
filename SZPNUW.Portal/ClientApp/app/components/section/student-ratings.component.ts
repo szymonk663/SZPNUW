@@ -48,7 +48,7 @@ export class StudentRatingsComponent implements OnChanges {
         }, error => this.error = error);
     }
 
-    private onClear() {
+    public onClear() {
         this.error = '';
         this.message = '';
     }

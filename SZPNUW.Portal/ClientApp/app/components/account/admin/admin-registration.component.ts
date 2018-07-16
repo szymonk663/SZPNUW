@@ -6,7 +6,7 @@ import { UserModel } from "../../../viewmodels/UserModel";
 
 @Component({
     selector: 'admin-registration',
-    templateUrl: '/admin-registration.component.html',
+    templateUrl: './admin-registration.component.html',
 })
 
 export class AdminRegistrationComponent {

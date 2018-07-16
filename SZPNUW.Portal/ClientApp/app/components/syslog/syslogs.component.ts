@@ -10,9 +10,9 @@ import {SysLogService} from "../../services/syslog.service";
 })
 
 export class SysLogComponent implements OnInit {
-    private error = '';
-    private sysLogs: SysLogModel[];
-    private selectedSysLog: SysLogModel;
+    public error = '';
+    public sysLogs: SysLogModel[];
+    public selectedSysLog: SysLogModel;
 
     constructor(private router: Router, private sysLogService: SysLogService) { }
 

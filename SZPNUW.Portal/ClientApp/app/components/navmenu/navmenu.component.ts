@@ -10,6 +10,8 @@ import { AppComponent } from '../app/app.component';
     styleUrls: ['./navmenu.component.css']
 })
 export class NavMenuComponent {
-    constructor(private appComponent: AppComponent) {
+    public appComponent: AppComponent;
+    constructor(private component: AppComponent) {
+        this.appComponent = component;
     }
 }

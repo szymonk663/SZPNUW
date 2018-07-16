@@ -11,9 +11,9 @@ import {StudentProfileComponent} from '../account/student/student-profile.compon
 })
 
 export class InstructorComponent implements OnInit {
-    private error = '';
+    public error = '';
 
-    private instructor: InstructorModel;
+    public instructor: InstructorModel;
 
     constructor(private router: Router, private accountService: AccountService) { }
 

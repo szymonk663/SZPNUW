@@ -10,9 +10,9 @@ import {AccountService} from "../../../services/account.service";
 })
 
 export class AdminComponent implements OnInit {
-    private error = '';
+    public error = '';
 
-    private user: UserModel;
+    public user: UserModel;
 
     constructor(private router: Router, private accountService: AccountService) { }
 

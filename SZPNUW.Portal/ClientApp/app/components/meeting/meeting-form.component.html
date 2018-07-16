@@ -27,8 +27,8 @@
     <span *ngIf="message" class="alert alert-info" role="alert">{{message}}</span>
     <span *ngIf="error" class="alert alert-danger" role="alert">{{error}}</span>
     <div class="modal-footer">
-        <button *ngIf="!edit && meeting" type="button" class="btn btn-primary" [disabled]="!meeting.Date" (click)="onAdd()">Dodaj</button>
-        <button *ngIf="edit && meeting" type="button" class="btn btn-primary" [disabled]="!meeting.Date" (click)="onEdit()">Zmień</button>
+        <button *ngIf="!edit && meeting !== null" type="button" class="btn btn-primary" [disabled]="!meeting.Date" (click)="onAdd()">Dodaj</button>
+        <button *ngIf="edit && meeting !== null" type="button" class="btn btn-primary" [disabled]="!meeting.Date" (click)="onEdit()">Zmień</button>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onClear()">Zamknij</button>
     </div>
 </div>

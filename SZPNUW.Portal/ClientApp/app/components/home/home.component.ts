@@ -39,7 +39,7 @@
     `]
 })
 export class HomeComponent {
-    private title = "Aplikacja wspomagająca zarządzanie projektami";
-    private info = "Jest to aplikacja pozwalająca na zarządzanie projektami studentów."
-    private autor = "Szymon Krawieczek"
+    public title = "Aplikacja wspomagająca zarządzanie projektami";
+    public info = "Jest to aplikacja pozwalająca na zarządzanie projektami studentów."
+    public autor = "Szymon Krawieczek"
 }

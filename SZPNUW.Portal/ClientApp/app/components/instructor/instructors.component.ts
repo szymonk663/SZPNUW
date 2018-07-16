@@ -11,9 +11,9 @@ import {SemesterService} from "../../services/semester.service";
 })
 
 export class InstructorsComponent implements OnInit {
-    private error = '';
-    private instructors: InstructorModel[];
-    private selectedInstructor: InstructorModel;
+    public error = '';
+    public instructors: InstructorModel[];
+    public selectedInstructor: InstructorModel;
 
     constructor(private router: Router, private accountService: AccountService) { }
 

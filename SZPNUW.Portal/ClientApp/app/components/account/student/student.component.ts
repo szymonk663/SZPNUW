@@ -10,9 +10,9 @@ import { AccountService } from "../../../services/account.service";
 })
 
 export class StudentComponent {
-    private error = '';
+    public error = '';
 
-    private student: StudentModel;
+    public student: StudentModel;
 
     constructor(private router: Router, private accountService: AccountService) { }
 

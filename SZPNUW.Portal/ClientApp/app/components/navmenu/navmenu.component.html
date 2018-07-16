@@ -18,7 +18,7 @@
                     </a>
                 </li>
             </ul>
-            <ul class='nav navbar-nav' *ngIf="!appComponent.loggedIn">
+            <ul class='nav navbar-nav' *ngIf="appComponent !== null && !appComponent.loggedIn">
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/registration']">
                         <span class='glyphicon glyphicon-pencil'></span> Rejestracja
@@ -30,80 +30,81 @@
                     </a>
                 </li>
             </ul>
-            <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 1" class='nav navbar-nav'>
-                <li>
-                    <a [routerLink]="['/student']">
-                        <span class='glyphicon glyphicon-user'></span>Profil
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['/student/sections']">
-                        <span class='glyphicon glyphicon-book'></span>Sekcje
-                    </a>
-                </li>
-            </ul>
-            <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 2" class='nav navbar-nav'>
-                <li>
-                    <a [routerLink]="['/instructor']">
-                        <span class='glyphicon glyphicon-user'></span>Profil
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['/subjects']">
-                        <span class='glyphicon glyphicon-bookmark'></span>Przedmioty
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['/students']">
-                        <span class='glyphicon glyphicon-education'></span>Studenci
-                    </a>
-                </li>
-                <li role="separator" class="divider"></li>
-                <li>
-                    <a [routerLink]="['/sections']">
-                        <span class='glyphicon glyphicon-book'></span>Sekcje
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['/projects']">
-                        <span class='glyphicon glyphicon-blackboard'></span>Projekty
-                    </a>
-                </li>
-            </ul>
-            <ul *ngIf="appComponent.auth !== null && appComponent.auth.UserType === 3" class='nav navbar-nav'>
-                <li>
-                    <a [routerLink]="['/instructors']">
-                        <span class='glyphicon glyphicon-list-alt'></span>Prowadzący
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['/admins']">
-                        <span class='glyphicon glyphicon-list-alt'></span>Administratorzy
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['/admin']">
-                        <span class='glyphicon glyphicon-user'></span>Profil
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['/semester']">
-                        <span class='glyphicon glyphicon-time'></span>Semestry
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['/syslogs']">
-                        <span class='glyphicon glyphicon-warning-sign'></span>Dziennik systemowy
-                    </a>
-                </li>
-            </ul>
-            <ul class='nav navbar-nav' *ngIf="appComponent.loggedIn">
-                <li [routerLinkActive]="['link-active']">
-                    <button class="btn btn-link navbar-btn" (click)="appComponent.Logout()">
-                        <span class='glyphicon glyphicon-off'></span>Wyloguj
-                    </button>
-                </li>
-            </ul>
-        </div>
+
+    <ul *ngIf="appComponent !== null && appComponent.auth !== null && appComponent.auth.UserType === 1" class='nav navbar-nav'>
+        <li>
+            <a [routerLink]="['/student']">
+                <span class='glyphicon glyphicon-user'></span>Profil
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/student/sections']">
+                <span class='glyphicon glyphicon-book'></span>Sekcje
+            </a>
+        </li>
+    </ul>
+    <ul *ngIf="appComponent !== null && appComponent.auth !== null && appComponent.auth.UserType === 2" class='nav navbar-nav'>
+        <li>
+            <a [routerLink]="['/instructor']">
+                <span class='glyphicon glyphicon-user'></span>Profil
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/subjects']">
+                <span class='glyphicon glyphicon-bookmark'></span>Przedmioty
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/students']">
+                <span class='glyphicon glyphicon-education'></span>Studenci
+            </a>
+        </li>
+        <li role="separator" class="divider"></li>
+        <li>
+            <a [routerLink]="['/sections']">
+                <span class='glyphicon glyphicon-book'></span>Sekcje
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/projects']">
+                <span class='glyphicon glyphicon-blackboard'></span>Projekty
+            </a>
+        </li>
+    </ul>
+    <ul *ngIf="appComponent !== null && appComponent.auth !== null && appComponent.auth.UserType === 3" class='nav navbar-nav'>
+        <li>
+            <a [routerLink]="['/instructors']">
+                <span class='glyphicon glyphicon-list-alt'></span>Prowadzący
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/admins']">
+                <span class='glyphicon glyphicon-list-alt'></span>Administratorzy
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/admin']">
+                <span class='glyphicon glyphicon-user'></span>Profil
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/semester']">
+                <span class='glyphicon glyphicon-time'></span>Semestry
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/syslogs']">
+                <span class='glyphicon glyphicon-warning-sign'></span>Dziennik systemowy
+            </a>
+        </li>
+    </ul>
+    <ul class='nav navbar-nav' *ngIf="appComponent !== null && appComponent.loggedIn">
+        <li [routerLinkActive]="['link-active']">
+            <button class="btn btn-link navbar-btn" (click)="appComponent.Logout()">
+                <span class='glyphicon glyphicon-off'></span>Wyloguj
+            </button>
+        </li>
+    </ul>
+</div>
     </div>
 </div>

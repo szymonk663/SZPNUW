@@ -45,7 +45,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
                 if (!errorMessage.HasValue())
                 {
                     LoginUser(user);
-                    Auth auth = new Auth(true) { Id = user.UserId, UserType = user.UserType, PId = user.PId };
+                    Auth auth = new Auth(true) { Id = user.UserId, UserType = (int)user.UserType, PId = user.PId };
                     return Json(auth);
                 }
                 return Json(new Auth(errorMessage));
@@ -116,7 +116,7 @@ namespace SZPNUW.WebAPI.Account.Controllers
                 {
                     Id = CurrentUserSessionData.UserId,
                     PId = CurrentUserSessionData.PId,
-                    UserType = CurrentUserSessionData.UserType
+                    UserType = (int)CurrentUserSessionData.UserType
                 };
                 return Json(auth);
             }

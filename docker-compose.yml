@@ -1,8 +1,8 @@
 version: '3'
 
 services:   
-  szpnuw.database:
-    image: szpnuwdatabase
+  szpnuw.database.v2:
+    image: szpnuwdatabasev2:latest
     restart: always
     build:
       context: .
@@ -17,7 +17,7 @@ services:
        - mynetwork
 
   szpnuw.portal:
-    image: szpnuwportal
+    image: szpnuwportal:latest
     build:
       context: .
       dockerfile: SZPNUW.Portal/Dockerfile
@@ -26,58 +26,58 @@ services:
     networks:
        - mynetwork
 
-  szpnuw.webapi.account:
-    image: szpnuwwebapiaccount
+  szpnuw.webapi.account.v3:
+    image: szpnuwwebapiaccount:latest
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Account/Dockerfile
     links:
-       - szpnuw.database
+       - szpnuw.database.v2
     depends_on:
-       - szpnuw.database
+       - szpnuw.database.v2
     networks:
        - mynetwork
 
-  szpnuw.webapi.subject:
-    image: szpnuwwebapisubject
+  szpnuw.webapi.subject.v3:
+    image: szpnuwwebapisubject:latest
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Subject/Dockerfile
     links:
-       - szpnuw.database
+       - szpnuw.database.v2
     depends_on:
-       - szpnuw.database
+       - szpnuw.database.v2
     networks:
        - mynetwork
 
 
-  szpnuw.webapi.sections:
-    image: szpnuwwebapisections
+  szpnuw.webapi.sections.v3:
+    image: szpnuwwebapisections:latest
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Sections/Dockerfile
     links:
-       - szpnuw.database
+       - szpnuw.database.v2
     depends_on:
-       - szpnuw.database
+       - szpnuw.database.v2
     networks:
        - mynetwork
 
 
-  szpnuw.webapi.projects:
-    image: szpnuwwebapiprojects
+  szpnuw.webapi.projects.v3:
+    image: szpnuwwebapiprojects:latest
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Projects/Dockerfile
     links:
-       - szpnuw.database
+       - szpnuw.database.v2
     depends_on:
-       - szpnuw.database
+       - szpnuw.database.v2
     networks:
        - mynetwork
 
-  szpnuw.proxy:
-    image: szpnuwproxy
+  szpnuw.proxy.v3:
+    image: szpnuwproxy:latest
     build:
       context: .
       dockerfile: ApiGw/APIGateway/Dockerfile

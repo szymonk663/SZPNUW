@@ -29,7 +29,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "szpnuw.webapi.account",
+          "Host": "szpnuw.webapi.account.v3",
           "Port": 80
         }
       ],
@@ -41,7 +41,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "szpnuw.webapi.account",
+          "Host": "szpnuw.webapi.account.v3",
           "Port": 80
         }
       ],
@@ -53,7 +53,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "szpnuw.webapi.projects",
+          "Host": "szpnuw.webapi.projects.v3",
           "Port": 80
         }
       ],
@@ -65,7 +65,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "szpnuw.webapi.sections",
+          "Host": "szpnuw.webapi.sections.v3",
           "Port": 80
         }
       ],
@@ -77,7 +77,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "szpnuw.webapi.sections",
+          "Host": "szpnuw.webapi.sections.v3",
           "Port": 80
         }
       ],
@@ -89,7 +89,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "szpnuw.webapi.sections",
+          "Host": "szpnuw.webapi.sections.v3",
           "Port": 80
         }
       ],
@@ -101,7 +101,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "szpnuw.webapi.subject",
+          "Host": "szpnuw.webapi.subject.v3",
           "Port": 80
         }
       ],
@@ -113,7 +113,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "szpnuw.webapi.subject",
+          "Host": "szpnuw.webapi.subject.v3",
           "Port": 80
         }
       ],

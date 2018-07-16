@@ -24,7 +24,7 @@ export class ReportsComponent implements OnInit {
         private reportService: ReportService,
         private sectionService: SectionService,
         private accountService: AccountService,
-        private appComponent: AppComponent,
+        public appComponent: AppComponent,
         private router: Router
     ) { }
 

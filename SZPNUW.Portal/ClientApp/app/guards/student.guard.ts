@@ -12,7 +12,7 @@ export class StudentGuard implements CanActivate {
     canActivate() {
         if (localStorage.getItem('currentUser')) {
             const item = localStorage.getItem('currentUser');
-            this.auth = item !== null ? <Auth>JSON.parse(item) : new Auth(null, null, null, false, '', '');
+            this.auth = item !== null ? <Auth>JSON.parse(item) : new Auth(null, null, 0, false, '', '');
             if (this.auth.UserType == 1)
                 return true;
         }

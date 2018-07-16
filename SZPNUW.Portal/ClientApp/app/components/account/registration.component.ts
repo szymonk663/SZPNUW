@@ -8,7 +8,7 @@ import { StudentModel } from "../../viewmodels/StudentModel";
 
 @Component({
     selector: 'registration',
-    templateUrl: '/registration.component.html',
+    templateUrl: './registration.component.html',
 })
 
 export class RegistrationComponent implements OnInit {
