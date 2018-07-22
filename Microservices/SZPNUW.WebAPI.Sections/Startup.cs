@@ -21,6 +21,7 @@ namespace SZPNUW.WebAPI.Sections
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DBService.Model.SZPNUWContext.ConnectionString = this.Configuration.GetValue<string>("CONNECTION_STRING");
         }
 
         public IConfiguration Configuration { get; }

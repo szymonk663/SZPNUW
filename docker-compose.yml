@@ -21,8 +21,6 @@ services:
     build:
       context: .
       dockerfile: SZPNUW.Portal/Dockerfile
-    volumes:
-       - pgdata:/var/lib/postgresql/data
     networks:
        - mynetwork
 
@@ -31,6 +29,8 @@ services:
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Account/Dockerfile
+    environment:
+        CONNECTION_STRING: Host=szpnuw.database.v2;Database=szpnuw;Username=user;Password=qwerty
     links:
        - szpnuw.database.v2
     depends_on:
@@ -43,6 +43,8 @@ services:
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Subject/Dockerfile
+    environment:
+        CONNECTION_STRING: Host=szpnuw.database.v2;Database=szpnuw;Username=user;Password=qwerty
     links:
        - szpnuw.database.v2
     depends_on:
@@ -56,6 +58,8 @@ services:
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Sections/Dockerfile
+    environment:
+        CONNECTION_STRING: Host=szpnuw.database.v2;Database=szpnuw;Username=user;Password=qwerty
     links:
        - szpnuw.database.v2
     depends_on:
@@ -69,6 +73,8 @@ services:
     build:
       context: .
       dockerfile: Microservices/SZPNUW.WebAPI.Projects/Dockerfile
+    environment:
+        CONNECTION_STRING: Host=szpnuw.database.v2;Database=szpnuw;Username=user;Password=qwerty
     links:
        - szpnuw.database.v2
     depends_on:

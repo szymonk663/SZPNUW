@@ -19,13 +19,13 @@ namespace SZPNUW.DBService.Model
         public virtual DbSet<Subjectssemesters> Subjectssemesters { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Syslog> Syslogs { get; set; }
+        public static string ConnectionString { get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql(@"Host=szpnuw.database.v2;Database=szpnuw;Username=user;Password=qwerty");
+                optionsBuilder.UseNpgsql(ConnectionString);
             }
         }
 
