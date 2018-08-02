@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.portal",
-          "Port": 80
+          "Port": 7001
         }
       ],
       "UpstreamPathTemplate": "/{everything}",
@@ -18,7 +18,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.portal",
-          "Port": 80
+          "Port": 7001
         }
       ],
       "UpstreamPathTemplate": "/dist/__webpack_hmr",
@@ -30,7 +30,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.webapi.account.v3",
-          "Port": 80
+          "Port": 7002
         }
       ],
       "UpstreamPathTemplate": "/Account/{everything}",
@@ -42,7 +42,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.webapi.account.v3",
-          "Port": 80
+          "Port": 7002
         }
       ],
       "UpstreamPathTemplate": "/SysLog/{everything}",
@@ -54,7 +54,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.webapi.projects.v3",
-          "Port": 80
+          "Port": 7005
         }
       ],
       "UpstreamPathTemplate": "/Project/{everything}",
@@ -66,7 +66,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.webapi.sections.v3",
-          "Port": 80
+          "Port": 7004
         }
       ],
       "UpstreamPathTemplate": "/Section/{everything}",
@@ -78,7 +78,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.webapi.sections.v3",
-          "Port": 80
+          "Port": 7004
         }
       ],
       "UpstreamPathTemplate": "/Meeting/{everything}",
@@ -90,7 +90,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.webapi.sections.v3",
-          "Port": 80
+          "Port": 7004
         }
       ],
       "UpstreamPathTemplate": "/Report/{everything}",
@@ -102,7 +102,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.webapi.subject.v3",
-          "Port": 80
+          "Port": 7003
         }
       ],
       "UpstreamPathTemplate": "/Subject/{everything}",
@@ -114,7 +114,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "szpnuw.webapi.subject.v3",
-          "Port": 80
+          "Port": 7003
         }
       ],
       "UpstreamPathTemplate": "/Semester/{everything}",

@@ -1,6 +1,7 @@
 FROM microsoft/aspnetcore:2.0 AS base
+ENV ASPNETCORE_URLS=http://+:7005
 WORKDIR /app
-EXPOSE 80
+EXPOSE 7005
 
 FROM microsoft/aspnetcore-build:2.0 AS build
 WORKDIR /src

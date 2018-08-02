@@ -7,7 +7,7 @@ services:
     container_name:
       "szpnuw.portal"
     ports:
-      - "7001:80"
+      - "7001:7001"
     depends_on:
       - szpnuw.webapi.account.v3
       - szpnuw.webapi.subject.v3
@@ -18,25 +18,25 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "7002:80"
+      - "7002:7002"
 
   szpnuw.webapi.subject.v3:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "7003:80"
+      - "7003:7003"
 
   szpnuw.webapi.sections.v3:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "7004:80"
+      - "7004:7004"
 
   szpnuw.webapi.projects.v3:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "7005:80"
+      - "7005:7005"
   
   szpnuw.proxy.v3:
     environment:

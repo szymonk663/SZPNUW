@@ -3,8 +3,9 @@ RUN apt-get update
 RUN apt-get install gnupg wget git unzip -y
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install nodejs -y
+ENV ASPNETCORE_URLS=http://+:7001
 WORKDIR /app
-EXPOSE 80
+EXPOSE 7001
 
 FROM microsoft/aspnetcore-build:2.0 AS build
 WORKDIR /src
