@@ -1,0 +1,311 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: szpnuwdatabase
+  namespace: default
+spec:
+  selector:
+    app: szpnuwdatabase
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  generation: 5
+  labels:
+    run: szpnuwdatabase
+  name: szpnuwdatabase
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: szpnuwdatabase
+      app: szpnuwdatabase
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: szpnuwdatabase
+        app: szpnuwdatabase
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          value: qwerty
+        image: gcr.io/szpnuw-project/database:latest
+        imagePullPolicy: Always
+        name: szpnuwdatabase
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: pgdata
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: pgdata
+---
+apiVersion: "v1"
+kind: "Namespace"
+metadata:
+  name: "default2"
+---
+apiVersion: v1
+data:
+  nginx2-1.conf: "events { worker_connections 1024; }\n\nhttp {\n\n\tupstream account {\n\t\tserver localhost:7002;\n\t}\n\tupstream
+    sections {\n\t\tserver localhost:7004;\n\t}\n\tupstream subject {\n\t\tserver localhost:7003;\n\t}\n\tupstream
+    projects {\n\t\tserver localhost:7005;\n\t}\n\t\n\tserver {\n\t\tlisten 80;\n\t\tlocation
+    /Account {\n\t\t\tproxy_pass http://account;\n\t\t}\n\t\tlocation /SysLog {\n\t\t\tproxy_pass
+    http://account;\n\t\t}\n\t\tlocation /Sections {\n\t\t\tproxy_pass http://sections;\n\t\t}\n\t\tlocation
+    /Meeting {\n\t\t\tproxy_pass http://sections;\n\t\t}\n\t\tlocation /Report {\n\t\t\tproxy_pass
+    http://sections;\n\t\t}\n\t\tlocation /Subject {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation
+    /Semester {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation /Projects {\n\t\t\tproxy_pass
+    http://projects;\n\t\t}\n\t}\n}\n\n"
+  nginx2-2.conf: "events { worker_connections 1024; }\n\nhttp {\n\n\tupstream portal
+    {\n\t\tserver portal2-1;\n\t}\n\tupstream backend {\n\t\tserver backend2;\n\t}\n\tserver {\n\t\tlisten 80;\n\t\tlocation
+    /Account {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation /SysLog {\n\t\t\tproxy_pass
+    http://backend;\n\t\t}\n\t\tlocation /Sections {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation
+    /Meeting {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation /Report {\n\t\t\tproxy_pass
+    http://backend;\n\t\t}\n\t\tlocation /Subject {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation
+    /Semester {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation /Projects {\n\t\t\tproxy_pass
+    http://backend;\n\t\t}\n\t\tlocation / {\n\t\t\tproxy_pass http://portal;\n\t\t}\n\t}\n}\n\n"
+kind: ConfigMap
+metadata:
+  name: nginx-config2
+  namespace: default2
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "database-config2"
+  namespace: "default2"
+data:
+  CONNECTION_STRING: "Host=szpnuwdatabase.default;Database=szpnuw;Username=user;Password=qwerty"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: backend2
+  name: backend2
+  namespace: default2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: backend2
+  type: ClusterIP
+---
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "backend2"
+  namespace: "default2"
+  labels:
+    app: "backend2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "backend2"
+  template:
+    metadata:
+      labels:
+        app: "backend2"
+    spec:
+      containers:
+      - name: "account"
+        image: "gcr.io/szpnuw-project/account:v2"
+        env:
+        - name: "CONNECTION_STRING"
+          valueFrom:
+            configMapKeyRef:
+              key: "CONNECTION_STRING"
+              name: "database-config2"
+      - name: "projects"
+        image: "gcr.io/szpnuw-project/projects:v2"
+        env:
+        - name: "CONNECTION_STRING"
+          valueFrom:
+            configMapKeyRef:
+              key: "CONNECTION_STRING"
+              name: "database-config2"
+      - name: "sections"
+        image: "gcr.io/szpnuw-project/sections:v2"
+        env:
+        - name: "CONNECTION_STRING"
+          valueFrom:
+            configMapKeyRef:
+              key: "CONNECTION_STRING"
+              name: "database-config2"
+      - name: "subject"
+        image: "gcr.io/szpnuw-project/subject:v3"
+        env:
+        - name: "CONNECTION_STRING"
+          valueFrom:
+            configMapKeyRef:
+              key: "CONNECTION_STRING"
+              name: "database-config2"
+      - name: "nginx"
+        image: "nginx:latest"
+        volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          name: nginx-config2
+          subPath: nginx2-1.conf
+      volumes:
+      - configMap:
+          name: nginx-config2
+        name: nginx-config2
+---
+apiVersion: "autoscaling/v1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "backend2-hpa"
+  namespace: "default2"
+  labels:
+    app: "backend2"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "backend2"
+    apiVersion: "apps/v1beta1"
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: portal2-1
+  name: portal2-1
+  namespace: default2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 7001
+  selector:
+    app: portal2-1
+  type: ClusterIP
+---
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "portal2-1"
+  namespace: "default2"
+  labels:
+    app: "portal2-1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "portal2-1"
+  template:
+    metadata:
+      labels:
+        app: "portal2-1"
+    spec:
+      containers:
+      - name: "portal"
+        image: "gcr.io/szpnuw-project/portal:v2"
+---
+apiVersion: "autoscaling/v1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "portal2-1-hpa"
+  namespace: "default2"
+  labels:
+    app: "portal2-1"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "portal2-1"
+    apiVersion: "apps/v1beta1"
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx-2
+  name: nginx-2
+  namespace: default2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx-2
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+---
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "nginx-2"
+  namespace: "default2"
+  labels:
+    app: "nginx-2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "nginx-2"
+  template:
+    metadata:
+      labels:
+        app: "nginx-2"
+    spec:
+      containers:
+      - name: "nginx"
+        image: "nginx:latest"
+        volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          name: nginx-config2
+          subPath: nginx2-2.conf
+      volumes:
+      - configMap:
+          name: nginx-config2
+        name: nginx-config2
+---
+apiVersion: "autoscaling/v1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "nginx-2-hpa"
+  namespace: "default2"
+  labels:
+    app: "nginx-2"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "nginx-2"
+    apiVersion: "apps/v1beta1"
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
