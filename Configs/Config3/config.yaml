@@ -136,7 +136,7 @@ spec:
     spec:
       containers:
       - name: "account"
-        image: "gcr.io/szpnuw-project/account:v2"
+        image: "gcr.io/szpnuw-project/account:v4"
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -144,7 +144,7 @@ spec:
               key: "CONNECTION_STRING"
               name: "database-config3"
       - name: "subject"
-        image: "gcr.io/szpnuw-project/subject:v3"
+        image: "gcr.io/szpnuw-project/subject:v4"
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -213,7 +213,7 @@ spec:
     spec:
       containers:
       - name: "projects"
-        image: "gcr.io/szpnuw-project/projects:v2"
+        image: "gcr.io/szpnuw-project/projects:v4"
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -221,7 +221,7 @@ spec:
               key: "CONNECTION_STRING"
               name: "database-config3"
       - name: "sections"
-        image: "gcr.io/szpnuw-project/sections:v2"
+        image: "gcr.io/szpnuw-project/sections:v4"
         env:
         - name: "CONNECTION_STRING"
           valueFrom:

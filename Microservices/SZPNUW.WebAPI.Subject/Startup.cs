@@ -72,6 +72,7 @@ namespace SZPNUW.WebAPI.Subject
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/Subject/swagger.json", "Subject");
+                c.RoutePrefix = "Subject/swagger";
             });
             app.UseMvc();
         }
