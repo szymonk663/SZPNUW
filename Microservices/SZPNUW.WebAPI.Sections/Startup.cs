@@ -68,10 +68,13 @@ namespace SZPNUW.WebAPI.Sections
             }
             //app.UseExceptionHandler();
             app.UseSession();
-            app.UseSwagger();
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "{documentName}/swagger.json";
+            });
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/Sections/swagger.json", "Sections");
+                c.SwaggerEndpoint("/Sections/swagger.json", "Sections");
                 c.RoutePrefix = "Sections/swagger";
             });
             app.UseMvc();

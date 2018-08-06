@@ -69,10 +69,13 @@ namespace SZPNUW.WebAPI.Projects
             //app.UseExceptionHandler();
             app.UseSession();
             app.UseSessionRefresh();
-            app.UseSwagger();
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "{documentName}/swagger.json";
+            });
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/Projects/swagger.json", "Projects");
+                c.SwaggerEndpoint("/Projects/swagger.json", "Projects");
                 c.RoutePrefix = "Projects/swagger";
             });
             app.UseMvc();
