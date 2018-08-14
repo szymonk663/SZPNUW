@@ -72,7 +72,7 @@ spec:
 ---
 apiVersion: v1
 data:
-  nginx1.conf: "events { worker_connections 1024; }\n\nhttp {\n\n\tupstream portal
+  nginx1.conf: "events { worker_connections 4096; }\n\nhttp {\n\n\tupstream portal
     {\n\t\tserver portal1-1;\n\t}\n\tupstream account {\n\t\tserver account1-1;\n\t}\n\tupstream
     sections {\n\t\tserver sections1-1;\n\t}\n\tupstream subject {\n\t\tserver subject1-1;\n\t}\n\tupstream
     projects {\n\t\tserver projects1-1;\n\t}\n\t\n\tserver {\n\t\tlisten 80;\n\t\tlocation

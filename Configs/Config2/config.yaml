@@ -72,7 +72,7 @@ metadata:
 ---
 apiVersion: v1
 data:
-  nginx2-1.conf: "events { worker_connections 1024; }\n\nhttp {\n\n\tupstream account {\n\t\tserver localhost:7002;\n\t}\n\tupstream
+  nginx2-1.conf: "events { worker_connections 4096; }\n\nhttp {\n\n\tupstream account {\n\t\tserver localhost:7002;\n\t}\n\tupstream
     sections {\n\t\tserver localhost:7004;\n\t}\n\tupstream subject {\n\t\tserver localhost:7003;\n\t}\n\tupstream
     projects {\n\t\tserver localhost:7005;\n\t}\n\t\n\tserver {\n\t\tlisten 80;\n\t\tlocation
     /Account {\n\t\t\tproxy_pass http://account;\n\t\t}\n\t\tlocation /SysLog {\n\t\t\tproxy_pass
@@ -81,7 +81,7 @@ data:
     http://sections;\n\t\t}\n\t\tlocation /Subject {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation
     /Semester {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation /Projects {\n\t\t\tproxy_pass
     http://projects;\n\t\t}\n\t}\n}\n\n"
-  nginx2-2.conf: "events { worker_connections 1024; }\n\nhttp {\n\n\tupstream portal
+  nginx2-2.conf: "events { worker_connections 4096; }\n\nhttp {\n\n\tupstream portal
     {\n\t\tserver portal2-1;\n\t}\n\tupstream backend {\n\t\tserver backend2;\n\t}\n\tserver {\n\t\tlisten 80;\n\t\tlocation
     /Account {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation /SysLog {\n\t\t\tproxy_pass
     http://backend;\n\t\t}\n\t\tlocation /Sections {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation
