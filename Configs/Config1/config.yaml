@@ -1,4 +1,9 @@
 ---
+apiVersion: "v1"
+kind: "Namespace"
+metadata:
+  name: "default1"
+---
 kind: Service
 apiVersion: v1
 metadata:
@@ -54,6 +59,8 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: pgdata
+      nodeSelector:
+        apptype: database
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -104,11 +111,6 @@ spec:
     app: portal1-1
   type: ClusterIP
 ---
-apiVersion: "v1"
-kind: "Namespace"
-metadata:
-  name: "default1"
----
 apiVersion: "extensions/v1beta1"
 kind: "Deployment"
 metadata:
@@ -129,6 +131,8 @@ spec:
       containers:
       - name: "portal"
         image: "gcr.io/szpnuw-project/portal:v2"
+      nodeSelector:
+        apptype: portal
 ---
 apiVersion: v1
 kind: Service
@@ -172,6 +176,8 @@ spec:
             configMapKeyRef:
               key: "CONNECTION_STRING"
               name: "database-config1"
+      nodeSelector:
+        apptype: microservices
 ---
 apiVersion: "autoscaling/v1"
 kind: "HorizontalPodAutoscaler"
@@ -186,7 +192,7 @@ spec:
     name: "account1-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 ---
 apiVersion: v1
@@ -231,6 +237,8 @@ spec:
             configMapKeyRef:
               key: "CONNECTION_STRING"
               name: "database-config1"
+      nodeSelector:
+        apptype: microservices
 ---
 apiVersion: "autoscaling/v1"
 kind: "HorizontalPodAutoscaler"
@@ -245,7 +253,7 @@ spec:
     name: "sections1-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 ---
 apiVersion: v1
@@ -290,6 +298,8 @@ spec:
             configMapKeyRef:
               key: "CONNECTION_STRING"
               name: "database-config1"
+      nodeSelector:
+        apptype: microservices
 ---
 apiVersion: "autoscaling/v1"
 kind: "HorizontalPodAutoscaler"
@@ -304,7 +314,7 @@ spec:
     name: "subject1-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 ---
 apiVersion: v1
@@ -349,6 +359,8 @@ spec:
             configMapKeyRef:
               key: "CONNECTION_STRING"
               name: "database-config1"
+      nodeSelector:
+        apptype: microservices
 ---
 apiVersion: "autoscaling/v1"
 kind: "HorizontalPodAutoscaler"
@@ -363,7 +375,7 @@ spec:
     name: "projects1-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 ---
 apiVersion: v1
@@ -412,6 +424,8 @@ spec:
       - configMap:
           name: nginx-config1
         name: nginx-config1
+      nodeSelector:
+        apptype: nginx
 ---
 apiVersion: "autoscaling/v1"
 kind: "HorizontalPodAutoscaler"
@@ -426,6 +440,6 @@ spec:
     name: "nginx-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 

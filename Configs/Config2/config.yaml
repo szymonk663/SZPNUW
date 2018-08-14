@@ -54,6 +54,8 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: pgdata
+      nodeSelector:
+        apptype: database
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -176,6 +178,8 @@ spec:
       - configMap:
           name: nginx-config2
         name: nginx-config2
+      nodeSelector:
+        apptype: microservices
 ---
 apiVersion: "autoscaling/v1"
 kind: "HorizontalPodAutoscaler"
@@ -190,7 +194,7 @@ spec:
     name: "backend2"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 ---
 apiVersion: v1
@@ -229,6 +233,8 @@ spec:
       containers:
       - name: "portal"
         image: "gcr.io/szpnuw-project/portal:v2"
+      nodeSelector:
+        apptype: portal
 ---
 apiVersion: v1
 kind: Service
@@ -276,6 +282,8 @@ spec:
       - configMap:
           name: nginx-config2
         name: nginx-config2
+      nodeSelector:
+        apptype: nginx
 ---
 apiVersion: "autoscaling/v1"
 kind: "HorizontalPodAutoscaler"
@@ -290,6 +298,6 @@ spec:
     name: "nginx-2"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 
