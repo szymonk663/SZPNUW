@@ -42,7 +42,7 @@ spec:
       - env:
         - name: POSTGRES_PASSWORD
           value: qwerty
-        image: gcr.io/szpnuw-project/database:latest
+        image: gcr.io/szpnuw-project/database:v2
         imagePullPolicy: Always
         name: szpnuwdatabase
         ports:
@@ -79,7 +79,7 @@ data:
     http://account;\n\t\t}\n\t\tlocation /Sections {\n\t\t\tproxy_pass http://sections;\n\t\t}\n\t\tlocation
     /Meeting {\n\t\t\tproxy_pass http://sections;\n\t\t}\n\t\tlocation /Report {\n\t\t\tproxy_pass
     http://sections;\n\t\t}\n\t\tlocation /Subject {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation
-    /Semester {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation /Projects {\n\t\t\tproxy_pass
+    /Semester {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation /Project {\n\t\t\tproxy_pass
     http://projects;\n\t\t}\n\t}\n}\n\n"
   nginx2-2.conf: "events { worker_connections 4096; }\n\nhttp {\n\n\tupstream portal
     {\n\t\tserver portal2-1;\n\t}\n\tupstream backend {\n\t\tserver backend2;\n\t}\n\tserver {\n\t\tlisten 80;\n\t\tlocation
@@ -87,7 +87,7 @@ data:
     http://backend;\n\t\t}\n\t\tlocation /Sections {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation
     /Meeting {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation /Report {\n\t\t\tproxy_pass
     http://backend;\n\t\t}\n\t\tlocation /Subject {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation
-    /Semester {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation /Projects {\n\t\t\tproxy_pass
+    /Semester {\n\t\t\tproxy_pass http://backend;\n\t\t}\n\t\tlocation /Project {\n\t\t\tproxy_pass
     http://backend;\n\t\t}\n\t\tlocation / {\n\t\t\tproxy_pass http://portal;\n\t\t}\n\t}\n}\n\n"
 kind: ConfigMap
 metadata:
@@ -138,6 +138,11 @@ spec:
       containers:
       - name: "account"
         image: "gcr.io/szpnuw-project/account:v4"
+        resources:
+          requests:
+             cpu: 375m
+          limits:
+             cpu: 420m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -146,6 +151,11 @@ spec:
               name: "database-config2"
       - name: "projects"
         image: "gcr.io/szpnuw-project/projects:v4"
+        resources:
+          requests:
+             cpu: 375m
+          limits:
+             cpu: 420m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -154,6 +164,11 @@ spec:
               name: "database-config2"
       - name: "sections"
         image: "gcr.io/szpnuw-project/sections:v4"
+        resources:
+          requests:
+             cpu: 375m
+          limits:
+             cpu: 420m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -162,6 +177,11 @@ spec:
               name: "database-config2"
       - name: "subject"
         image: "gcr.io/szpnuw-project/subject:v4"
+        resources:
+          requests:
+             cpu: 375m
+          limits:
+             cpu: 420m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -170,6 +190,11 @@ spec:
               name: "database-config2"
       - name: "nginx"
         image: "nginx:latest"
+        resources:
+          requests:
+             cpu: 200m
+          limits:
+             cpu: 220m
         volumeMounts:
         - mountPath: /etc/nginx/nginx.conf
           name: nginx-config2
@@ -194,8 +219,8 @@ spec:
     name: "backend2"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 30
 ---
 apiVersion: v1
 kind: Service
@@ -274,6 +299,11 @@ spec:
       containers:
       - name: "nginx"
         image: "nginx:latest"
+        resources:
+          requests:
+             cpu: 600m
+          limits:
+             cpu: 650m
         volumeMounts:
         - mountPath: /etc/nginx/nginx.conf
           name: nginx-config2
@@ -284,20 +314,4 @@ spec:
         name: nginx-config2
       nodeSelector:
         apptype: nginx
----
-apiVersion: "autoscaling/v1"
-kind: "HorizontalPodAutoscaler"
-metadata:
-  name: "nginx-2-hpa"
-  namespace: "default2"
-  labels:
-    app: "nginx-2"
-spec:
-  scaleTargetRef:
-    kind: "Deployment"
-    name: "nginx-2"
-    apiVersion: "apps/v1beta1"
-  minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
 

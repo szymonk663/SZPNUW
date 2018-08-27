@@ -42,7 +42,7 @@ spec:
       - env:
         - name: POSTGRES_PASSWORD
           value: qwerty
-        image: gcr.io/szpnuw-project/database:latest
+        image: gcr.io/szpnuw-project/database:v2
         imagePullPolicy: Always
         name: szpnuwdatabase
         ports:
@@ -78,7 +78,7 @@ data:
     http://backend1;\n\t\t}\n\t\tlocation /Sections {\n\t\t\tproxy_pass http://backend2;\n\t\t}\n\t\tlocation
     /Meeting {\n\t\t\tproxy_pass http://backend2;\n\t\t}\n\t\tlocation /Report {\n\t\t\tproxy_pass
     http://backend2;\n\t\t}\n\t\tlocation /Subject {\n\t\t\tproxy_pass http://backend1;\n\t\t}\n\t\tlocation
-    /Semester {\n\t\t\tproxy_pass http://backend1;\n\t\t}\n\t\tlocation /Projects {\n\t\t\tproxy_pass
+    /Semester {\n\t\t\tproxy_pass http://backend1;\n\t\t}\n\t\tlocation /Project {\n\t\t\tproxy_pass
     http://backend2;\n\t\t}\n\t\tlocation / {\n\t\t\tproxy_pass http://portal;\n\t\t}\n\t}\n}\n\n"
   nginx3-2.conf: "events { worker_connections 4096; }\n\nhttp {\n\n\tupstream account   {\n\t\tserver localhost:7002;\n\t}\n\tupstream subject {\n\t\tserver localhost:7003;\n\t}\n\t\n\tserver {\n\t\tlisten 80;\n\t\tlocation
     /Account {\n\t\t\tproxy_pass http://account;\n\t\t}\n\t\tlocation /SysLog {\n\t\t\tproxy_pass
@@ -88,7 +88,7 @@ data:
     sections {\n\t\tserver localhost:7004;\n\t}\n\tupstream
     projects {\n\t\tserver localhost:7005;\n\t}\n\t\n\tserver {\n\t\tlisten 80;\n\t\tlocation /Sections {\n\t\t\tproxy_pass http://sections;\n\t\t}\n\t\tlocation
     /Meeting {\n\t\t\tproxy_pass http://sections;\n\t\t}\n\t\tlocation /Report {\n\t\t\tproxy_pass
-    http://sections;\n\t\t}\n\t\tlocation /Projects {\n\t\t\tproxy_pass
+    http://sections;\n\t\t}\n\t\tlocation /Project {\n\t\t\tproxy_pass
     http://projects;\n\t\t}\n\t}\n}\n\n"
 kind: ConfigMap
 metadata:
@@ -139,6 +139,11 @@ spec:
       containers:
       - name: "account"
         image: "gcr.io/szpnuw-project/account:v4"
+        resources:
+          requests:
+             cpu: 350m
+          limits:
+             cpu: 400m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -147,6 +152,11 @@ spec:
               name: "database-config3"
       - name: "subject"
         image: "gcr.io/szpnuw-project/subject:v4"
+        resources:
+          requests:
+             cpu: 350m
+          limits:
+             cpu: 400m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -155,6 +165,11 @@ spec:
               name: "database-config3"
       - name: "nginx"
         image: "nginx:latest"
+        resources:
+          requests:
+             cpu: 150m
+          limits:
+             cpu: 200m
         volumeMounts:
         - mountPath: /etc/nginx/nginx.conf
           name: nginx-config3
@@ -179,8 +194,8 @@ spec:
     name: "backend3-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 30
 ---
 apiVersion: v1
 kind: Service
@@ -218,6 +233,11 @@ spec:
       containers:
       - name: "projects"
         image: "gcr.io/szpnuw-project/projects:v4"
+        resources:
+          requests:
+             cpu: 350m
+          limits:
+             cpu: 400m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -226,6 +246,11 @@ spec:
               name: "database-config3"
       - name: "sections"
         image: "gcr.io/szpnuw-project/sections:v4"
+        resources:
+          requests:
+             cpu: 350m
+          limits:
+             cpu: 400m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -234,6 +259,11 @@ spec:
               name: "database-config3"
       - name: "nginx"
         image: "nginx:latest"
+        resources:
+          requests:
+             cpu: 150m
+          limits:
+             cpu: 200m
         volumeMounts:
         - mountPath: /etc/nginx/nginx.conf
           name: nginx-config3
@@ -258,8 +288,8 @@ spec:
     name: "backend3-2"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 30
 ---
 apiVersion: v1
 kind: Service
@@ -338,6 +368,11 @@ spec:
       containers:
       - name: "nginx"
         image: "nginx:latest"
+        resources:
+          requests:
+             cpu: 300m
+          limits:
+             cpu: 650m
         volumeMounts:
         - mountPath: /etc/nginx/nginx.conf
           name: nginx-config3
@@ -348,19 +383,3 @@ spec:
         name: nginx-config3
       nodeSelector:
         apptype: nginx
----
-apiVersion: "autoscaling/v1"
-kind: "HorizontalPodAutoscaler"
-metadata:
-  name: "nginx-3-hpa"
-  namespace: "default3"
-  labels:
-    app: "nginx-3"
-spec:
-  scaleTargetRef:
-    kind: "Deployment"
-    name: "nginx-3"
-    apiVersion: "apps/v1beta1"
-  minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80

@@ -1,6 +1,6 @@
 ﻿# docker tag szpnuwportal skrawieczek/szpnuwportal
 # docker push skrawieczek/szpnuwportal
-docker tag szpnuwwebapisubject skrawieczek/szpnuwwebapiaubject
+docker tag szpnuwwebapisubject skrawieczek/szpnuwwebapisubject
 docker push skrawieczek/szpnuwwebapisubject
 docker tag szpnuwwebapisections skrawieczek/szpnuwwebapisections
 docker push skrawieczek/szpnuwwebapisections

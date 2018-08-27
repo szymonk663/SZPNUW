@@ -47,7 +47,7 @@ spec:
       - env:
         - name: POSTGRES_PASSWORD
           value: qwerty
-        image: gcr.io/szpnuw-project/database:latest
+        image: gcr.io/szpnuw-project/database:v2
         imagePullPolicy: Always
         name: szpnuwdatabase
         ports:
@@ -80,7 +80,7 @@ data:
     http://account;\n\t\t}\n\t\tlocation /Sections {\n\t\t\tproxy_pass http://sections;\n\t\t}\n\t\tlocation
     /Meeting {\n\t\t\tproxy_pass http://sections;\n\t\t}\n\t\tlocation /Report {\n\t\t\tproxy_pass
     http://sections;\n\t\t}\n\t\tlocation /Subject {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation
-    /Semester {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation /Projects {\n\t\t\tproxy_pass
+    /Semester {\n\t\t\tproxy_pass http://subject;\n\t\t}\n\t\tlocation /Project {\n\t\t\tproxy_pass
     http://projects;\n\t\t}\n\t\tlocation / {\n\t\t\tproxy_pass http://portal;\n\t\t}\n\t}\n}\n\n"
 kind: ConfigMap
 metadata:
@@ -170,6 +170,11 @@ spec:
       containers:
       - name: "account"
         image: "gcr.io/szpnuw-project/account:v4"
+        resources:
+          requests:
+             cpu: 400m
+          limits:
+             cpu: 420m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -192,8 +197,8 @@ spec:
     name: "account1-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 30
 ---
 apiVersion: v1
 kind: Service
@@ -231,6 +236,11 @@ spec:
       containers:
       - name: "sections"
         image: "gcr.io/szpnuw-project/sections:v4"
+        resources:
+          requests:
+             cpu: 400m
+          limits:
+             cpu: 420m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -253,8 +263,8 @@ spec:
     name: "sections1-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 30
 ---
 apiVersion: v1
 kind: Service
@@ -292,6 +302,11 @@ spec:
       containers:
       - name: "subject"
         image: "gcr.io/szpnuw-project/subject:v4"
+        resources:
+          requests:
+             cpu: 400m
+          limits:
+             cpu: 420m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -314,8 +329,8 @@ spec:
     name: "subject1-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 30
 ---
 apiVersion: v1
 kind: Service
@@ -353,6 +368,11 @@ spec:
       containers:
       - name: "projects"
         image: "gcr.io/szpnuw-project/projects:v4"
+        resources:
+          requests:
+             cpu: 400m
+          limits:
+             cpu: 420m
         env:
         - name: "CONNECTION_STRING"
           valueFrom:
@@ -375,8 +395,8 @@ spec:
     name: "projects1-1"
     apiVersion: "apps/v1beta1"
   minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 30
 ---
 apiVersion: v1
 kind: Service
@@ -416,6 +436,11 @@ spec:
       containers:
       - name: "nginx"
         image: "nginx:latest"
+        resources:
+          requests:
+             cpu: 500m
+          limits:
+             cpu: 550m
         volumeMounts:
         - mountPath: /etc/nginx/nginx.conf
           name: nginx-config1
@@ -426,20 +451,4 @@ spec:
         name: nginx-config1
       nodeSelector:
         apptype: nginx
----
-apiVersion: "autoscaling/v1"
-kind: "HorizontalPodAutoscaler"
-metadata:
-  name: "nginx-1-hpa"
-  namespace: "default1"
-  labels:
-    app: "nginx-1"
-spec:
-  scaleTargetRef:
-    kind: "Deployment"
-    name: "nginx-1"
-    apiVersion: "apps/v1beta1"
-  minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
 
